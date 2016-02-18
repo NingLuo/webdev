@@ -9,9 +9,38 @@
     <script src="app.js"></script>
 
 </head>
-<body ng-controller="MoviesController">
+<body>
     <div class="container" >
-        {{movies}}
+        <h2>Movies Data</h2>
+        <table class="table" ng-controller="MoviesController">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>director</th>
+                    <th>year</th>
+                    <th>&nbsp</th>
+                </tr>
+                <tr>
+                    <td><input ng-model="movie.name" class="form-control"></td>
+                    <td><input ng-model="movie.director" class="form-control"></td>
+                    <td><input ng-model="movie.year" class="form-control"></td>
+                    <td>
+                        <button ng-click="addMovie(movie)" class="btn btn-success">Add</button>
+                        <button ng-click="updateMovie(movie)" class="btn btn-primary">Update</button>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="movie in movies">
+                    <td>{{movie.name}}</td>
+                    <td>{{movie.director}}</td>
+                    <td>{{movie.year}}</td>
+                    <td><button ng-click="removeMovie(movie)" class="btn btn-danger">Delete</button>
+                        <button ng-click="selectMovie(movie)" class="btn btn-info">Select</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
