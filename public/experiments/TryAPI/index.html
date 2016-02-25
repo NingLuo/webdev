@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="DoctorApp">
+<head>
+    <meta charset="utf-8">
+    <title>Index</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+    <script src="api.control.js"></script>
+
+</head>
+<body>
+<div class="container" ng-controller="DoctorCtrl" >
+    <h2>Doctors Data</h2>
+    <table ng-show="doctors" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Picture</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="doctor in doctors">
+                <td>{{doctor.profile.first_name}} {{doctor.profile.last_name}}<br>
+                    <img ng-src="{{doctor.ratings[0].image_url_small}}">
+                </td>
+                <td>{{doctor.profile.title}}</td>
+                <td><img ng-src="{{doctor.profile.image_url}}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--{{testData.data[0].profile}}-->
+</div>
+</body>
+</html>
