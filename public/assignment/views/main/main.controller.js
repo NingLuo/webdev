@@ -5,7 +5,7 @@
     angular.module('FormBuilderApp')     //controller里不能加 ['ngRoute'] !!!!!!!!!
         .controller('MainController', MainController);
 
-    function MainController($scope) {
+    function MainController($scope, $location) {
       console.log("Hello from MainController");
 
     }

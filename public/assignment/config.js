@@ -7,7 +7,8 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/register", {
-                templateUrl: "views/users/register.view.html"
+                templateUrl: "views/users/register.view.html",
+                controller: "RegisterController"
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html"
@@ -17,6 +18,9 @@
             })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html"
+            })
+            .when("/forms", {
+                templateUrl: "views/forms/forms.view.html"
             })
             .otherwise({
                 redirectTo: "/"
