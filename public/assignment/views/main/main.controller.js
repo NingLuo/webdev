@@ -6,7 +6,7 @@
         .controller('MainController', MainController);
 
     function MainController($scope, $location) {
-      console.log("Hello from MainController");
 
+        $scope.$location = $location;
     }
 })();

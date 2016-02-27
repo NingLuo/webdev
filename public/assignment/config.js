@@ -10,6 +10,9 @@
                 templateUrl: "views/users/register.view.html",
                 controller: "RegisterController"
             })
+            .when("/home", {
+                templateUrl: "views/home/home.view.html"
+            })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
                 controller: "LoginController"
