@@ -45,8 +45,17 @@
             console.log("delete Form");
         }
 
-        function selectForm() {
-            console.log("select Form");
+        function selectForm(index) {
+
+            $scope.newForm = {
+
+                "_id": $scope.currentUserForms[index]._id,
+                "title": $scope.currentUserForms[index].title,
+                "userId": $scope.currentUserForms[index].userId
+
+            };
+
+            console.log("select Form: " + $scope.currentUserForms[index].title);
         }
     }
 })();
