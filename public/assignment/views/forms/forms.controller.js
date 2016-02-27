@@ -50,8 +50,18 @@
 
         }
 
-        function deleteForm() {
-            console.log("delete Form");
+        function deleteForm(index) {
+
+            FormService.deleteFormById($scope.currentUserForms[index]._id, callback);
+            FormService.findAllFormsForUser(currentUserId, renderForms);
+
+            function callback(forms) {
+
+                console.log("Remaining forms: ")
+                for(var i = 0; i < forms.length; i++) {
+                    console.log(forms[i].title);
+                }
+            }
         }
 
         function selectForm(index) {
