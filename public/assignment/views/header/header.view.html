@@ -11,11 +11,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a ng-show="currentUser == null" href="#/register">Register</a></li>
-                <li><a ng-show="currentUser == null" href="#/login">Login</a></li>
+                <li><a ng-hide="currentUser" href="#/register">Register</a></li>
+                <li><a ng-hide="currentUser" href="#/login">Login</a></li>
                 <li><a ng-show="currentUser" href="#/profile">{{currentUser.username}}</a></li>
                 <li><a ng-show="currentUser && currentUser.roles.indexOf('admin') >= 0" href="#/admin">Admin</a></li>
-                <li><a ng-show="currentUser != null" ng-click="logout()" href="#/home">Logout</a></li>
+                <li><a ng-show="currentUser" ng-click="logout()" href="#/home">Logout</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
