@@ -37,8 +37,17 @@
             }
         }
 
-        function updateForm() {
-            console.log("Update Form");
+        function updateForm(newForm) {
+
+            FormService.updateFormById(newForm._id, newForm, callback);
+
+            function callback(updatedForm) {
+
+                console.log("Updated Form: " + updatedForm.title);
+                $scope.newForm = {};
+
+            }
+
         }
 
         function deleteForm() {
