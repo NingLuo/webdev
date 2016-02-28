@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WhiteBoardApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="container" ng-controller="CourseController">
+    <h1> this is public 2 index.html</h1>
+        <table class="table table-stripe">
+            <thead>
+                <th>Title</th>
+                <th>Seats</th>
+                <th>Start</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="course in courses">
+                    <td>{{course.title}}</td>
+                    <td>{{course.seats}}</td>
+                    <td>{{course.start | date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
