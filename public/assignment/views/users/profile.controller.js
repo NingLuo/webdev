@@ -1,4 +1,6 @@
 (function () {
+    "use strict";
+
     angular
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
@@ -14,15 +16,12 @@
         }
 
         $scope.update = update;
-        var callback = callback;
 
         function update() {
             UserService.updateUser($scope.currentUser._id, $scope.currentUser, callback);
+            function callback(updatedUser) {
+                $rootScope.currentUser = updatedUser;
+            }
         }
-
-        function callback(updatedUser) {
-            console.log("Update success: " + updatedUser._id);
-        }
-
     }
 })();

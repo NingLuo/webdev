@@ -1,4 +1,6 @@
 (function(){
+    "use strict";
+
     angular
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
@@ -7,15 +9,12 @@
         $scope.register = register;
 
         function register(user){
-
-            var callback = function(callbackUser) {
-                $rootScope.currentUser = callbackUser;
-                console.log("callbackUser:" + callbackUser.username + callbackUser._id + callbackUser.email);
-                $location.path('profile');
-            };
-
             UserService.createUser(user, callback);
-        }
 
+            function callback(callbackUser) {
+                $rootScope.currentUser = callbackUser;
+                $location.path('profile');
+            }
+        }
     }
 })();

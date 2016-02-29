@@ -1,6 +1,13 @@
 
 <h1>Login</h1>
 
+<div ng-show="noMatchUser" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    Sorry, we didn't find a match user
+</div>
+
 <form class="form-horizontal">
     <div class="form-group">
         <label for="user-name" class="col-sm-2 control-label">Username:</label>

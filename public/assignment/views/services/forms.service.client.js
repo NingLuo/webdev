@@ -1,10 +1,11 @@
-(function () {
+(function() {
+    'use strict';
+
     angular
         .module("FormBuilderApp")
         .factory("FormService", FormService);
 
     function FormService() {
-
         var forms = [
             {"_id": "000", "title": "Contacts", "userId": 123},
             {"_id": "010", "title": "ToDo",     "userId": 123},
@@ -20,17 +21,16 @@
 
         return api;
 
-        function createFormForUser(userId, form, callback) {
+        //////////////////////////
 
+        function createFormForUser(userId, form, callback) {
             form._id = (new Date).getTime();
             form.userId = userId;
             forms.push(form);
             callback(form);
-
         }
 
         function findAllFormsForUser(userId, callback) {
-
             var userForms = [];
             for(var i = 0; i < forms.length; i++) {
                 if(forms[i].userId == userId) {
@@ -38,11 +38,9 @@
                 }
             }
             callback(userForms);
-
         }
 
         function deleteFormById(formId, callback) {
-
             for(var i = 0; i < forms.length; i++) {
                 if(forms[i]._id == formId) {
                     forms.splice(i, 1);
@@ -53,7 +51,6 @@
         }
 
         function updateFormById(formId, newForm, callback) {
-
             for(var i = 0; i < forms.length; i++) {
                 if(forms[i]._id == formId) {
                     forms[i].title = newForm.title;

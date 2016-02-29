@@ -1,10 +1,11 @@
-(function(){
+(function() {
+    'use strict';
+
     angular
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
     function UserService() {
-
         var users = [
             {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
                 "username":"alice",  "password":"alice",   "roles": ["student"]		},
@@ -28,12 +29,11 @@
 
         return api;
 
-
+/////////////////////////////
 
         function findUserByCredentials(username, password, callback) {
-
             for(var i = 0; i < users.length; i++) {
-                if(users[i].username == username && users[i].password == password) {
+                if(users[i].username === username && users[i].password === password) {
                     console.log(username + " found!");
                     callback(users[i]);
                     return;
@@ -49,7 +49,6 @@
         function createUser(user, callback) {
             user._id = (new Date).getTime();
             users.push(user);
-            console.log(users[users.length-1]);
             callback(user);
         }
 
@@ -58,9 +57,8 @@
         }
 
         function updateUser(userId, user, callback) {
-
             for(var i = 0; i < users.length; i++) {
-                if(users[i]._id == userId) {
+                if(users[i]._id === userId) {
                     users[i].username = user.username;
                     users[i].password = user.password;
                     users[i].firstName = user.firstName;
@@ -69,8 +67,6 @@
                     callback(users[i]);
                 }
             }
-
         }
-
     }
 })();
