@@ -14,7 +14,8 @@
             })
             .when('/result', {
                 templateUrl: 'views/search/result.view.html',
-
+                controller: 'resultCtrl',
+                controllerAs: 'result'
             })
     }
 })();
