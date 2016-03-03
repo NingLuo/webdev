@@ -1,0 +1,21 @@
+<h1>Login</h1>
+<hr>
+<div ng-show="login.userNotFound" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    Sorry, we didn't find a match user
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input ng-model="user.email" class="form-control" type="text" id="email" placeholder="Emial">
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input ng-model="user.password" class="form-control" type="password" id="password" placeholder="password">
+    </div>
+    <div>
+        <a class="btn btn-primary btn-block" ng-click="login.login(user)">Login</a>
+    </div>
+</div>
