@@ -17,5 +17,10 @@
                 controller: 'resultCtrl',
                 controllerAs: 'result'
             })
+            .when('/detail/:uid', {
+                templateUrl: 'views/search/detail.view.html',
+                controller: 'DetailCtrl',
+                controllerAs: 'detail'
+            })
     }
 })();

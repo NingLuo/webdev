@@ -1,0 +1,73 @@
+<h2>Doctor Details</h2>
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+        <div class="col-sm-3"><img class="img-circle" ng-src="{{detail.data.data.profile.image_url}}"></div>
+        <div class="col-sm-9">
+            <ul class="list-unstyled">
+                <li>{{detail.data.data.profile.first_name}} &nbsp {{detail.data.data.profile.last_name}}</li>
+                <li>{{detail.data.data.specialties[0].name}}</li>
+                <li><img ng-src="{{detail.data.data.ratings[0].image_url_small}}"></li>
+                <li>&nbsp;</li>
+                <li>{{detail.data.data.practices[0].name}}</li>
+                <li>{{detail.data.data.practices[0].phones[0].number}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <p><button class="btn btn-default btn-block">Rate</button></p>
+        <p><button class="btn btn-default btn-block">Favorite</button></p>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-5 col-md-offset-1">
+        <div class="col-md-5">Education</div>
+        <div class="col-md-7">
+            <div ng-repeat="education in detail.data.data.educations">
+                <div>{{education.school}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-5 col-md-offset-1">
+        <div class="col-md-5">Languages Spoken </div>
+        <div class="col-md-7">
+            <div ng-repeat="language in detail.data.data.profile.languages">
+                <div>{{language.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<ul class="list-unstyled">-->
+    <!--<li><button class="btn btn-default">Rate</button></li>-->
+    <!--<li><button class="btn btn-default">Favorite</button></li>-->
+<!--</ul>-->
+
+<!--<ul class="list-inline">-->
+    <!--<li><img ng-src="{{detail.data.data.profile.image_url}}"></li>-->
+    <!--<li>-->
+
+    <!--</li>-->
+    <!--<li>-->
+        <!--<button class="btn btn-default">Rate</button>-->
+        <!--<button class="btn btn-default">Favorite</button>-->
+    <!--</li>-->
+<!--</ul>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
