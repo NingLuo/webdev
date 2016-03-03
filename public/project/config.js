@@ -8,7 +8,13 @@
     function configuration ($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/main/main.view.html'
+                templateUrl: 'views/main/main.view.html',
+                controller: 'MainController',
+                controllerAs: 'main'
+            })
+            .when('/result', {
+                templateUrl: 'views/search/result.view.html',
+
             })
     }
 })();
