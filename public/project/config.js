@@ -45,6 +45,15 @@
                 controller: 'FavoriteCtrl',
                 controllerAs: 'model'
             })
+            .when('/review', {
+                templateUrl: 'views/reviews/review.view.html',
+                controller: 'ReviewCtrl',
+                controllerAs: 'model'
+            })
+            .when('/message', {
+                templateUrl: 'views/messages/message.view.html'
+
+            })
             .otherwise({
                 redirectTo: "/"
             });
