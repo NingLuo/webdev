@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="#/profile">Profile</a></li>
+            <li role="presentation"><a href="#">Favorite Doctors</a></li>
+            <li role="presentation"><a href="#">My Reviews</a></li>
+            <li role="presentation"><a href="#">My Messages</a></li>
+        </ul>
+    </div>
+    <div class="col-md-8">
+       <table class="table table-striped">
+           <thead>
+            <th>Photo</th>
+            <th>Doctor Name</th>
+            <th>Specialty</th>
+            <th>Rate</th>
+            <th>&nbsp;</th>
+           </thead>
+           <tbody>
+            <tr ng-repeat="doctor in model.favoriteDoctors">
+                <td><img ng-src="{{doctor.profile.image_url}}"></td>
+                <td>{{doctor.profile.first_name}} {{doctor.profile.last_name}}</td>
+                <td>{{doctor.specialties[0].name}}</td>
+                <td><img ng-src="{{doctor.ratings[0].image_url_small}}"></td>
+                <td>
+                    <button class="btn btn-danger" role="button">Delete</button>
+                </td>
+            </tr>
+           </tbody>
+       </table>
+    </div>
+</div>

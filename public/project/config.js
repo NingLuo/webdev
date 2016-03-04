@@ -35,6 +35,16 @@
                 controller: 'DetailCtrl',
                 controllerAs: 'detail'
             })
+            .when('/rate/:uid', {
+                templateUrl: 'views/rate/rate.view.html',
+                controller: 'RateCtrl',
+                controllerAs: 'model'
+            })
+            .when('/favorite', {
+                templateUrl: 'views/favorites/favorite.view.html',
+                controller: 'FavoriteCtrl',
+                controllerAs: 'model'
+            })
             .otherwise({
                 redirectTo: "/"
             });
