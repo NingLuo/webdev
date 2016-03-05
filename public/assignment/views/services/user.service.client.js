@@ -29,7 +29,6 @@
 
         return api;
 
-/////////////////////////////
 
         function findUserByCredentials(username, password, callback) {
             for(var i = 0; i < users.length; i++) {

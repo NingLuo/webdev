@@ -5,25 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
     <title>Index</title>
-
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
-
 </head>
 
 <body ng-controller="MainController">
-
+    <!--header of the index page-->
     <div ng-include="'views/header/header.view.html'"></div>
-
     <div class="container-fluid">
         <div class="row">
+            <!--sidebar of the index page-->
             <div ng-include="'views/sidebar/sidebar.view.html'"></div>
-
+            <!--all dynamic content will be loaded here-->
             <div ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"></div>
         </div>
     </div>

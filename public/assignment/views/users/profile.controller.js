@@ -13,7 +13,7 @@
             firstName: $rootScope.currentUser.firstName,
             lastName: $rootScope.currentUser.lastName,
             email: $rootScope.currentUser.email
-        }
+        };
 
         $scope.update = update;
 

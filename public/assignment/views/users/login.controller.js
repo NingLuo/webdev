@@ -24,8 +24,7 @@
                         "password": currentUser.password,
                         "roles": currentUser.roles
                     };
-
-                    $location.path('profile');
+                    $location.url('/profile');
                 } else {
                     $scope.noMatchUser = true;
                 }

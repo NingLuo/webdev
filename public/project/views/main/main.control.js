@@ -9,6 +9,8 @@
 
         var vm = this;
         vm.search = search;
+        vm.$location = $location;
+
 
         function search (specialty, location) {
             //vm.specialty = specialty;

@@ -13,7 +13,7 @@
 
             function callback(callbackUser) {
                 $rootScope.currentUser = callbackUser;
-                $location.path('profile');
+                $location.url('/profile');
             }
         }
     }
