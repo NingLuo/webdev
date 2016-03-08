@@ -15,11 +15,12 @@
     </div>
 </div>
 <hr>
+<div ng-show="model.submitSuccuss" class="alert alert-success" role="alert"><p align="center">Rate Success!</p></div>
 <div class="row">
     <div class="col-md-5 col-md-offset-1">
         <div class="form-group">
             <label for="overallRating">Overall Rating:</label>
-            <select class="form-control" placeholder="rate" id="overallRating">
+            <select ng-model="rate.overall" class="form-control" placeholder="rate" id="overallRating">
                 <option>1 star</option>
                 <option>2 star</option>
                 <option>3 star</option>
@@ -29,7 +30,7 @@
         </div>
         <div class="form-group">
             <label for="waitTime">Wait Time:</label>
-            <select class="form-control" placeholder="rate" id="waitTime">
+            <select ng-model="rate.waitTime" class="form-control" placeholder="rate" id="waitTime">
                 <option>1 star</option>
                 <option>2 star</option>
                 <option>3 star</option>
@@ -39,7 +40,7 @@
         </div>
         <div class="form-group">
             <label for="bedsideManner">Bedside Manner:</label>
-            <select class="form-control" placeholder="rate" id="bedsideManner">
+            <select ng-model="rate.bedsideManner" class="form-control" placeholder="rate" id="bedsideManner">
                 <option>1 star</option>
                 <option>2 star</option>
                 <option>3 star</option>
@@ -51,13 +52,13 @@
     <div class="col-md-5 ">
         <div class="form-group">
             <label for="comments">Comments:</label>
-            <textarea class="form-control" rows="8" id="comments"></textarea>
+            <textarea ng-model="rate.comments" class="form-control" rows="8" id="comments"></textarea>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-3 col-md-offset-3">
-        <a class="btn btn-success btn-block" role="button">Submit</a>
+        <a ng-click="model.submit(rate)" class="btn btn-success btn-block" role="button">Submit</a>
     </div>
     <div class="col-md-3 ">
         <a class="btn btn-warning btn-block" role="button">Cancel</a>

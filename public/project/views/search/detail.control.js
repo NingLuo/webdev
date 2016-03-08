@@ -8,7 +8,7 @@
         vm.uid = $routeParams.uid;
         vm.addFavorite = addFavorite;
         vm.rate = rate;
-        vm.addSuccess = false;
+        vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
 
         function init() {
             //find and render the doctor detail of which the user wants
