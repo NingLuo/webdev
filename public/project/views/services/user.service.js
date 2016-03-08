@@ -7,13 +7,14 @@
 
     function UserService ($rootScope) {
         var users = [
-            {username: 'Alice', password: 'Alice', email: 'alice@gmail.com', favorites: []},
-            {username: 'bob', password: 'bob', email: 'bob@gmail.com', favorites:['9e5768d1f4e86338b5b5e090f3053e15', 'd25c14971214c4327c7e2e1a28816d04', 'fac02cde4df48f46d9ba872d51c07a9c', '1d0fd3807fa4dc52692a0d475df93d6b']},
-            {username: 'jane', password: 'jane', email: 'jane@gmail.com'}
+            {u_id: 123, username: 'Alice', password: 'Alice', email: 'alice@gmail.com', favorites: []},
+            {u_id: 234, username: 'bob', password: 'bob', email: 'bob@gmail.com', favorites:['9e5768d1f4e86338b5b5e090f3053e15', 'd25c14971214c4327c7e2e1a28816d04', 'fac02cde4df48f46d9ba872d51c07a9c', '1d0fd3807fa4dc52692a0d475df93d6b']},
+            {u_id: 456, username: 'jane', password: 'jane', email: 'jane@gmail.com', favorites: []}
         ];
 
         var api = {
-            findUserByCredentials: findUserByCredentials
+            findUserByCredentials: findUserByCredentials,
+            addFavoriteByUid: addFavoriteByUid
         };
 
         return api;
@@ -27,6 +28,16 @@
                }
             }
             callback(null);
+        }
+
+        function addFavoriteByUid (userId, uid) {
+            for(var i=0; i<users.length; i++) {
+                if(users[i].u_id === userId) {
+                    users[i].favorites.push(uid);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 })();

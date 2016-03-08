@@ -1,21 +1,21 @@
 <h2>Doctor Details</h2>
 <div class="row">
     <div class="col-md-6 col-md-offset-2">
-        <div class="col-sm-3"><img class="img-circle" ng-src="{{detail.data.data.profile.image_url}}"></div>
+        <div class="col-sm-3"><img class="img-circle" ng-src="{{model.data.data.profile.image_url}}"></div>
         <div class="col-sm-9">
             <ul class="list-unstyled">
-                <li>{{detail.data.data.profile.first_name}} &nbsp {{detail.data.data.profile.last_name}}</li>
-                <li>{{detail.data.data.specialties[0].name}}</li>
-                <li><img ng-src="{{detail.data.data.ratings[0].image_url_small}}"></li>
-                <li>{{detail.data.data.uid}}</li>
-                <li>{{detail.data.data.practices[0].name}}</li>
-                <li>{{detail.data.data.practices[0].phones[0].number}}</li>
+                <li>{{model.data.data.profile.first_name}} &nbsp {{model.data.data.profile.last_name}}</li>
+                <li>{{model.data.data.specialties[0].name}}</li>
+                <li><img ng-src="{{model.data.data.ratings[0].image_url_small}}"></li>
+                <li>{{model.data.data.uid}}</li>
+                <li>{{model.data.data.practices[0].name}}</li>
+                <li>{{model.data.data.practices[0].phones[0].number}}</li>
             </ul>
         </div>
     </div>
     <div class="col-md-2">
-        <p><a class="btn btn-default btn-block" role="button" href="#/rate/{{detail.data.data.uid}}">Rate</a></p>
-        <p><button class="btn btn-default btn-block">Favorite</button></p>
+        <p><button class="btn btn-default btn-block" role="button" ng-click="model.rate()">Rate</button></p>
+        <p><button ng-click="model.addFavorite()" class="btn btn-default btn-block">Favorite</button></p>
     </div>
 </div>
 <hr>
@@ -23,7 +23,7 @@
     <div class="col-md-5 col-md-offset-1">
         <div class="col-md-5">Education</div>
         <div class="col-md-7">
-            <div ng-repeat="education in detail.data.data.educations">
+            <div ng-repeat="education in model.data.data.educations">
                 <div>{{education.school}}</div>
             </div>
         </div>
@@ -34,7 +34,7 @@
     <div class="col-md-5 col-md-offset-1">
         <div class="col-md-5">Languages Spoken </div>
         <div class="col-md-7">
-            <div ng-repeat="language in detail.data.data.profile.languages">
+            <div ng-repeat="language in model.data.data.profile.languages">
                 <div>{{language.name}}</div>
             </div>
         </div>

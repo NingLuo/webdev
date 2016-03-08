@@ -33,7 +33,7 @@
             .when('/detail/:uid', {
                 templateUrl: 'views/search/detail.view.html',
                 controller: 'DetailCtrl',
-                controllerAs: 'detail'
+                controllerAs: 'model'
             })
             .when('/rate/:uid', {
                 templateUrl: 'views/rate/rate.view.html',
