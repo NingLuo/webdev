@@ -21,7 +21,11 @@
         init();
 
         function submit(rate) {
+            rate.doctorName = "Dr." + vm.doctor.profile.first_name + " " + vm.doctor.profile.last_name;
+            rate.doctorImage = vm.doctor.ratings[0].image_url_small;
+            rate.reviewDate = (new Date).getTime();
             vm.submitSuccuss =  UserService.addRate($rootScope.currentUser.u_id, rate);
         }
     }
 })();
+

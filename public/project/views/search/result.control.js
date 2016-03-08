@@ -16,5 +16,9 @@
             .then(function (response) {
                 vm.doctors = response.data.data;
             });
+
+        $http.get(resource_url).success(function(response) {
+            console.log(response);
+        });
     }
 })();

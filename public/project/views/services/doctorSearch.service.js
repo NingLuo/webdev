@@ -15,7 +15,6 @@
 
         function findDoctorByUid (doctor_uid) {
             var resource_url = 'https://api.betterdoctor.com/2014-09-12/doctors/' + doctor_uid + '?user_key=' + api_key;
-
             return $http.get(resource_url);
         }
 
