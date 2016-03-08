@@ -8,6 +8,7 @@
         vm.uid = $routeParams.uid;
         vm.addFavorite = addFavorite;
         vm.rate = rate;
+        vm.addSuccess = false;
 
         function init() {
             //find and render the doctor detail of which the user wants
@@ -24,7 +25,7 @@
         function addFavorite() {
             //check if user has logged in
             if($rootScope.currentUser) {
-                UserService.addFavoriteByUid($rootScope.currentUser.u_id ,vm.uid);
+                vm.addSuccess = UserService.addFavoriteByUid($rootScope.currentUser.u_id ,vm.uid);
             } else {
                 //if user is not logged in, redirect to login page
                 $location.url('/login');
