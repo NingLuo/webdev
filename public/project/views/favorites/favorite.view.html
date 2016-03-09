@@ -23,7 +23,7 @@
                 <td>{{doctor.specialties[0].name}}</td>
                 <td><img ng-src="{{doctor.ratings[0].image_url_small}}"></td>
                 <td>
-                    <button class="btn btn-danger" role="button">Delete</button>
+                    <button ng-click="model.unfavorite(doctor)" class="btn btn-danger" role="button">Unfavorite</button>
                 </td>
             </tr>
            </tbody>
