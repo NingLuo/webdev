@@ -25,7 +25,7 @@
                 <td>{{review.comments}}</td>
                 <td>
                     <a class="btn btn-warning" ng-click="model.edit(review)"  role="button">Edit</a>
-                    <button class="btn btn-danger" role="button">Delete</button>
+                    <button class="btn btn-danger" ng-click="model.deleteReview($index)" role="button">Delete</button>
                 </td>
             </tr>
             </tbody>
