@@ -1,0 +1,84 @@
+<h2>reRate Doctor</h2>
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+        <div class="col-sm-3"><img class="img-circle" ng-src="{{model.doctor.profile.image_url}}"></div>
+        <div class="col-sm-9">
+            <ul class="list-unstyled">
+                <li>{{model.doctor.profile.first_name}} &nbsp {{model.doctor.profile.last_name}}</li>
+                <li>{{model.doctor.specialties[0].name}}</li>
+                <li><img ng-src="{{model.doctor.ratings[0].image_url_small}}"></li>
+                <li>&nbsp;</li>
+                <li>{{model.doctor.practices[0].name}}</li>
+                <li>{{model.doctor.practices[0].phones[0].number}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr>
+<div ng-show="model.updateSuccuss" class="alert alert-success" role="alert"><p align="center">Update Success!</p></div>
+<div class="row">
+    <div class="col-md-5 col-md-offset-1">
+        <div class="form-group">
+            <label for="overallRating">Overall Rating:</label>
+            <select ng-model="model.review.overall" class="form-control" id="overallRating">
+                <option>1 star</option>
+                <option>2 star</option>
+                <option>3 star</option>
+                <option>4 star</option>
+                <option>5 star</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="waitTime">Wait Time:</label>
+            <select ng-model="model.review.waitTime" class="form-control" id="waitTime">
+                <option>1 star</option>
+                <option>2 star</option>
+                <option>3 star</option>
+                <option>4 star</option>
+                <option>5 star</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="bedsideManner">Bedside Manner:</label>
+            <select ng-model="model.review.bedsideManner" class="form-control" id="bedsideManner">
+                <option>1 star</option>
+                <option>2 star</option>
+                <option>3 star</option>
+                <option>4 star</option>
+                <option>5 star</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-5 ">
+        <div class="form-group">
+            <label for="comments">Comments:</label>
+            <textarea ng-model="model.review.comments" class="form-control" rows="8" id="comments"></textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 col-md-offset-3">
+        <a ng-click="model.update()" class="btn btn-success btn-block" role="button">Update</a>
+    </div>
+    <div class="col-md-3 ">
+        <a ng-click="model.cancel()" class="btn btn-warning btn-block" role="button">Cancel</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

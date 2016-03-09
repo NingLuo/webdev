@@ -19,12 +19,12 @@
             </thead>
             <tbody>
             <tr ng-repeat="review in model.reviews">
-                <td>{{review.doctorName}}</td>
+                <td>Dr.{{review.doctorName}}</td>
                 <td>{{review.reviewDate | date}}</td>
                 <td>{{review.overall}}</td>
                 <td>{{review.comments}}</td>
                 <td>
-                    <button class="btn btn-warning" role="button">Edit</button>
+                    <a class="btn btn-warning" ng-click="model.edit(review)"  role="button">Edit</a>
                     <button class="btn btn-danger" role="button">Delete</button>
                 </td>
             </tr>

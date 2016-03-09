@@ -50,6 +50,11 @@
                 controller: 'ReviewCtrl',
                 controllerAs: 'model'
             })
+            .when('/editReview/:reviewId', {
+                templateUrl: 'views/reviews/editReview.view.html',
+                controller: 'EditReviewCtrl',
+                controllerAs: 'model'
+            })
             .when('/message', {
                 templateUrl: 'views/messages/message.view.html',
                 controller: 'MessageCtrl',

@@ -14,11 +14,14 @@
                 email: 'bob@gmail.com',
                 favorites:['9e5768d1f4e86338b5b5e090f3053e15', 'd25c14971214c4327c7e2e1a28816d04', 'fac02cde4df48f46d9ba872d51c07a9c', '1d0fd3807fa4dc52692a0d475df93d6b'],
                 rates: [{
-                    doctorId:'',
+                    id: '1',
+                    doctorId:'9e5768d1f4e86338b5b5e090f3053e15',
+                    doctorName: 'Susan Day',
+                    reviewDate: 'Dec. 12 2015',
                     overall: '4 stars',
                     waitTime: '5 stars',
                     bedsideManner: '5 stars',
-                    comments: 'He is a pretty decent doctor.'}],
+                    comments: 'She is a pretty decent doctor.'}],
                 messages: [
                     {
                         from: 'Alice',
@@ -41,7 +44,8 @@
             addRate: addRate,
             findReviewsByUserId: findReviewsByUserId,
             findMessagesByUserId: findMessagesByUserId,
-            sendMsgTo: sendMsgTo
+            sendMsgTo: sendMsgTo,
+            updateReview: updateReview
         };
 
         return api;
@@ -104,6 +108,25 @@
                     users[i].messages.push(msgToSend);
                 }
             }
+        }
+
+        function updateReview(u_id, newReview, callback) {
+            var rates = findReviewsByUserId(u_id);
+            for(var i=0; i<rates.length; i++) {
+                if(rates[i].id == newReview.id) {
+                    rates[i] = {
+                        id: newReview.id,
+                        doctorId: newReview.doctorId,
+                        doctorName: newReview.doctorName,
+                        reviewDate: newReview.reviewDate,
+                        overall: newReview.overall,
+                        waitTime: newReview.waitTime,
+                        bedsideManner: newReview.bedsideManner,
+                        comments: newReview.comments
+                    }
+                }
+            }
+            callback();
         }
     }
 })();

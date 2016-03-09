@@ -28,12 +28,14 @@
         }
         init();
 
+        //select a message, show it in the reply input area
         function reply(message) {
             console.log("reply");
             vm.needReply = true;
             vm.targetMsg = message;
         }
 
+        //send reply message
         function send() {
             vm.msgToSend.receiver = vm.targetMsg.from;
             vm.msgToSend.from = $rootScope.currentUser.username;
@@ -48,6 +50,7 @@
             vm.messages.splice(index,1);
         }
 
+        //cancel ongoing reply operation
         function cancel() {
             vm.msgToSend = {};
             vm.needReply = false;
