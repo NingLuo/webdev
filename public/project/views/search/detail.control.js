@@ -12,12 +12,19 @@
 
         function init() {
             //find and render the doctor detail of which the user wants
-            DoctorSearchService
-                .findDoctorByUid(vm.uid)
-                .then(function(response) {
-                    console.log("data retrieved success");
-                    vm.data = response.data;
-                });
+            //DoctorSearchService
+            //    .findDoctorByUid(vm.uid)
+            //    .then(function(response) {
+            //        console.log("data retrieved success");
+            //        vm.data = response.data;
+            //        $rootScope.currentDoctor = response.data.data;
+            //    });
+
+            for(var i=0; i<$rootScope.currentDoctors.length; i++) {
+                if(vm.uid === $rootScope.currentDoctors[i].uid) {
+                    vm.data = $rootScope.currentDoctors[i];
+                }
+            }
         };
         init();
 
@@ -35,7 +42,7 @@
         function rate() {
             //check if user has logged in
             if($rootScope.currentUser ) {
-                $location.url('/rate/'+vm.data.data.uid);
+                $location.url('/rate/'+vm.data.uid);
             } else {
             //if user is not logged in, redirect to login page
                 $location.url('/login');

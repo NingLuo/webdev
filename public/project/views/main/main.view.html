@@ -1,20 +1,20 @@
 <div class="row">
-    <div class="btn-group col-md-6 col-md-offset-3">
-        <div class="btn-group">
-            <input ng-model="specialty" class="btn btn-default dropdown-toggle" data-toggle="dropdown" placeholder="Primary Care Doctor">
-            <ul class="dropdown-menu">
-                <li><a href="#">Carediologiest</a></li>
-                <li><a href="#">OBGYN</a></li>
-            </ul>
+    <div class="col-md-6 col-md-offset-3">
+        <div class="form-group">
+            <label for="specialty">I'm looking for a:</label>
+            <select ng-model="doctor.specialty" class="form-control" id="specialty">
+                <option>cardiologist</option>
+                <option>allergist</option>
+            </select>
         </div>
-        <div class="btn-group">
-            <input ng-model="location" class="btn btn-default dropdown-toggle" data-toggle="dropdown" placeholder="Zip Code or City">
-            <ul class="dropdown-menu">
-                <li><a href="#">New York</a></li>
-                <li><a href="#">Boston</a></li>
-            </ul>
+        <div class="form-group">
+            <label for="city">In:</label>
+            <select ng-model="doctor.city" class="form-control" id="city">
+                <option>Boston</option>
+                <option>New York</option>
+            </select>
         </div>
-        <a ng-click="main.search(specialty, location)" href="#/result/specialty/{{main.specialty}}/location/{{main.location}}" class="btn btn-primary">Search</a>
+        <a ng-click="main.search(doctor)" class="btn btn-primary btn-block">Search</a>
     </div>
 </div>
 

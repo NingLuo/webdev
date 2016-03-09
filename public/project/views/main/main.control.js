@@ -12,11 +12,17 @@
         vm.$location = $location;
 
 
-        function search (specialty, location) {
+        function search (doctor) {
             //vm.specialty = specialty;
             //vm.location = location;
-            vm.specialty = "ophthalmologist";
-            vm.location = "37.773%2C-122.413%2C100";
+            var location;
+            if(doctor.city == 'Boston') {
+                location = '42.3611,-71.0577,20';
+            } else if(doctor.city == 'New York') {
+                location = '40.7483,-73.9929,20';
+            }
+            console.log(doctor.specialty + " " + location);
+            $location.url('/result/specialty/' + doctor.specialty + '/location/' + location);
         }
     }
 })();

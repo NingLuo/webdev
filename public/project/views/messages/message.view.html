@@ -1,1 +1,31 @@
-<h1>My message</h1>
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="#/profile">Profile</a></li>
+            <li role="presentation"><a href="#/favorite">Favorite Doctors</a></li>
+            <li role="presentation"><a href="#/review">My Reviews</a></li>
+            <li role="presentation"  class="active"><a href="#/message">My Messages</a></li>
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+            <th>From</th>
+            <th>Date</th>
+            <th>Content</th>
+            <th>&nbsp;</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="message in model.messages">
+                <td>{{message.from}}</td>
+                <td>{{message.date | date}}</td>
+                <td>{{message.content}}</td>
+                <td>
+                    <button class="btn btn-info" role="button">Reply</button>
+                    <button class="btn btn-danger" role="button">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

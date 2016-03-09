@@ -51,8 +51,9 @@
                 controllerAs: 'model'
             })
             .when('/message', {
-                templateUrl: 'views/messages/message.view.html'
-
+                templateUrl: 'views/messages/message.view.html',
+                controller: 'MessageCtrl',
+                controllerAs: 'model'
             })
             .otherwise({
                 redirectTo: "/"
