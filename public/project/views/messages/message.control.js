@@ -15,6 +15,8 @@
         vm.send = send;
         vm.needReply = false;
         vm.msgToSend;
+        vm.deleteMsg = deleteMsg;
+        vm.cancel = cancel;
 
         function init() {
             if($rootScope.currentUser) {
@@ -38,6 +40,15 @@
             vm.msgToSend.date = vm.date;
 
             UserService.sendMsgTo(vm.msgToSend);
+            vm.msgToSend = {};
+            vm.needReply = false;
+        }
+
+        function deleteMsg(index) {
+            vm.messages.splice(index,1);
+        }
+
+        function cancel() {
             vm.msgToSend = {};
             vm.needReply = false;
         }

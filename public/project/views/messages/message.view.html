@@ -24,7 +24,7 @@
                 <td><input ng-model="model.msgToSend.content" class="form-control"></td>
                 <td>
                     <button ng-click="model.send()" class="btn btn-info" role="button">Send</button>
-                    <button class="btn btn-danger" role="button">Cancel</button>
+                    <button ng-click="model.cancel()" class="btn btn-danger" role="button">Cancel</button>
                 </td>
             </tr>
             <tr ng-repeat="message in model.messages">
@@ -33,7 +33,7 @@
                 <td>{{message.content}}</td>
                 <td>
                     <button ng-click="model.reply(message)" class="btn btn-info" role="button">Reply</button>
-                    <button class="btn btn-danger" role="button">Delete</button>
+                    <button ng-click="model.deleteMsg($index)" class="btn btn-danger" role="button">Delete</button>
                 </td>
             </tr>
             </tbody>
