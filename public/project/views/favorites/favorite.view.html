@@ -19,7 +19,7 @@
            <tbody>
             <tr ng-repeat="doctor in model.favoriteDoctors">
                 <td><img ng-src="{{doctor.profile.image_url}}"></td>
-                <td>{{doctor.profile.first_name}} {{doctor.profile.last_name}}</td>
+                <td><a ng-click="model.showDetail($index)">{{doctor.profile.first_name}} {{doctor.profile.last_name}}</a></td>
                 <td>{{doctor.specialties[0].name}}</td>
                 <td><img ng-src="{{doctor.ratings[0].image_url_small}}"></td>
                 <td>

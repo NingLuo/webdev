@@ -5,10 +5,11 @@
         .module("FindDoctorApp")
         .controller("FavoriteCtrl", FavoriteCtrl);
 
-    function FavoriteCtrl ($rootScope, DoctorSearchService) {
+    function FavoriteCtrl ($rootScope, $location, DoctorSearchService) {
         var vm = this;
         vm.favoriteDoctors = [];
         vm.unfavorite = unfavorite;
+        vm.showDetail = showDetail;
         var currentUser = $rootScope.currentUser;
         var length = currentUser.favorites.length;
 
@@ -38,6 +39,11 @@
                     vm.favoriteDoctors.splice(i, 1);
                 }
             }
+        }
+
+        function showDetail(index) {
+            $rootScope.favoriteDoctors = vm.favoriteDoctors;
+            $location.url('/favoriteDetail/' + index);
         }
     }
 })();

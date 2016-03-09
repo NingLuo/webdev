@@ -45,6 +45,11 @@
                 controller: 'FavoriteCtrl',
                 controllerAs: 'model'
             })
+            .when('/favoriteDetail/:index', {
+                templateUrl: 'views/favorites/favoriteDetail.view.html',
+                controller: 'FavoriteDetailCtrl',
+                controllerAs: 'model'
+            })
             .when('/review', {
                 templateUrl: 'views/reviews/review.view.html',
                 controller: 'ReviewCtrl',
