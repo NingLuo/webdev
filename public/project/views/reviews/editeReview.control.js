@@ -18,7 +18,7 @@
             reviews = UserService.findReviewsByUserId($rootScope.currentUser.u_id);
             //find the to be edited review by reviewId
             for(var i=0; i<reviews.length; i++) {
-                if(reviews[i].id === reviewId) {
+                if(reviews[i].id == reviewId) {        //这里用 === 会出错
                     vm.review = {
                         id: reviews[i].id,
                         doctorId: reviews[i].doctorId,
@@ -31,7 +31,6 @@
                     };
                 }
             }
-            console.log(vm.review.comments);
             //find the doctor of being rated
             DoctorSearchService.findDoctorByUid(vm.review.doctorId)
                 .then(function (response) {

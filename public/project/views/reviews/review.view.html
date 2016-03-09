@@ -19,7 +19,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="review in model.reviews">
-                <td>Dr.{{review.doctorName}}</td>
+                <td>{{review.doctorName}}</td>
                 <td>{{review.reviewDate | date}}</td>
                 <td>{{review.overall}}</td>
                 <td>{{review.comments}}</td>

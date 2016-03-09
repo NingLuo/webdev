@@ -6,7 +6,6 @@
         .controller("RateCtrl", RateCtrl);
 
     function RateCtrl ($routeParams, $rootScope, DoctorSearchService, UserService) {
-
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.submit = submit;
@@ -28,8 +27,9 @@
         init();
 
         function submit(rate) {
+            rate.id = (new Date).getTime();
             rate.doctorName = "Dr." + vm.doctor.profile.first_name + " " + vm.doctor.profile.last_name;
-            rate.doctorImage = vm.doctor.profile.image_url
+            rate.doctorImage = vm.doctor.profile.image_url;
             rate.doctorId = vm.uid;
             rate.reviewDate = (new Date).getTime();
             vm.submitSuccuss =  UserService.addRate($rootScope.currentUser.u_id, rate);

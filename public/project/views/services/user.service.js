@@ -75,6 +75,7 @@
             for(var i=0; i<users.length; i++) {
                 if(users[i].u_id === userId) {
                     users[i].rates.push(rate);
+                    console.log(rate);
                     return true;
                 }
             }
