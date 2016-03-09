@@ -19,11 +19,18 @@
                     waitTime: '5 stars',
                     bedsideManner: '5 stars',
                     comments: 'He is a pretty decent doctor.'}],
-                messages: [{
-                    from: 'Alice',
-                    date: 'Mar. 1 2016',
-                    content: 'Hi, can I ask you a few questions?'
-                }]
+                messages: [
+                    {
+                        from: 'Alice',
+                        date: 'Mar. 1 2016',
+                        content: 'Hi, can I ask you a few questions?'
+                    },
+                    {
+                        from: 'jane',
+                        date: 'Mar. 2 2016',
+                        content: 'Nice to meet you, this is jane.'
+                    }
+                ]
             },
             {u_id: 456, username: 'jane', password: 'jane', email: 'jane@gmail.com', favorites: [], rates: [], messages: []}
         ];
@@ -33,7 +40,8 @@
             addFavoriteByUid: addFavoriteByUid,
             addRate: addRate,
             findReviewsByUserId: findReviewsByUserId,
-            findMessagesByUserId: findMessagesByUserId
+            findMessagesByUserId: findMessagesByUserId,
+            sendMsgTo: sendMsgTo
         };
 
         return api;
@@ -87,6 +95,15 @@
                 }
             }
             return null;
+        }
+
+        function sendMsgTo(msgToSend) {
+            console.log(msgToSend.from);
+            for(var i=0; i<users.length; i++) {
+                if(users[i].username === msgToSend.receiver) {
+                    users[i].messages.push(msgToSend);
+                }
+            }
         }
     }
 })();

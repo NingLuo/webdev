@@ -10,18 +10,29 @@
     <div class="col-md-8">
         <table class="table table-striped">
             <thead>
-            <th>From</th>
-            <th>Date</th>
-            <th>Content</th>
-            <th>&nbsp;</th>
+            <tr>
+                <th>From</th>
+                <th>Date</th>
+                <th>Content</th>
+                <th>&nbsp;</th>
+            </tr>
             </thead>
             <tbody>
+            <tr ng-show="model.needReply">
+                <td>To: {{model.targetMsg.from}}</td>
+                <td>{{model.date | date}}</td>
+                <td><input ng-model="model.msgToSend.content" class="form-control"></td>
+                <td>
+                    <button ng-click="model.send()" class="btn btn-info" role="button">Send</button>
+                    <button class="btn btn-danger" role="button">Cancel</button>
+                </td>
+            </tr>
             <tr ng-repeat="message in model.messages">
                 <td>{{message.from}}</td>
                 <td>{{message.date | date}}</td>
                 <td>{{message.content}}</td>
                 <td>
-                    <button class="btn btn-info" role="button">Reply</button>
+                    <button ng-click="model.reply(message)" class="btn btn-info" role="button">Reply</button>
                     <button class="btn btn-danger" role="button">Delete</button>
                 </td>
             </tr>
