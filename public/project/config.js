@@ -22,8 +22,9 @@
 
             })
             .when('/profile', {
-                templateUrl: 'views/users/profile.view.html'
-
+                templateUrl: 'views/users/profile.view.html',
+                controller: 'ProfileCtrl',
+                controllerAs: 'model'
             })
             .when('/result/specialty/:specialty/location/:location', {
                 templateUrl: 'views/search/result.view.html',

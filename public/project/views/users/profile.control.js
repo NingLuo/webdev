@@ -3,7 +3,13 @@
 
     angular
         .module("FindDoctorApp")
-        .controller("LoginCtrl", LoginCtrl);
+        .controller("ProfileCtrl", ProfileCtrl);
 
-
+    function ProfileCtrl($rootScope, $location) {
+        if($rootScope.currentUser){
+            console.log('Hello, ' + $rootScope.currentUser.username);
+        } else {
+            $location.url('/login');
+        }
+    }
 })();
