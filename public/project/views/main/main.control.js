@@ -10,19 +10,24 @@
         var vm = this;
         vm.search = search;
         vm.$location = $location;
+        vm.illegal = false;
 
 
-        function search (doctor) {
-            //vm.specialty = specialty;
-            //vm.location = location;
-            var location;
-            if(doctor.city == 'Boston') {
-                location = '42.3611,-71.0577,20';
-            } else if(doctor.city == 'New York') {
-                location = '40.7483,-73.9929,20';
+        function search (city, specialty) {
+            console.log(city, + " " + specialty);
+            if(city && specialty) {
+                var location;
+                if(city == 'Boston') {
+                    location = '42.3611,-71.0577,20';
+                } else if(city == 'New York') {
+                    location = '40.7483,-73.9929,20';
+                }
+                console.log(specialty + " " + location);
+                $location.url('/result/specialty/' + specialty + '/location/' + location);
+            } else {
+                console.log("Both city and specilty are required");
+                vm.illegal = true;
             }
-            console.log(doctor.specialty + " " + location);
-            $location.url('/result/specialty/' + doctor.specialty + '/location/' + location);
         }
     }
 })();
