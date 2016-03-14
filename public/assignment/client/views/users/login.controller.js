@@ -12,9 +12,16 @@
 
         function login(user) {
             $scope.noMatchUser = false;
-            UserService.findUserByCredentials(user.username, user.password, loginSuccess);
+            console.log("login start")
+            UserService.findUserByCredentials({
+                username: user.username,
+                password: user.password
+            });
+
+
 
             function loginSuccess(currentUser) {
+                console.log("login success");
                 if (currentUser) {
                     $rootScope.currentUser = {
                         "_id": currentUser._id,

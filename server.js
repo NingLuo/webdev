@@ -3,6 +3,10 @@ var app = express();                                         // app is an instan
 app.use(express.static(__dirname + '/public'));
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+//var cookieParser  = require('cookie-parser');
+//var session       = require('express-session');
+//app.use(session({ secret: "mysecret" }));
+//app.use(cookieParser());
 
 
 //The get() method allows you to map a url to an executable
@@ -18,4 +22,7 @@ app.get('/api/users', function(req, res){
     res.json(users);
 });
 
+require("./public/assignment/server/app.js")(app);
+
 app.listen(port, ipaddress);
+

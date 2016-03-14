@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService() {
+    function UserService($http) {
         var users = [
             {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
                 "username":"alice",  "password":"alice",   "roles": ["student"]		},
@@ -20,6 +20,7 @@
         ];
 
         var api = {
+            findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
@@ -30,15 +31,22 @@
         return api;
 
 
-        function findUserByCredentials(username, password, callback) {
-            for(var i = 0; i < users.length; i++) {
-                if(users[i].username === username && users[i].password === password) {
-                    console.log(username + " found!");
-                    callback(users[i]);
-                    return;
-                }
-            }
-            callback(null);
+        function findUserByUsername(username) {
+            return $http.get("/api/assignment/user?username=" + username);
+        }
+
+        function findUserByCredentials(credentials) {
+            console.log(credentials.username + " " + credentials.password + "from client service");
+            return $http.get("/api/assignment/login?username=" + credentials.username + "&password=" + credentials.password);
+
+            //for(var i = 0; i < users.length; i++) {
+            //    if(users[i].username === username && users[i].password === password) {
+            //        console.log(username + " found!");
+            //        callback(users[i]);
+            //        return;
+            //    }
+            //}
+            //callback(null);
         }
 
         function findAllUsers(callback) {
