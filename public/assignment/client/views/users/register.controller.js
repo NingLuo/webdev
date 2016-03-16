@@ -5,8 +5,9 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController(UserService, $scope, $rootScope, $location) {
-        $scope.register = register;
+    function RegisterController(UserService, $location) {
+        var vm = this;
+        vm.register = register;
 
         function register(user){
             UserService
@@ -14,8 +15,8 @@
                 .then(function (response) {
                     console.log(response.data);
                     if(response.data) {
-                        UserService.setCurrentUser(response.data);
-                        console.log($rootScope.currentUser);
+                        var currentUser = response.data;
+                        UserService.setCurrentUser(currentUser);
                         $location.url('/profile');
                     } else {
                         console.log("register error");

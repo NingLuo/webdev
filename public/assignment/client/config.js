@@ -9,7 +9,8 @@
         $routeProvider
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
-                controller: "RegisterController"
+                controller: "RegisterController",
+                controllerAs: "model"
             })
             .when("/home", {
                 templateUrl: "views/home/home.view.html"

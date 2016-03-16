@@ -38,7 +38,8 @@ module.exports = function (app, model) {
     function createUser(req, res) {
         var user = req.body;
         var newUser = model.createUser(user);
-        res.send(newUser);
+        req.session.currentUser = newUser;
+        res.json(newUser);
     }
 
     function getAllUsers() {
