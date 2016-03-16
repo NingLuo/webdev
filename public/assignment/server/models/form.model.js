@@ -7,6 +7,11 @@ module.exports = function() {
     return api;
 
     function findFormByTitle(title) {
-
+        for(var i in mock) {
+            if(mock[i].title == title) {
+                return mock[i];
+            }
+        }
+        return null;
     }
 }
