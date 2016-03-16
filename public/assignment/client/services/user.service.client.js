@@ -27,7 +27,8 @@
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser
+            getCurrentUser: getCurrentUser,
+            logout: logout
         };
 
         return api;
@@ -48,6 +49,10 @@
 
         function getCurrentUser() {
             return $http.get("/api/assignment/loggedin");
+        }
+
+        function logout() {
+            return $http.post("/api/assignment/logout");
         }
         
         function findAllUsers(callback) {

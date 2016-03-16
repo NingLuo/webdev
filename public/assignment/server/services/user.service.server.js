@@ -7,6 +7,7 @@ module.exports = function (app, model) {
     app.get("/api/assignment/user?username=username", findUserByUsername);
     app.get("/api/assignment/login", findUserByCredentials); // 自己修改了一下,跟要求不一样
     app.get("/api/assignment/loggedin", loggedin);
+    app.post("/api/assignment/logout", logout);
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
 
@@ -27,6 +28,11 @@ module.exports = function (app, model) {
 
     function loggedin(req, res) {
         res.json(req.session.currentUser);
+    }
+
+    function logout(req, res) {
+        req.session.destroy();
+        res.send(200);
     }
 
     function createUser(req, res) {
