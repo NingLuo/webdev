@@ -21,7 +21,7 @@
                 .then(function (response) {
                     console.log(response.data);
                     if(response.data) {
-                        UserService.setCurrentUser(response.data);
+                        //UserService.setCurrentUser(response.data);
                         $location.url('/profile');
                     } else {
                         $scope.noMatchUser = true;

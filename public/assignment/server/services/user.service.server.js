@@ -6,6 +6,7 @@ module.exports = function (app, model) {
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user?username=username", findUserByUsername);
     app.get("/api/assignment/login", findUserByCredentials); // 自己修改了一下,跟要求不一样
+    app.get("/api/assignment/loggedin", loggedin);
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
 
@@ -20,7 +21,12 @@ module.exports = function (app, model) {
         var username = req.query.username;
         var password = req.query.password;
         var user = model.findUserByCredentials({username: username, password: password});
+        req.session.currentUser = user;
         res.json(user);
+    }
+
+    function loggedin(req, res) {
+        res.json(req.session.currentUser);
     }
 
     function createUser(req, res) {

@@ -20,7 +20,11 @@
             })
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html",
-                controller: "ProfileController"
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html"
@@ -33,4 +37,24 @@
                 redirectTo: "/home"
             });
     }
+
+    function checkLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var currentUser = response.data;
+                if(response.data) {
+                    UserService.setCurrentUser(currentUser);
+                    deferred.resolve();
+                } else {
+                    deferred.reject();
+                    $location.url("/login");
+                }
+            });
+
+        return deferred.promise;
+    }
+
 })();

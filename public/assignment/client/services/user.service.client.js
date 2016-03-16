@@ -43,11 +43,11 @@
 
         function setCurrentUser(user) {
             $rootScope.currentUser = user;
-            console.log($rootScope.currentUser);
+            console.log("current user is: " + $rootScope.currentUser);
         }
 
         function getCurrentUser() {
-            return $rootScope.currentUser;
+            return $http.get("/api/assignment/loggedin");
         }
         
         function findAllUsers(callback) {
