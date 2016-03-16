@@ -49,10 +49,11 @@
 
         }
 
-        function createUser(user, callback) {
-            user._id = (new Date).getTime();
-            users.push(user);
-            callback(user);
+        function createUser(user) {
+            return $http.post("/api/assignment/user", user);
+            //user._id = (new Date).getTime();
+            //users.push(user);
+            //callback(user);
         }
 
         function deleteUserById(userId, callback) {

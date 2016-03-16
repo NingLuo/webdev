@@ -3,7 +3,8 @@ var mock = require("./user.mock.json");
 module.exports = function() {
     var api = {
         findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials
+        findUserByCredentials: findUserByCredentials,
+        createUser: createUser
     };
     return api;
 
@@ -23,5 +24,11 @@ module.exports = function() {
             }
         }
         return null;
+    }
+
+    function createUser(user) {
+        user._id = "ID_" + (new Date).getTime();
+        mock.push(user);
+        return user;
     }
 }

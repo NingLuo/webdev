@@ -23,8 +23,10 @@ module.exports = function (app, model) {
         res.json(user);
     }
 
-    function createUser() {
-        
+    function createUser(req, res) {
+        var user = req.body;
+        var newUser = model.createUser(user);
+        res.send(newUser);
     }
 
     function getAllUsers() {
