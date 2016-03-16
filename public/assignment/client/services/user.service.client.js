@@ -42,7 +42,6 @@
 
         function setCurrentUser(user) {
             $rootScope.currentUser = user;
-            console.log("current user is: " + $rootScope.currentUser.username);
         }
         
         function findAllUsers(callback) {
