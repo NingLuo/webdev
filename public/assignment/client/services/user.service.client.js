@@ -26,7 +26,8 @@
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
-            setCurrentUser: setCurrentUser
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser
         };
 
         return api;
@@ -42,6 +43,11 @@
 
         function setCurrentUser(user) {
             $rootScope.currentUser = user;
+            console.log($rootScope.currentUser);
+        }
+
+        function getCurrentUser() {
+            return $rootScope.currentUser;
         }
         
         function findAllUsers(callback) {
