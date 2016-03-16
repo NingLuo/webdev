@@ -1,5 +1,5 @@
-module.exports = function (app) {
-    var userModel = require("./../models/user.model.js");
+module.exports = function (app, model) {
+    //var userModel = require("./../models/user.model.js");
 
     app.post("/api/assignment/user", createUser);
     app.get("/api/assignment/user", getAllUsers);
@@ -19,8 +19,8 @@ module.exports = function (app) {
         //var password = req.param('password');
         var username = req.query.username;
         var password = req.query.password;
-        console.log(username + " " + password + " from user.service.server.js");
-        res.send(200);
+        var user = model.findUserByCredentials({username: username, password: password});
+        res.json(user);
     }
 
     function createUser() {
