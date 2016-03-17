@@ -6,32 +6,44 @@
         .controller("FormController", FormController);
 
     function FormController(FormService, $scope, $rootScope) {
+        var vm = this;
         var currentUserId = $rootScope.currentUser._id;
         var renderForms = renderForms;
 
         // event handler declarations
-        $scope.addForm = addForm;
+        vm.addForm = addForm;
         $scope.updateForm = updateForm;
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
 
-        activate();
-
-        function activate() {
-            FormService.findAllFormsForUser(currentUserId, renderForms);
+        function init() {
+            FormService
+                .getAllForms(currentUserId)
+                .then(function (response) {
+                    renderForms(response.data);
+                })
         }
+        init();
+
 
         function renderForms(userForms) {
-            $scope.currentUserForms = userForms;
+            vm.currentUserForms = userForms;
         }
 
-        // event handler implementation
         function addForm(newForm) {
-            FormService.createFormForUser(currentUserId, newForm, callback);
-            function callback(form) {
-                FormService.findAllFormsForUser(currentUserId, renderForms);
-                $scope.newForm = {};
-            }
+            console.log(newForm.title);
+            FormService
+                .addForm(currentUserId, newForm)
+                .then(function (response) {
+                    FormService
+                        .getAllForms(currentUserId)
+                        .then(function (response) {
+                            var forms = response.data;
+                            console.log(forms);
+                            renderForms(forms);
+                            vm.newForm = {};
+                        })
+                });
         }
 
         function updateForm(newForm) {

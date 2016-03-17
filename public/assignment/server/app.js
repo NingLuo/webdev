@@ -1,5 +1,7 @@
 module.exports = function (app) {
     console.log("server app.js");
-    var model = require("./models/user.model.js")();
-    var service = require("./services/user.service.server.js")(app, model);
+    var userModel = require("./models/user.model.js")();
+    var userService = require("./services/user.service.server.js")(app, userModel);
+    var formModel = require("./models/form.model.js")();
+    var formService = require("./services/form.service.server.js")(app, formModel);
 }
