@@ -62,7 +62,9 @@ module.exports = function (app, model) {
         res.send(200);
     }
 
-    function deleteUser() {
-        //to be implemented
+    function deleteUser(req, res) {
+        var userId = req.params.id;
+        var restUsers = model.deleteUser(userId);
+        res.json(restUsers);
     }
 }
