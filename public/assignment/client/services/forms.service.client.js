@@ -42,15 +42,16 @@
             return $http.delete("/api/assignment/form/" + formId);
         }
 
-        function updateFormById(formId, newForm, callback) {
-            for(var i = 0; i < forms.length; i++) {
-                if(forms[i]._id == formId) {
-                    forms[i].title = newForm.title;
-                    forms[i].userId = newForm.userId;
-                    callback(forms[i]);
-                    return;
-                }
-            }
+        function updateFormById(formId, newForm) {
+            return $http.put("/api/assignment/form/" + formId, newForm);
+            //for(var i = 0; i < forms.length; i++) {
+            //    if(forms[i]._id == formId) {
+            //        forms[i].title = newForm.title;
+            //        forms[i].userId = newForm.userId;
+            //        callback(forms[i]);
+            //        return;
+            //    }
+            //}
         }
     }
 })();

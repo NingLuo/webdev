@@ -32,7 +32,10 @@ module.exports = function (app, model) {
         res.json(forms);
     }
 
-    function updateForm() {
-        
+    function updateForm(req, res) {
+        var formId = req.params.formId;
+        var newForm = req.body;
+        var forms = model.updateForm(formId, newForm);
+        res.json(forms);
     }
 }

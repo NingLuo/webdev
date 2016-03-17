@@ -56,12 +56,14 @@ module.exports = function() {
 
     function updateForm(formId, newForm) {
         var form = findFormById(formId);
-        form = {
-            "_id": newForm._id,
-            "title": newForm.title,
-            "userId": newForm.userId,
-            "fields": newForm.fields
+        if(form) {
+            form._id = newForm._id;
+            form.title = newForm.title;
+            form.userId = newForm.userId;
+            form.fields = newForm.fields;
         }
+
+        return mock;
     }
 
     function deleteForm(formId) {

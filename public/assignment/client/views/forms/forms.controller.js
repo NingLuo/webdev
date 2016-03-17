@@ -13,8 +13,8 @@
         // event handler declarations
         vm.addForm = addForm;
         $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
+        vm.deleteForm = deleteForm;
+        vm.selectForm = selectForm;
 
         function init() {
             FormService
@@ -46,11 +46,17 @@
         }
 
         function updateForm(newForm) {
-            FormService.updateFormById(newForm._id, newForm, callback);
-            function callback(updatedForm) {
-                $scope.newForm = {};
-            }
-
+            FormService
+                .updateFormById(newForm._id, newForm)
+                .then(function (response) {
+                    FormService
+                        .getAllForms(currentUserId)
+                        .then(function (response) {
+                            var forms = response.data;
+                            renderForms(forms);
+                            vm.newForm = {};
+                        })
+                });
         }
 
         function deleteForm(formId) {
@@ -67,11 +73,11 @@
                 });
         }
 
-        function selectForm(index) {
-            $scope.newForm = {
-                "_id": $scope.currentUserForms[index]._id,
-                "title": $scope.currentUserForms[index].title,
-                "userId": $scope.currentUserForms[index].userId
+        function selectForm(form) {
+            vm.newForm = {
+                "_id": form._id,
+                "title": form.title,
+                "userId": form.userId
             };
         }
     }
