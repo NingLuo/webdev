@@ -13,7 +13,10 @@
                 controllerAs: "model"
             })
             .when("/home", {
-                templateUrl: "views/home/home.view.html"
+                templateUrl: "views/home/home.view.html",
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
@@ -53,6 +56,20 @@
                     deferred.reject();
                     $location.url("/login");
                 }
+            });
+
+        return deferred.promise;
+    }
+
+    function getLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var currentUser = response.data;
+                UserService.setCurrentUser(currentUser);
+                deferred.resolve();
             });
 
         return deferred.promise;
