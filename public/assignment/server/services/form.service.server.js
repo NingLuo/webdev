@@ -21,7 +21,7 @@ module.exports = function (app, model) {
 
     function deleteFormById(req, res) {
         var formId = req.params.formId;
-        var restForms = model.deleteFormById(formId);
+        var restForms = model.deleteForm(formId);
         res.json(restForms);
     }
 

@@ -38,14 +38,8 @@
             //callback(userForms);
         }
 
-        function deleteFormById(formId, callback) {
-            for(var i = 0; i < forms.length; i++) {
-                if(forms[i]._id == formId) {
-                    forms.splice(i, 1);
-                    callback(forms);
-                    return;
-                }
-            }
+        function deleteFormById(formId) {
+            return $http.delete("/api/assignment/form/" + formId);
         }
 
         function updateFormById(formId, newForm, callback) {

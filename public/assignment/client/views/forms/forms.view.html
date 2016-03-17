@@ -27,7 +27,7 @@
             <tr ng-repeat="form in model.currentUserForms">
                 <td>{{form.title}}</td>
                 <td>
-                    <button ng-click="deleteForm($index)" class="btn btn-danger" role="button">
+                    <button ng-click="deleteForm(form._id)" class="btn btn-danger" role="button">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                     <button ng-click="selectForm($index)" class="btn btn-warning" role="button">

@@ -39,7 +39,6 @@
                         .getAllForms(currentUserId)
                         .then(function (response) {
                             var forms = response.data;
-                            console.log(forms);
                             renderForms(forms);
                             vm.newForm = {};
                         })
@@ -54,10 +53,18 @@
 
         }
 
-        function deleteForm(index) {
-            FormService.deleteFormById($scope.currentUserForms[index]._id, callback);
-            FormService.findAllFormsForUser(currentUserId, renderForms);
-            function callback(forms) {}
+        function deleteForm(formId) {
+            FormService
+                .deleteFormById(formId)
+                .then(function (response) {
+                    FormService
+                        .getAllForms(currentUserId)
+                        .then(function (response) {
+                            var forms = response.data;
+                            renderForms(forms);
+                        })
+
+                });
         }
 
         function selectForm(index) {
