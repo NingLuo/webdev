@@ -7,9 +7,14 @@
 
     function ProfileController(UserService, $rootScope, $location, $scope) {
         var vm = this;
+        vm.update = update;
 
         function init() {
-            //vm.currentUser = UserService.getCurrentUser();
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    vm.currentUser = response.data;
+                });
         }
         init();
 
@@ -23,13 +28,15 @@
         //    email: $rootScope.currentUser.email
         //};
 
-        vm.update = update;
 
         function update() {
-            UserService.updateUser(vm.currentUser._id, vm.currentUser, callback);
-            function callback(updatedUser) {
-                $rootScope.currentUser = updatedUser;
-            }
+            var userId = vm.currentUser._id;
+            var newUser = vm.currentUser;
+            UserService
+                .updateUser(userId, newUser)
+                .then(function () {
+                    UserService.setCurrentUser(newUser);
+                });
         }
     }
 })();

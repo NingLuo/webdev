@@ -37,7 +37,7 @@ module.exports = function() {
     }
 
     function findAllUsers() {
-        return moke;
+        return mock;
     }
 
     function findUserById(userId) {
@@ -52,14 +52,13 @@ module.exports = function() {
     function updateUser(userId, new_user) {
         var user = findUserById(userId);
         if(user) {
-            user = {
-                "_id": new_user._id,
-                "firstName": new_user.firstName,
-                "lastName": new_user.lastName,
-                "username": new_user.username,
-                "password": new_user.password
-            }
+            user._id = new_user._id;
+            user.firstName = new_user.firstName;
+            user.lastName = new_user.lastName;
+            user.username = new_user.username;
+            user.password = new_user.password;
         }
+        return user;
     }
 
     function deleteUser(userId) {
@@ -68,5 +67,6 @@ module.exports = function() {
                 mock.splice(i, 1);
             }
         }
+        return mock;
     }
 }
