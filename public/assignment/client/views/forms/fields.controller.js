@@ -15,11 +15,14 @@
             FieldService
                 .getFieldsForForm(formId)
                 .then(function (response) {
-                    vm.fields = response.data;
-                    console.log(vm.fields);
+                    renderFields(response.data);
                 })
         }
         init();
+
+        function renderFields(fields) {
+            vm.fields = fields;
+        }
 
         function addField(fieldType) {
             var field;
@@ -61,6 +64,12 @@
                     break;
             }
             console.log(field);
+
+            FieldService
+                .createFieldForForm(formId, field)
+                .then(function (response) {
+                    renderFields(response.data);
+                })
         }
 
         function removeField() {

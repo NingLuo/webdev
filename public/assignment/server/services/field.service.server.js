@@ -52,7 +52,7 @@ module.exports = function (app, formModel) {
         var newField = req.body;
         var form = formModel.findFormById(formId);
 
-        field._id = uuid.v4();
+        newField._id = uuid.v4();
         form.fields.push(newField);
 
         res.json(form.fields);
