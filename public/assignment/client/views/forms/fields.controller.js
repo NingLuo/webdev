@@ -3,12 +3,13 @@
         .module("FormBuilderApp")
         .controller("FieldController", FieldController);
 
-    function FieldController(FieldService, UserService, $routeParams) {
+    function FieldController(FieldService, UserService, $routeParams, $uibModal) {
         var vm = this;
         var formId;
         vm.fields = {};
         vm.addField = addField;
         vm.deleteField = deleteField;
+        vm.open = open;
 
         function init() {
             formId = $routeParams.formId;
@@ -79,6 +80,15 @@
                 .then(function (response) {
                     renderFields(response.data);
                 })
+        }
+
+        function open() {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: 'views/forms/singleLinePop.view.html',
+                    controller: 'SingleLineCtrl as model'
+                }
+            );
         }
     }
 })();
