@@ -8,7 +8,7 @@
         var formId;
         vm.fields = {};
         vm.addField = addField;
-        vm.removeField = removeField;
+        vm.deleteField = deleteField;
 
         function init() {
             formId = $routeParams.formId;
@@ -72,8 +72,13 @@
                 })
         }
 
-        function removeField() {
-            console.log("removeField");
+        function deleteField(fieldId) {
+            console.log("deleteField " + fieldId);
+            FieldService
+                .deleteFieldFromForm(formId, fieldId)
+                .then(function (response) {
+                    renderFields(response.data);
+                })
         }
     }
 })();
