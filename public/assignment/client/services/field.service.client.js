@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module("FormBulderApp")
+        .module("FormBuilderApp")
         .factory("FieldService", FieldService);
 
     function FieldService($http) {
