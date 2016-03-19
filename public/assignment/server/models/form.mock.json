@@ -67,6 +67,21 @@
             "value": "user"
           }
         ]
+      },
+      {
+        "_id": "888",
+        "label": "Licence Agreement",
+        "type": "RADIOS",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
       }
     ]
   },
