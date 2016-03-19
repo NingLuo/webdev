@@ -169,13 +169,31 @@
             });
         }
 
-        function openDropDownPop() {
+        function openDropDownPop(field) {
             var modalInstance = $uibModal.open(
                 {
                     templateUrl: "views/forms/dropDownPop.view.html",
-                    controller: 'DropDownPopCtrl as model'
+                    controller: 'DropDownPopCtrl as model',
+                    resolve: {
+                        field: function () {
+                            var popField = {};
+                            popField._id = field._id;
+                            popField.label = field.label;
+                            popField.type = field.type;
+                            popField.options = field.options;
+
+                            return popField;
+                        },
+                        formId: function () {
+                            return formId;
+                        }
+                    }
                 }
-            )
+            );
+
+            modalInstance.result.then(function (response) {
+                renderFields(response.data);
+            });
         }
 
         function openEmailPop() {
