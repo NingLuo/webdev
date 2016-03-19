@@ -13,6 +13,7 @@
         vm.openMultiLine = openMultiLine;
         vm.openDate = openDate;
         vm.openDropDownPop = openDropDownPop;
+        vm.openEmailPop = openEmailPop;
 
         function init() {
             formId = $routeParams.formId;
@@ -117,6 +118,15 @@
                 {
                     templateUrl: "views/forms/dropDownPop.view.html",
                     controller: 'DropDownPopCtrl as model'
+                }
+            )
+        }
+
+        function openEmailPop() {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: "views/forms/emailPop.view.html",
+                    controller: 'EmailPopCtrl as model'
                 }
             )
         }
