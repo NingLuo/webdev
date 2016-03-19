@@ -9,7 +9,10 @@
         vm.fields = {};
         vm.addField = addField;
         vm.deleteField = deleteField;
-        vm.open = open;
+        vm.openSingleLine = openSingleLine;
+        vm.openMultiLine = openMultiLine;
+        vm.openDate = openDate;
+        vm.openDropDownPop = openDropDownPop;
 
         function init() {
             formId = $routeParams.formId;
@@ -82,13 +85,40 @@
                 })
         }
 
-        function open() {
+        function openSingleLine() {
             var modalInstance = $uibModal.open(
                 {
                     templateUrl: 'views/forms/singleLinePop.view.html',
                     controller: 'SingleLineCtrl as model'
                 }
             );
+        }
+
+        function openMultiLine() {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: "views/forms/multipleLinePop.view.html",
+                    controller: 'MultipleLineCtrl as model'
+                }
+            )
+        }
+
+        function openDate() {
+            $uibModal.open(
+                {
+                    templateUrl: "views/forms/datePop.view.html",
+                    controller: "DatePopCtrl as model"
+                }
+            )
+        }
+
+        function openDropDownPop() {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: "views/forms/dropDownPop.view.html",
+                    controller: 'DropDownPopCtrl as model'
+                }
+            )
         }
     }
 })();
