@@ -48,6 +48,25 @@
         "label": "Email",
         "type": "EMAIL",
         "placeholder": "Email"
+      },
+      {
+        "_id": "777",
+        "label": "Roles",
+        "type": "CHECKBOXES",
+        "options": [
+          {
+            "label": "Admin",
+            "value": "admin"
+          },
+          {
+            "label": "Student",
+            "value": "student"
+          },
+          {
+            "label": "User",
+            "value": "user"
+          }
+        ]
       }
     ]
   },
