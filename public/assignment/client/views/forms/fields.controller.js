@@ -14,6 +14,7 @@
         vm.openDate = openDate;
         vm.openDropDownPop = openDropDownPop;
         vm.openEmailPop = openEmailPop;
+        vm.openCheckboxPop = openCheckboxPop;
 
         function init() {
             formId = $routeParams.formId;
@@ -127,6 +128,15 @@
                 {
                     templateUrl: "views/forms/emailPop.view.html",
                     controller: 'EmailPopCtrl as model'
+                }
+            )
+        }
+
+        function openCheckboxPop() {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: "views/forms/checkboxPop.view.html",
+                    controller: 'CheckboxPopCtrl as model'
                 }
             )
         }
