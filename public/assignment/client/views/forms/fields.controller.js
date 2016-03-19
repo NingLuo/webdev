@@ -15,6 +15,7 @@
         vm.openDropDownPop = openDropDownPop;
         vm.openEmailPop = openEmailPop;
         vm.openCheckboxPop = openCheckboxPop;
+        vm.openRadioButtonPop = openRadioButtonPop;
 
         function init() {
             formId = $routeParams.formId;
@@ -137,6 +138,15 @@
                 {
                     templateUrl: "views/forms/checkboxPop.view.html",
                     controller: 'CheckboxPopCtrl as model'
+                }
+            )
+        }
+
+        function openRadioButtonPop() {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: "views/forms/radioButtonPop.view.html",
+                    controller: 'RadioButtonPopCtrl as model'
                 }
             )
         }
