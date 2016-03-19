@@ -88,13 +88,31 @@
                 })
         }
 
-        function openSingleLine() {
+        function openSingleLine(field) {
             var modalInstance = $uibModal.open(
                 {
                     templateUrl: 'views/forms/singleLinePop.view.html',
-                    controller: 'SingleLineCtrl as model'
+                    controller: 'SingleLineCtrl as model',
+                    resolve: {
+                        field: function () {
+                            var popField = {};
+                            popField._id = field._id;
+                            popField.label = field.label;
+                            popField.type = field.type;
+                            popField.placeholder = field.placeholder;
+
+                            return popField;
+                        },
+                        formId: function () {
+                            return formId;
+                        }
+                    }
                 }
             );
+
+            modalInstance.result.then(function (response) {
+                renderFields(response.data);
+            });
         }
 
         function openMultiLine() {

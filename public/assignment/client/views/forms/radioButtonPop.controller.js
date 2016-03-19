@@ -7,7 +7,7 @@
         var vm = this;
 
         vm.close = function close() {
-            $uibModalInstance.close();
+            $uibModalInstance.dismiss('cancel');
         }
     }
 })();
