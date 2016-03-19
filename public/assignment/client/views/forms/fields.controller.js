@@ -142,13 +142,31 @@
             });
         }
 
-        function openDate() {
-            $uibModal.open(
+        function openDate(field) {
+
+            var modalInstance = $uibModal.open(
                 {
                     templateUrl: "views/forms/datePop.view.html",
-                    controller: "DatePopCtrl as model"
+                    controller: "DatePopCtrl as model",
+                    resolve: {
+                        field: function () {
+                            var popField = {};
+                            popField._id = field._id;
+                            popField.label = field.label;
+                            popField.type = field.type;
+
+                            return popField;
+                        },
+                        formId: function () {
+                            return formId;
+                        }
+                    }
                 }
-            )
+            );
+
+            modalInstance.result.then(function (response) {
+                renderFields(response.data);
+            });
         }
 
         function openDropDownPop() {
