@@ -1,5 +1,5 @@
 (function () {
     "use strict";
 
-    angular.module("FormBuilderApp", ["ngRoute", "lnSortable", 'ui.bootstrap']);
+    angular.module("FormBuilderApp", ["ngRoute", "lnSortable", "ui.sortable",'ui.bootstrap']);
 })();

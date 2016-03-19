@@ -9,7 +9,8 @@
     <li role="presentation" class="active"><a href="#/fields">Fields</a></li>
 </ul>
 <p></p>
-<div ln-sortable ln-axis="y" ng-model="model.fields">
+<!--<div ln-sortable ln-axis="y" ng-model="model.fields">-->
+<div ui-sortable ng-model="model.fields">
     <form ng-repeat="field in model.fields">
         <div ng-switch="field.type">
             <div ng-switch-when="TEXT" class="form-group">
