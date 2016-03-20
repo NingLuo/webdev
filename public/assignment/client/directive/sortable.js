@@ -15,8 +15,8 @@
 angular.module('ui.sortable', [])
   .value('uiSortableConfig',{})
   .directive('uiSortable', [
-    'uiSortableConfig', '$timeout', '$log',
-    function(uiSortableConfig, $timeout, $log) {
+    'uiSortableConfig', '$timeout', '$log', '$routeParams', 'FieldService',
+    function(uiSortableConfig, $timeout, $log, $routeParams, FieldService) {
       return {
         require: '?ngModel',
         scope: {
@@ -69,6 +69,11 @@ angular.module('ui.sortable', [])
           }
 
           function afterStop(e, ui) {
+            FieldService
+                .updateFields($routeParams.formId, ngModel.$modelValue)
+                .then(function (response) {
+                      console.log(response.data);
+                });
             ui.item.sortable._destroy();
           }
 
