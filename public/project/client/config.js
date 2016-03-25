@@ -18,8 +18,9 @@
                 controllerAs: 'login'
             })
             .when('/register', {
-                templateUrl: 'views/users/register.view.html'
-
+                templateUrl: 'views/users/register.view.html',
+                controller: "RegisterCtrl",
+                controllerAs: "model"
             })
             .when('/profile', {
                 templateUrl: 'views/users/profile.view.html',

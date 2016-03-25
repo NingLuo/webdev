@@ -5,7 +5,7 @@
         .module("FindDoctorApp")
         .factory("UserService", UserService);
 
-    function UserService ($rootScope, DoctorSearchService) {
+    function UserService ($rootScope, DoctorSearchService, $http) {
         var users = [
             {u_id: 123, username: 'Alice', password: 'Alice', email: 'alice@gmail.com', favorites: [], rates: [], messages: []},
             {u_id: 234,
@@ -40,6 +40,7 @@
 
         var api = {
             findUserByCredentials: findUserByCredentials,
+            register: register,
             addFavoriteByUid: addFavoriteByUid,
             addRate: addRate,
             findReviewsByUserId: findReviewsByUserId,
@@ -50,15 +51,21 @@
 
         return api;
 
-        function findUserByCredentials (email, password, callback) {
-            console.log(email + "Service " + password);
-            for(var i=0; i < users.length; i++) {
-               if (users[i].email === email && users[i].password === password) {
-                   callback(users[i]);
-                   return;
-               }
-            }
-            callback(null);
+        function findUserByCredentials (credentials) {
+            console.log(credentials.email + " Service " + credentials.password);
+            return $http.get('/api/user/login?email=' + credentials.email + '&password=' + credentials.password);
+            //for(var i=0; i < users.length; i++) {
+            //   if (users[i].email === email && users[i].password === password) {
+            //       callback(users[i]);
+            //       return;
+            //   }
+            //}
+            //callback(null);
+        }
+
+        function register(newUser) {
+            console.log("create user from user service");
+            return $http.post("/api/user/register", newUser);
         }
 
         function addFavoriteByUid (userId, uid) {
