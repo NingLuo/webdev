@@ -3,15 +3,15 @@
         <div class="form-group">
             <label for="specialty">I'm looking for a:</label>
             <select ng-model="doctor.specialty" class="form-control" id="specialty">
-                <option>cardiologist</option>
-                <option>allergist</option>
+                <option value="cardiologist">Cardiologist</option>
+                <option value="allergist">Allergist</option>
             </select>
         </div>
         <div class="form-group">
             <label for="city">In:</label>
-            <select ng-model="doctor.city" class="form-control" id="city">
-                <option>Boston</option>
-                <option>New York</option>
+            <select ng-model="doctor.location" class="form-control" id="city">
+                <option value="ma-boston">Boston</option>
+                <option value="ny-newyork">New York</option>
             </select>
         </div>
         <div ng-show="main.illegal" class="alert alert-danger alert-dismissible" role="alert">
@@ -20,7 +20,7 @@
             </button>
             Both fields are required
         </div>
-        <a ng-click="main.search(doctor.city, doctor.specialty)" class="btn btn-primary btn-block">Search</a>
+        <a ng-click="main.search(doctor.specialty, doctor.location)" class="btn btn-primary btn-block">Search</a>
     </div>
 </div>
 

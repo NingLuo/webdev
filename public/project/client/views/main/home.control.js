@@ -8,21 +8,16 @@
     function MainController ($location, DoctorSearchService) {
 
         var vm = this;
-        vm.search = search;
-        vm.$location = $location;
         vm.illegal = false;
+        vm.search = search;
 
+        function init() {
 
-        function search (city, specialty) {
-            console.log(city, + " " + specialty);
-            if(city && specialty) {
-                var location;
-                if(city == 'Boston') {
-                    location = '42.3611,-71.0577,20';
-                } else if(city == 'New York') {
-                    location = '40.7483,-73.9929,20';
-                }
-                console.log(specialty + " " + location);
+        }
+        init();
+
+        function search (specialty, location) {
+            if(location && specialty) {
                 $location.url('/result/specialty/' + specialty + '/location/' + location);
             } else {
                 console.log("Both city and specilty are required");

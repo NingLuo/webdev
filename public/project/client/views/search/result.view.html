@@ -1,0 +1,62 @@
+<!--search bar-->
+<nav class="navbar navbar-default">
+    <form class="navbar-form navbar-left">
+        <div class="form-group">
+            <!--<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{model.specialty}}<span class="caret"></span></a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a>Allergist</a></li>-->
+                <!--<li><a>Primary Care</a></li>-->
+            <!--</ul>-->
+            <!--<label>Specialty</label>-->
+            <select class="form-control" ng-model="model.specialty" ng-options="specialty.value as specialty.label for specialty in model.specialtyOptions"></select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" ng-model="model.location" ng-options="location.value as location.label for location in model.locationOptions"></select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" ng-model="model.insurance" ng-options="insurance.value as insurance.label for insurance in model.insuranceOptions">
+                <option value="">-- Insurance --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" ng-model="model.gender" ng-options="gender.value as gender.label for gender in model.genderOptions">
+                <option value="">-- Gender --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" ng-model="model.language" ng-options="language.value as language.label for language in model.languageOptions">
+                <option value="">-- Language --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Doctor Name">
+            <button type="submit" class="btn btn-default">Search</button>
+        </div>
+    </form>
+</nav>
+
+
+<!--display search results-->
+<h2>Doctors Data</h2>
+<div class="table-responsive col-lg-6 col-md-6">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Picture</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="doctor in model.doctors">
+            <td><a href="#/detail/{{doctor.uid}}">{{doctor.profile.first_name}} {{doctor.profile.last_name}}</a><br>
+                <img ng-src="{{doctor.ratings[0].image_url_small}}">
+            </td>
+            <td>{{doctor.profile.title}}</td>
+            <td><img ng-src="{{doctor.profile.image_url}}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
