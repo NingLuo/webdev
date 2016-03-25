@@ -83,14 +83,16 @@
             return $http.get("/api/user/logout");
         }
 
-        function addFavoriteByUid (userId, uid) {
-            for(var i=0; i<users.length; i++) {
-                if(users[i].u_id === userId) {
-                    users[i].favorites.push(uid);
-                    return true;
-                }
-            }
-            return false;
+        function addFavoriteByUid (userId, doctorUid) {
+
+            return $http.get("/api/user/" + userId + "/favorite/" + doctorUid);
+            //for(var i=0; i<users.length; i++) {
+            //    if(users[i].u_id === userId) {
+            //        users[i].favorites.push(uid);
+            //        return true;
+            //    }
+            //}
+
         }
 
         function addRate(userId, rate) {

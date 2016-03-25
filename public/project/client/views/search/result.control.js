@@ -68,7 +68,8 @@
                 .then(function (response) {
                     console.log(response.data);
                     vm.doctors = response.data.data;
-                    $rootScope.currentDoctors = response.data.data;
+                    //a precaution for bad api connection
+                    //$rootScope.currentDoctors = response.data.data;
                     $location.url('/result/specialty/' + vm.specialty + '/location/' + vm.location +'/insurance/' + vm.insurance + '/gender/'+ vm.gender +'/name/' + vm.doctorName);
                 });
         }

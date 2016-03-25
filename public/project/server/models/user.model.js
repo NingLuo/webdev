@@ -6,7 +6,8 @@ module.exports = function () {
         findUserByCredentials: findUserByCredentials,
         createUser: createUser,
         updateProfile: updateProfile,
-        findUserById: findUserById
+        findUserById: findUserById,
+        addFavoriteByUid: addFavoriteByUid
     };
     return api;
 
@@ -36,10 +37,17 @@ module.exports = function () {
 
     function findUserById(id) {
         for(var i in userMock) {
-            if(userMock[i].u_id === id) {
+            if(userMock[i].u_id == id) {
                 return userMock[i];
             }
         }
         return null;
+    }
+
+    function addFavoriteByUid(userId, doctorUid) {
+        console.log(userId + " " + doctorUid);
+        var user = findUserById(userId);
+        user.favorites.push(doctorUid);
+        return user;
     }
 };

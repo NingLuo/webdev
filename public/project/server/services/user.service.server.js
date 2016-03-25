@@ -4,6 +4,7 @@ module.exports = function (app, UserModel) {
     app.get("/api/user/loggedIn", getLoggedInUser);
     app.put("/api/user/profile", updateProfile);
     app.get("/api/user/logout", logout);
+    app.get("/api/user/:userId/favorite/:doctorUid", addFavoriteByUid);
 
     function findUserByCreDentials(req, res) {
         var credentials = {};
@@ -33,8 +34,15 @@ module.exports = function (app, UserModel) {
     }
 
     function logout(req, res) {
-        console.log("logout server")
         req.session.destroy();
+        res.send(200);
+    }
+
+    function addFavoriteByUid(req, res) {
+        var userId = req.params.userId;
+        var doctorUid = req.params.doctorUid;
+        var user = UserModel.addFavoriteByUid(userId, doctorUid);
+        req.session.currentUser = user;
         res.send(200);
     }
 };
