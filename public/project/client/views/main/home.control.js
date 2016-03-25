@@ -16,9 +16,9 @@
         }
         init();
 
-        function search (specialty, location) {
-            if(location && specialty) {
-                $location.url('/result/specialty/' + specialty + '/location/' + location);
+        function search (specialty, location, insurance, gender, name) {
+            if(location && specialty) {me
+                $location.url('/result/specialty/' + specialty + '/location/' + location +'/insurance/' + insurance + '/gender/'+gender+'/name/'+name);
             } else {
                 console.log("Both city and specilty are required");
                 vm.illegal = true;

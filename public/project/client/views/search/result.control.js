@@ -3,13 +3,13 @@
         .module("FindDoctorApp")
         .controller("resultCtrl",resultCtrl);
 
-    function resultCtrl($http, $routeParams, $rootScope, DoctorSearchService){
+    function resultCtrl($location, $routeParams, $rootScope, DoctorSearchService){
         var vm = this;
         vm.specialty = $routeParams.specialty;
         vm.location = $routeParams.location;
-        vm.insurance = null;
-        vm.gender = null;
-        vm.doctorName = null;
+        vm.insurance = $routeParams.insurance;
+        vm.gender = $routeParams.gender;
+        vm.doctorName = $routeParams.name;
         vm.specialtyOptions;
         vm.locationOptions;
         vm.insuranceOptions;
@@ -18,13 +18,13 @@
         vm.renderResult = renderResult;
 
         function init() {
-            console.log(vm.location);
-
-            DoctorSearchService
-                .findDoctorBySpecialtyAndLocation(vm.specialty, vm.location)
-                .then(function (response) {
-                    renderResult(response.data.data);
-                });
+            //console.log(vm.location);
+            search();
+            //DoctorSearchService
+            //    .findDoctorBySpecialtyAndLocation(vm.specialty, vm.location)
+            //    .then(function (response) {
+            //        renderResult(response.data.data);
+            //    });
         }
         init();
 
@@ -61,6 +61,7 @@
                 gender   : vm.gender,
                 doctorName: vm.doctorName
             };
+            console.log(constraints);
 
             DoctorSearchService
                 .findDocByConstraints(constraints)
@@ -68,7 +69,8 @@
                     console.log(response.data);
                     vm.doctors = response.data.data;
                     $rootScope.currentDoctors = response.data.data;
-                })
+                    $location.url('/result/specialty/' + vm.specialty + '/location/' + vm.location +'/insurance/' + vm.insurance + '/gender/'+ vm.gender +'/name/' + vm.doctorName);
+                });
         }
 
         function renderResult(result) {

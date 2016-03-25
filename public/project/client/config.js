@@ -26,7 +26,7 @@
                 controller: 'ProfileCtrl',
                 controllerAs: 'model'
             })
-            .when('/result/specialty/:specialty/location/:location', {
+            .when('/result/specialty/:specialty/location/:location/insurance/:insurance/gender/:gender/name/:name', {
                 templateUrl: 'views/search/result.view.html',
                 controller: 'resultCtrl',
                 controllerAs: 'model'
