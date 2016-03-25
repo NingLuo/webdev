@@ -46,7 +46,10 @@
             findReviewsByUserId: findReviewsByUserId,
             findMessagesByUserId: findMessagesByUserId,
             sendMsgTo: sendMsgTo,
-            updateReview: updateReview
+            updateReview: updateReview,
+            getLoggedInUser:getLoggedInUser,
+            updateProfile: updateProfile,
+            logout: logout
         };
 
         return api;
@@ -66,6 +69,18 @@
         function register(newUser) {
             console.log("create user from user service");
             return $http.post("/api/user/register", newUser);
+        }
+
+        function getLoggedInUser() {
+            return $http.get("/api/user/loggedIn");
+        }
+
+        function updateProfile(profile) {
+            return $http.put("/api/user/profile", profile);
+        }
+
+        function logout() {
+            return $http.get("/api/user/logout");
         }
 
         function addFavoriteByUid (userId, uid) {

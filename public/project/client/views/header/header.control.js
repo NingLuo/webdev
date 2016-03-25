@@ -5,13 +5,17 @@
         .module("FindDoctorApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController ($rootScope) {
+    function HeaderController ($rootScope, UserService) {
         var vm = this;
 
         vm.logout = logout;
 
         function logout() {
-            $rootScope.currentUser = null;
+            UserService
+                .logout()
+                .then(function () {
+                   $rootScope.currentUser = null;
+                });
         }
     }
 })();
