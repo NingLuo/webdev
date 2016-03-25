@@ -3,7 +3,7 @@
         .module("FindDoctorApp")
         .controller("DetailCtrl", DetailCtrl);
 
-    function DetailCtrl ($routeParams, DoctorSearchService, UserService, $location, $rootScope) {
+    function DetailCtrl ($routeParams, DoctorSearchService, UserService, DoctorService, $location, $rootScope) {
         var vm = this;
         vm.uid = $routeParams.uid;   //this doctor's universal id
         vm.addFavorite = addFavorite;
@@ -25,7 +25,7 @@
             //        vm.data = $rootScope.currentDoctors[i];
             //    }
             //}
-        };
+        }
         init();
 
 
@@ -36,6 +36,11 @@
                     .addFavoriteByUid($rootScope.currentUser.u_id ,vm.uid)
                     .then(function (res) {
                         vm.addSuccess = true;
+                    });
+                DoctorService
+                    .addFavoriteUserById(vm.uid, $rootScope.currentUser.u_id)
+                    .then(function (res) {
+                        console.log("doctor side now knows this user");
                     });
             } else {
                 //if user is not logged in, redirect to login page
