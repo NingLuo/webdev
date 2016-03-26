@@ -12,7 +12,23 @@
         vm.deleteReview= deleteReview;
 
         function init() {
-            vm.reviews =  UserService.findReviewsByUserId($rootScope.currentUser.u_id);
+            UserService
+                .getLoggedInUser()
+                .then(function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        $rootScope.currentUser = currentUser;
+                        UserService
+                            .findReviewsByUserId($rootScope.currentUser.u_id)
+                            .then(function (response) {
+                                vm.reviews = response.data;
+                            });
+                    }
+                    else {
+                        $location.url('/login');
+                    }
+                });
+
         }
         init();
 

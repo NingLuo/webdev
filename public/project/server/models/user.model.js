@@ -8,7 +8,9 @@ module.exports = function () {
         updateProfile: updateProfile,
         findUserById: findUserById,
         addFavoriteByUid: addFavoriteByUid,
-        addRateByUid: addRateByUid
+        addRateByUid: addRateByUid,
+        findRatesByUserId: findRatesByUserId,
+        updateRate: updateRate
     };
     return api;
 
@@ -55,5 +57,31 @@ module.exports = function () {
         var user = findUserById(userId);
         user.rates.push(rate);
         return user;
+    }
+
+    function findRatesByUserId(userId) {
+        var user = findUserById(userId);
+        return user.rates;
+    }
+
+    function updateRate(userId, rate) {
+        var rates = findRatesByUserId(userId);
+        for(var i in rates) {
+            if(rates[i].id == rate.id) {
+                rates[i].id= rate.id;
+                rates[i].userId= rate.userId;
+                rates[i].username= rate.username;
+                rates[i].doctorId= rate.doctorId;
+                rates[i].doctorName= rate.doctorName;
+                rates[i].doctorImage= rate.doctorImage;
+                rates[i].reviewDate= rate.reviewDate;
+                rates[i].overall= rate.overall;
+                rates[i]. waitTime= rate.waitTime;
+                rates[i].bedsideManner= rate.bedsideManner;
+                rates[i].comments= rate.comments;
+
+                console.log(rates[i]);
+            }
+        }
     }
 };

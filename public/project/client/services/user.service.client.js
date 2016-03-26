@@ -91,14 +91,15 @@
             return $http.post("/api/user/" + userId + "/rate/", rate);
         }
 
-        function findReviewsByUserId(u_id) {
-            for(var i=0; i<users.length; i++) {
-                if(users[i].u_id === u_id) {
-                    //DoctorSearchService.findDoctorByUid(users[i].rates.doctorId);
-                    return users[i].rates;
-                }
-            }
-            return null;
+        function findReviewsByUserId(userId) {
+            return $http.get("/api/user/" + userId + "/rates");
+            //for(var i=0; i<users.length; i++) {
+            //    if(users[i].u_id === u_id) {
+            //        //DoctorSearchService.findDoctorByUid(users[i].rates.doctorId);
+            //        return users[i].rates;
+            //    }
+            //}
+            //return null;
         }
 
         function findMessagesByUserId(u_id) {
@@ -120,23 +121,25 @@
             }
         }
 
-        function updateReview(u_id, newReview, callback) {
-            var rates = findReviewsByUserId(u_id);
-            for(var i=0; i<rates.length; i++) {
-                if(rates[i].id == newReview.id) {
-                    rates[i] = {
-                        id: newReview.id,
-                        doctorId: newReview.doctorId,
-                        doctorName: newReview.doctorName,
-                        reviewDate: newReview.reviewDate,
-                        overall: newReview.overall,
-                        waitTime: newReview.waitTime,
-                        bedsideManner: newReview.bedsideManner,
-                        comments: newReview.comments
-                    }
-                }
-            }
-            callback();
+        function updateReview(userId, rate, callback) {
+
+            $http.put("/api/user/" + userId + "/rate", rate);
+            console.log("update Review");
+            //for(var i=0; i<rates.length; i++) {
+            //    if(rates[i].id == newReview.id) {
+            //        rates[i] = {
+            //            id: newReview.id,
+            //            doctorId: newReview.doctorId,
+            //            doctorName: newReview.doctorName,
+            //            reviewDate: newReview.reviewDate,
+            //            overall: newReview.overall,
+            //            waitTime: newReview.waitTime,
+            //            bedsideManner: newReview.bedsideManner,
+            //            comments: newReview.comments
+            //        }
+            //    }
+            //}
+            //callback();
         }
     }
 })();
