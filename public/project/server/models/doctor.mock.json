@@ -1,3 +1,19 @@
 [
-  {"uid": "9e5768d1f4e86338b5b5e090f3053e15", "favoritedBy": [234], "ratedBy":[234]}
+  {
+    "uid": "9e5768d1f4e86338b5b5e090f3053e15",
+    "favoritedBy": [234],
+    "rates":
+    [
+      { "id": "1",
+        "doctorId":"9e5768d1f4e86338b5b5e090f3053e15",
+        "userId": 234,
+        "username": "Bob",
+        "doctorName": "Susan Day",
+        "reviewDate": "Dec. 12 2015",
+        "overall": "4 stars",
+        "waitTime": "5 stars",
+        "bedsideManner": "5 stars",
+        "comments": "She is a pretty decent doctor."}
+    ]
+  }
 ]
