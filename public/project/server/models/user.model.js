@@ -80,8 +80,6 @@ module.exports = function () {
                 rates[i]. waitTime= rate.waitTime;
                 rates[i].bedsideManner= rate.bedsideManner;
                 rates[i].comments= rate.comments;
-
-                console.log(rates[i]);
             }
         }
     }

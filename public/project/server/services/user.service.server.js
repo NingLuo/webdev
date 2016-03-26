@@ -60,9 +60,7 @@ module.exports = function (app, UserModel) {
 
     function findRatesByUserId(req, res) {
         var userId = req.params.userId;
-        console.log(userId);
         var rates = UserModel.findRatesByUserId(userId);
-        console.log(rates);
         res.json(rates);
     }
 

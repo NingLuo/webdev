@@ -5,7 +5,7 @@
         .module("FindDoctorApp")
         .controller("EditReviewCtrl", EditReviewCtrl);
 
-    function EditReviewCtrl($rootScope, $routeParams, $location, UserService, DoctorSearchService) {
+    function EditReviewCtrl($rootScope, $routeParams, $location, UserService, DoctorSearchService, DoctorService) {
         var vm = this;
         var reviews;
         var reviewId = $routeParams.reviewId;
@@ -26,7 +26,7 @@
                             .findReviewsByUserId($rootScope.currentUser.u_id)
                             .then(function (response) {
                                 reviews = response.data;
-                                //find the to be edited review by reviewId
+                                //find the to be edited review by reviewId and assign it to local variable vm.review for rendering purpose
                                 for(var i=0; i<reviews.length; i++) {
                                     if(reviews[i].id == reviewId) {        //这里用 === 会出错
                                         vm.review = {
@@ -60,7 +60,11 @@
             UserService
                 .updateReview($rootScope.currentUser.u_id, vm.review)
                 .then(function () {
-                    $location.url('review');
+                    DoctorService
+                        .updateRate(vm.doctor.uid, vm.review)
+                        .then(function () {
+                            $location.url('review');
+                        });
                 });
         }
 

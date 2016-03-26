@@ -3,9 +3,28 @@ var doctorMock = require("./doctor.mock.json");
 module.exports = function () {
     var api = {
         addFavoriteUserById: addFavoriteUserById,
-        addRate: addRate
+        addRate: addRate,
+        updateRate: updateRate,
+        findDoctorById: findDortorById,
+        findRateById: findRateById
     };
     return api;
+
+    function findDortorById(doctorId) {
+        for(var i in doctorMock) {
+            if(doctorMock[i].uid == doctorId) {
+                return doctorMock[i];
+            }
+        }
+        return null;
+    }
+
+    function findRateById(rates, rateId) {
+        for(var i in rates) {
+            if(rates[i].id == rateId) return rates[i];
+        }
+        return null;
+    }
 
     function addFavoriteUserById(doctorId, userId) {
         for(var i in doctorMock) {
@@ -23,9 +42,6 @@ module.exports = function () {
     }
 
     function addRate(doctorId, rate) {
-        console.log(doctorId);
-        console.log("--------------------");
-        console.log(rate);
         for(var i in doctorMock) {
             if(doctorMock[i].uid == doctorId) {
                 doctorMock[i].rates.push(rate);
@@ -40,5 +56,17 @@ module.exports = function () {
         doctorMock.push(newDoctor);
 
         return doctorMock;
+    }
+
+    function updateRate(doctorId, newRate) {
+        var doctor = findDortorById(doctorId);
+        var rate = findRateById(doctor.rates, newRate.id);
+        rate.overall = newRate.overall;
+        rate.bedsideManner = newRate.bedsideManner;
+        rate.waitTime = newRate.waitTime;
+        rate.comments = newRate.comments;
+        rate.reviewDate = newRate.reviewDate;
+
+        return;
     }
 };

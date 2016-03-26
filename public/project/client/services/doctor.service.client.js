@@ -8,7 +8,8 @@
     function DoctorService($http) {
         var api = {
             addFavoriteUserById: addFavoriteUserById,
-            addRate: addRate
+            addRate: addRate,
+            updateRate: updateRate
         };
         return api;
 
@@ -18,6 +19,10 @@
 
         function addRate(doctorId, rate) {
             return $http.post("/api/doctor/" + doctorId +"/rated", rate);
+        }
+
+        function updateRate(doctorId, rate) {
+            return $http.put("/api/doctor/" + doctorId + "/rated", rate);
         }
     }
 })();
