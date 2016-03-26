@@ -19,15 +19,8 @@
                     console.log(vm.data);
                     $rootScope.currentDoctor = response.data.data;
                 });
-
-            //for(var i=0; i<$rootScope.currentDoctors.length; i++) {
-            //    if(vm.uid === $rootScope.currentDoctors[i].uid) {
-            //        vm.data = $rootScope.currentDoctors[i];
-            //    }
-            //}
         }
         init();
-
 
         function addFavorite() {
             //check if the user has logged in

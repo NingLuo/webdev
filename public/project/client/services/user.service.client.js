@@ -42,7 +42,7 @@
             findUserByCredentials: findUserByCredentials,
             register: register,
             addFavoriteByUid: addFavoriteByUid,
-            addRate: addRate,
+            addRateByUid: addRateByUid,
             findReviewsByUserId: findReviewsByUserId,
             findMessagesByUserId: findMessagesByUserId,
             sendMsgTo: sendMsgTo,
@@ -84,26 +84,11 @@
         }
 
         function addFavoriteByUid (userId, doctorUid) {
-
             return $http.get("/api/user/" + userId + "/favorite/" + doctorUid);
-            //for(var i=0; i<users.length; i++) {
-            //    if(users[i].u_id === userId) {
-            //        users[i].favorites.push(uid);
-            //        return true;
-            //    }
-            //}
-
         }
 
-        function addRate(userId, rate) {
-            for(var i=0; i<users.length; i++) {
-                if(users[i].u_id === userId) {
-                    users[i].rates.push(rate);
-                    console.log(rate);
-                    return true;
-                }
-            }
-            return false;
+        function addRateByUid(userId, rate) {
+            return $http.post("/api/user/" + userId + "/rate/", rate);
         }
 
         function findReviewsByUserId(u_id) {

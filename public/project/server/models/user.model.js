@@ -7,7 +7,8 @@ module.exports = function () {
         createUser: createUser,
         updateProfile: updateProfile,
         findUserById: findUserById,
-        addFavoriteByUid: addFavoriteByUid
+        addFavoriteByUid: addFavoriteByUid,
+        addRateByUid: addRateByUid
     };
     return api;
 
@@ -45,9 +46,14 @@ module.exports = function () {
     }
 
     function addFavoriteByUid(userId, doctorUid) {
-        console.log(userId + " " + doctorUid);
         var user = findUserById(userId);
         user.favorites.push(doctorUid);
+        return user;
+    }
+
+    function addRateByUid(userId, rate) {
+        var user = findUserById(userId);
+        user.rates.push(rate);
         return user;
     }
 };

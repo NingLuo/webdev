@@ -5,6 +5,7 @@ module.exports = function (app, UserModel) {
     app.put("/api/user/profile", updateProfile);
     app.get("/api/user/logout", logout);
     app.get("/api/user/:userId/favorite/:doctorUid", addFavoriteByUid);
+    app.post("/api/user/:userId/rate/", addRateByUid);
 
     function findUserByCreDentials(req, res) {
         var credentials = {};
@@ -44,5 +45,13 @@ module.exports = function (app, UserModel) {
         var user = UserModel.addFavoriteByUid(userId, doctorUid);
         req.session.currentUser = user;
         res.send(200);
+    }
+
+    function addRateByUid(req, res) {
+        var userId = req.params.userId;
+        var rate = req.body;
+        var user = UserModel.addRateByUid(userId, rate);
+        req.session.currentUser = user;
+        res.send(200)
     }
 };
