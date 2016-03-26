@@ -5,7 +5,7 @@
         .module("FindDoctorApp")
         .controller("ReviewCtrl", ReviewCtrl);
 
-    function ReviewCtrl ($rootScope, $location, UserService) {
+    function ReviewCtrl ($rootScope, $location, UserService, DoctorService) {
         var vm = this;
         vm.reviews = null;
         vm.edit = edit;
@@ -39,7 +39,12 @@
             UserService
                 .deleteReview($rootScope.currentUser.u_id, review.id)
                 .then(function (response) {
-                    vm.reviews = response.data;
+                    vm.reviews = response.data; // shouldn't be put here, fix this in future version
+                    DoctorService
+                        .deleteRate(review.doctorId, review.id)
+                        .then(function () {
+                            console.log("also deleted rate in doctor model")
+                        });
                 });
         }
     }

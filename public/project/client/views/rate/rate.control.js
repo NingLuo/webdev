@@ -7,7 +7,7 @@
 
     function RateCtrl ($routeParams, $location, $rootScope, DoctorSearchService, UserService, DoctorService) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = $routeParams.uid; //doctor uid
         vm.submit = submit;
         vm.cancel = cancel;
         vm.submitSuccuss = false;   //a boolean variable for controlling the hide and show of success alert in the view

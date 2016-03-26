@@ -9,7 +9,8 @@
         var api = {
             addFavoriteUserById: addFavoriteUserById,
             addRate: addRate,
-            updateRate: updateRate
+            updateRate: updateRate,
+            deleteRate: deleteRate
         };
         return api;
 
@@ -23,6 +24,10 @@
 
         function updateRate(doctorId, rate) {
             return $http.put("/api/doctor/" + doctorId + "/rated", rate);
+        }
+
+        function deleteRate(doctorId, rateId) {
+            return $http.delete("/api/doctor/" + doctorId + "/rated/" + rateId);
         }
     }
 })();

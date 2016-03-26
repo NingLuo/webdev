@@ -6,7 +6,8 @@ module.exports = function () {
         addRate: addRate,
         updateRate: updateRate,
         findDoctorById: findDortorById,
-        findRateById: findRateById
+        findRateById: findRateById,
+        deleteRate: deleteRate
     };
     return api;
 
@@ -68,5 +69,16 @@ module.exports = function () {
         rate.reviewDate = newRate.reviewDate;
 
         return;
+    }
+
+    function deleteRate(doctorId, rateId) {
+        var doctor = findDortorById(doctorId);
+        for(var i in doctor.rates) {
+            if(doctor.rates[i].id == rateId) {
+                doctor.rates.splice(i, 1);
+                return;
+            }
+        }
+        return null;
     }
 };

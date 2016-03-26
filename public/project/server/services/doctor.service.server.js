@@ -2,6 +2,7 @@ module.exports = function(app, DoctorModel) {
     app.get("/api/doctor/:doctorId/favorited/:userId", addFavoriteUserById);
     app.post("/api/doctor/:doctorId/rated", addRate);
     app.put("/api/doctor/:doctorId/rated", updateRate);
+    app.delete("/api/doctor/:doctorId/rated/:rateId", deleteRate);
 
     function addFavoriteUserById(req, res) {
         var doctorId = req.params.doctorId;
@@ -21,6 +22,13 @@ module.exports = function(app, DoctorModel) {
         var doctorId = req.params.doctorId;
         var rate = req.body;
         DoctorModel.updateRate(doctorId, rate);
+        res.send(200);
+    }
+
+    function deleteRate(req, res) {
+        var doctorId = req.params.doctorId;
+        var rateId = req.params.rateId;
+        DoctorModel.deleteRate(doctorId, rateId);
         res.send(200);
     }
 };
