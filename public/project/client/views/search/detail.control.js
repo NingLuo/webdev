@@ -11,13 +11,20 @@
         vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
 
         function init() {
-            //find and render the doctor detail of which the user wants
-            DoctorSearchService
-                .findDoctorByUid(vm.uid)
-                .then(function(response) {
-                    vm.data = response.data.data;
-                    console.log(vm.data);
-                    $rootScope.currentDoctor = response.data.data;
+            UserService
+                .getLoggedInUser()
+                .then(function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        $rootScope.currentUser = currentUser;
+                        //find and render the doctor detail of which the user wants
+                        DoctorSearchService
+                            .findDoctorByUid(vm.uid)
+                            .then(function(response) {
+                                vm.data = response.data.data;
+                                //$rootScope.currentDoctor = response.data.data;
+                            });
+                    }
                 });
         }
         init();

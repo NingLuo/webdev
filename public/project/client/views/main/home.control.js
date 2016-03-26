@@ -5,14 +5,21 @@
         .module("FindDoctorApp")
         .controller("MainController", MainController);
 
-    function MainController ($location, DoctorSearchService) {
+    function MainController ($location, $rootScope, UserService) {
 
         var vm = this;
         vm.illegal = false;
         vm.search = search;
 
         function init() {
-
+            UserService
+                .getLoggedInUser()
+                .then(function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        $rootScope.currentUser = currentUser;
+                    }
+                });
         }
         init();
 

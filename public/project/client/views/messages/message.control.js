@@ -19,12 +19,24 @@
         vm.cancel = cancel;
 
         function init() {
-            if($rootScope.currentUser) {
-               vm.messages =  UserService.findMessagesByUserId($rootScope.currentUser.u_id);
-                console.log(vm.messages);
-            } else {
-                $location.url('/login');
-            }
+            UserService
+                .getLoggedInUser()
+                .then(function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        $rootScope.currentUser = currentUser;
+                        vm.messages =  UserService.findMessagesByUserId($rootScope.currentUser.u_id);
+                    }
+                    else {
+                        $location.url('/login');
+                    }
+                });
+            //if($rootScope.currentUser) {
+            //   vm.messages =  UserService.findMessagesByUserId($rootScope.currentUser.u_id);
+            //    console.log(vm.messages);
+            //} else {
+            //    $location.url('/login');
+            //}
         }
         init();
 

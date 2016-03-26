@@ -3,7 +3,7 @@
         .module("FindDoctorApp")
         .controller("resultCtrl",resultCtrl);
 
-    function resultCtrl($location, $routeParams, $rootScope, DoctorSearchService){
+    function resultCtrl($location, $routeParams, $rootScope, DoctorSearchService, UserService){
         var vm = this;
         vm.specialty = $routeParams.specialty;
         vm.location = $routeParams.location;
@@ -18,13 +18,15 @@
         vm.renderResult = renderResult;
 
         function init() {
-            //console.log(vm.location);
-            search();
-            //DoctorSearchService
-            //    .findDoctorBySpecialtyAndLocation(vm.specialty, vm.location)
-            //    .then(function (response) {
-            //        renderResult(response.data.data);
-            //    });
+            UserService
+                .getLoggedInUser()
+                .then(function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        $rootScope.currentUser = currentUser;
+                        search();
+                    }
+                });
         }
         init();
 
