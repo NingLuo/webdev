@@ -8,6 +8,7 @@ module.exports = function (app, UserModel) {
     app.post("/api/user/:userId/rate/", addRateByUid);
     app.get("/api/user/:userId/rates", findRatesByUserId);
     app.put("/api/user/:userId/rate", updateRate);
+    app.delete("/api/user/:userId/rate/:rateId", deleteRate);
 
     function findUserByCreDentials(req, res) {
         var credentials = {};
@@ -70,5 +71,12 @@ module.exports = function (app, UserModel) {
         var rate = req.body;
         UserModel.updateRate(userId, rate);
         res.send(200);
+    }
+
+    function deleteRate(req, res) {
+        var userId = req.params.userId;
+        var rateId = req.params.rateId;
+        var rates = UserModel.deleteRate(userId, rateId);
+        res.json(rates);
     }
 };

@@ -53,18 +53,15 @@
                         $location.url('/login');
                     }
                 });
-
-
-
         }
         init();
 
         function update() {
-            UserService.updateReview($rootScope.currentUser.u_id, vm.review, callback);
-
-            function callback() {
-                $location.url('review');
-            }
+            UserService
+                .updateReview($rootScope.currentUser.u_id, vm.review)
+                .then(function () {
+                    $location.url('review');
+                });
         }
 
         function cancel() {

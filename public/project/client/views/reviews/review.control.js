@@ -28,17 +28,19 @@
                         $location.url('/login');
                     }
                 });
-
         }
         init();
 
         function edit(review) {
-            console.log(review.id);
             $location.url('editReview/'+ review.id);
         }
 
-        function deleteReview(index) {
-            vm.reviews.splice(index, 1);
+        function deleteReview(review) {
+            UserService
+                .deleteReview($rootScope.currentUser.u_id, review.id)
+                .then(function (response) {
+                    vm.reviews = response.data;
+                });
         }
     }
 })();

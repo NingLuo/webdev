@@ -10,7 +10,8 @@ module.exports = function () {
         addFavoriteByUid: addFavoriteByUid,
         addRateByUid: addRateByUid,
         findRatesByUserId: findRatesByUserId,
-        updateRate: updateRate
+        updateRate: updateRate,
+        deleteRate: deleteRate
     };
     return api;
 
@@ -81,6 +82,16 @@ module.exports = function () {
                 rates[i].comments= rate.comments;
 
                 console.log(rates[i]);
+            }
+        }
+    }
+
+    function deleteRate(userId, rateId) {
+        var rates = findRatesByUserId(userId);
+        for(var i in rates) {
+            if(rates[i].id == rateId) {
+                rates.splice(i, 1);
+                return rates;
             }
         }
     }

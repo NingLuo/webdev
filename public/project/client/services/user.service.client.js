@@ -49,7 +49,8 @@
             updateReview: updateReview,
             getLoggedInUser:getLoggedInUser,
             updateProfile: updateProfile,
-            logout: logout
+            logout: logout,
+            deleteReview: deleteReview
         };
 
         return api;
@@ -121,25 +122,12 @@
             }
         }
 
-        function updateReview(userId, rate, callback) {
+        function updateReview(userId, rate) {
+            return $http.put("/api/user/" + userId + "/rate", rate);
+        }
 
-            $http.put("/api/user/" + userId + "/rate", rate);
-            console.log("update Review");
-            //for(var i=0; i<rates.length; i++) {
-            //    if(rates[i].id == newReview.id) {
-            //        rates[i] = {
-            //            id: newReview.id,
-            //            doctorId: newReview.doctorId,
-            //            doctorName: newReview.doctorName,
-            //            reviewDate: newReview.reviewDate,
-            //            overall: newReview.overall,
-            //            waitTime: newReview.waitTime,
-            //            bedsideManner: newReview.bedsideManner,
-            //            comments: newReview.comments
-            //        }
-            //    }
-            //}
-            //callback();
+        function deleteReview(userId, rateId) {
+            return $http.delete("/api/user/" + userId + "/rate/" + rateId);
         }
     }
 })();
