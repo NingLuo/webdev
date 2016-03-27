@@ -65,7 +65,7 @@
                 .then(function (response) {
                     vm.messages = response.data.messages;
                 });
-        }im
+        }fi
 
         //cancel ongoing reply operation
         function cancel() {
