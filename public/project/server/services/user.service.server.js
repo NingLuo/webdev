@@ -9,6 +9,9 @@ module.exports = function (app, UserModel) {
     app.get("/api/user/:userId/rates", findRatesByUserId);
     app.put("/api/user/:userId/rate", updateRate);
     app.delete("/api/user/:userId/rate/:rateId", deleteRate);
+    app.get("/api/user/:userId/message", findMessageByUserId);
+    app.post("/api/user/:receiverId/message", sendMsgTo);
+    app.delete("/api/user/:userId/message/:msgId", deleteMsg);
 
     function findUserByCreDentials(req, res) {
         var credentials = {};
@@ -76,5 +79,26 @@ module.exports = function (app, UserModel) {
         var rateId = req.params.rateId;
         var rates = UserModel.deleteRate(userId, rateId);
         res.json(rates);
+    }
+
+    function findMessageByUserId(req, res) {
+        var userId = req.params.userId;
+        var messages = UserModel.findMessageByUserId(userId);
+        res.json(messages);
+    }
+
+    function sendMsgTo(req, res) {
+        var receiverId = req.params.receiverId;
+        var msgToSend = req.body;
+        UserModel.sendMsgTo(receiverId, msgToSend);
+        res.send(200);
+    }
+
+    function deleteMsg(req, res) {
+        var userId = req.params.userId;
+        var msgId = req.params.msgId;
+        var user = UserModel.deleteMsg(userId, msgId);
+        req.session.currentUser = user;
+        res.json(user);
     }
 };

@@ -50,21 +50,14 @@
             getLoggedInUser:getLoggedInUser,
             updateProfile: updateProfile,
             logout: logout,
-            deleteReview: deleteReview
+            deleteReview: deleteReview,
+            deleteMsg: deleteMsg
         };
 
         return api;
 
         function findUserByCredentials (credentials) {
-            console.log(credentials.email + " Service " + credentials.password);
             return $http.get('/api/user/login?email=' + credentials.email + '&password=' + credentials.password);
-            //for(var i=0; i < users.length; i++) {
-            //   if (users[i].email === email && users[i].password === password) {
-            //       callback(users[i]);
-            //       return;
-            //   }
-            //}
-            //callback(null);
         }
 
         function register(newUser) {
@@ -94,32 +87,18 @@
 
         function findReviewsByUserId(userId) {
             return $http.get("/api/user/" + userId + "/rates");
-            //for(var i=0; i<users.length; i++) {
-            //    if(users[i].u_id === u_id) {
-            //        //DoctorSearchService.findDoctorByUid(users[i].rates.doctorId);
-            //        return users[i].rates;
-            //    }
-            //}
-            //return null;
         }
 
-        function findMessagesByUserId(u_id) {
-            for(var i=0; i<users.length; i++) {
-                if(users[i].u_id === u_id) {
-                    //DoctorSearchService.findDoctorByUid(users[i].rates.doctorId);
-                    return users[i].messages;
-                }
-            }
-            return null;
+        function findMessagesByUserId(userId) {
+            return $http.get("/api/user/" + userId +"/message");
         }
 
-        function sendMsgTo(msgToSend) {
-            console.log(msgToSend.from);
-            for(var i=0; i<users.length; i++) {
-                if(users[i].username === msgToSend.receiver) {
-                    users[i].messages.push(msgToSend);
-                }
-            }
+        function sendMsgTo(receiverId, msgToSend) {
+            return $http.post("/api/user/" + receiverId + "/message", msgToSend);
+        }
+
+        function deleteMsg(userId, msgId) {
+            return $http.delete("/api/user/" + userId + "/message/" + msgId);
         }
 
         function updateReview(userId, rate) {

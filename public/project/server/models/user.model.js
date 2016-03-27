@@ -11,7 +11,10 @@ module.exports = function () {
         addRateByUid: addRateByUid,
         findRatesByUserId: findRatesByUserId,
         updateRate: updateRate,
-        deleteRate: deleteRate
+        deleteRate: deleteRate,
+        findMessageByUserId: findMessageByUserId,
+        sendMsgTo: sendMsgTo,
+        deleteMsg: deleteMsg
     };
     return api;
 
@@ -92,5 +95,27 @@ module.exports = function () {
                 return rates;
             }
         }
+    }
+
+    function findMessageByUserId(userId) {
+        var user = findUserById(userId);
+        return user.messages;
+    }
+
+    function sendMsgTo(receiverId, msgToSend) {
+        var user = findUserById(receiverId);
+        user.messages.push(msgToSend);
+        return;
+    }
+
+    function deleteMsg(userId, msgId) {
+        var user = findUserById(userId);
+        for(var i in user.messages) {
+            if(user.messages[i].id == msgId) {
+                user.messages.splice(i, 1);
+                return user;
+            }
+        }
+        return null;
     }
 };
