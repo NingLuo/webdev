@@ -8,7 +8,6 @@
     function SingleLineCtrl($uibModalInstance, field, formId, FieldService) {
         var vm = this;
 
-
         vm.field = field;
         vm.update = update;
 

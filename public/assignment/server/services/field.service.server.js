@@ -53,15 +53,6 @@ module.exports = function (app, formModel, fieldModel) {
                     console.log(err);
                 }
             );
-        //var form = formModel.findFormById(formId);
-
-        //for(var i in form.fields) {
-        //    if(form.fields[i]._id == fieldId) {
-        //        form.fields.splice(i, 1);
-        //    }
-        //}
-
-        //res.json(form.fields);
     }
 
     function createField(req, res) {
@@ -83,18 +74,29 @@ module.exports = function (app, formModel, fieldModel) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var newField = req.body;
-        var form = formModel.findFormById(formId);
+        //var form = formModel.findFormById(formId);
+        fieldModel
+            .updateField(formId, fieldId, newField)
+            .then(
+                function (form) {
+                    res.json(form.fields);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
 
-        for(var i in form.fields) {
-            if(form.fields[i]._id == fieldId) {
-                form.fields[i].label = newField.label;
-                form.fields[i].type = newField.type;
-                form.fields[i].placeholder = newField.placeholder;
-                break;
-            }
-        }
 
-        res.json(form.fields);
+        //for(var i in form.fields) {
+        //    if(form.fields[i]._id == fieldId) {
+        //        form.fields[i].label = newField.label;
+        //        form.fields[i].type = newField.type;
+        //        form.fields[i].placeholder = newField.placeholder;
+        //        break;
+        //    }
+        //}
+
+        //res.json(form.fields);
     }
 
     function updateFields(req, res) {
@@ -106,4 +108,4 @@ module.exports = function (app, formModel, fieldModel) {
 
         res.send(form);
     }
-}
+};

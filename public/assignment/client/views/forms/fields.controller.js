@@ -70,7 +70,6 @@
                     console.log("empty field");
                     break;
             }
-            console.log(field);
 
             FieldService
                 .createFieldForForm(formId, field)
