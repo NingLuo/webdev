@@ -8,7 +8,8 @@ module.exports = function () {
         findFormsByUserId: findFormsByUserId,
         updateFormById: updateFormById,
         deleteFormById: deleteFormById,
-        findFormById: findFormById
+        findFormById: findFormById,
+        getMongooseModel: getMongooseModel
     };
     return api;
 
@@ -28,7 +29,12 @@ module.exports = function () {
         return Form.remove({"_id": formId});
     }
 
+    //如果证明不被field需要可以删除这个方法
     function findFormById(formId) {
         return Form.findById(formId);
+    }
+
+    function getMongooseModel() {
+        return Form;
     }
 };

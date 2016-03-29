@@ -1,6 +1,6 @@
 var uuid = require('node-uuid');
 
-module.exports = function (app, formModel) {
+module.exports = function (app, formModel, fieldModel) {
     //var formModel = require("./../models/form.model.js");
 
     app.get("/api/assignment/form/:formId/field", findFieldsByFormId);
@@ -12,10 +12,16 @@ module.exports = function (app, formModel) {
 
     function findFieldsByFormId(req, res) {
         var formId = req.params.formId;
-        var form = formModel.findFormById(formId);
-        var fields = form.fields;
-
-        res.json(fields);
+        fieldModel
+            .findFieldsByFormId(formId)
+            .then(
+                function (fields) {
+                    res.json(fields);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
     function findFieldByFieldId(req, res) {
@@ -51,12 +57,16 @@ module.exports = function (app, formModel) {
     function createField(req, res) {
         var formId = req.params.formId;
         var newField = req.body;
-        var form = formModel.findFormById(formId);
-
-        newField._id = uuid.v4();
-        form.fields.push(newField);
-
-        res.json(form.fields);
+        fieldModel
+            .createField(formId, newField)
+            .then(
+                function (form) {
+                    res.json(form.fields);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
     function updateField(req, res) {
