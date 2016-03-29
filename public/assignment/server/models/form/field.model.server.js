@@ -8,7 +8,8 @@ module.exports = function (formModel) {
 
     var api = {
         findFieldsByFormId: findFieldsByFormId,
-        createField: createField
+        createField: createField,
+        deleteField: deleteField
     };
     return api;
 
@@ -37,5 +38,19 @@ module.exports = function (formModel) {
                     console.log(err);
                 }
             )
+    }
+
+    function deleteField(formId, fieldId) {
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.fields.id(fieldId).remove();
+                    return form.save();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 };

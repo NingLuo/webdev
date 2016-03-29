@@ -80,12 +80,16 @@
         }
 
         function deleteField(fieldId) {
-            console.log("deleteField " + fieldId);
             FieldService
                 .deleteFieldFromForm(formId, fieldId)
-                .then(function (response) {
-                    renderFields(response.data);
-                })
+                .then(
+                    function (response) {
+                        renderFields(response.data);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
         }
 
         function openSingleLine(field) {
