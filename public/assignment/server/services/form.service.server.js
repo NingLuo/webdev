@@ -29,8 +29,16 @@ module.exports = function (app, formModel) {
 
     function deleteFormById(req, res) {
         var formId = req.params.formId;
-        var restForms = model.deleteForm(formId);
-        res.json(restForms);
+        formModel
+            .deleteFormById(formId)
+            .then(
+                function () {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function createForm(req, res) {
@@ -47,7 +55,6 @@ module.exports = function (app, formModel) {
                     res.status(400).send(err);
                 }
             );
-        //res.json(forms);
     }
 
     function updateFormById(req, res) {
@@ -63,6 +70,5 @@ module.exports = function (app, formModel) {
                     res.status(400).send(err);
                 }
             );
-
     }
 };

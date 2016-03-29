@@ -34,7 +34,7 @@
             FormService
                 .createForm(currentUserId, newForm)
                 .then(function (response) {
-                    return FormService.findFormsByUserId(currentUserId)
+                    return FormService.findFormsByUserId(currentUserId);
                 })
                 .then(function (response) {
                     var forms = response.data;
@@ -61,13 +61,11 @@
             FormService
                 .deleteFormById(formId)
                 .then(function (response) {
-                    FormService
-                        .getAllForms(currentUserId)
-                        .then(function (response) {
-                            var forms = response.data;
-                            renderForms(forms);
-                        })
-
+                    return FormService.findFormsByUserId(currentUserId);
+                })
+                .then(function (response) {
+                    var forms = response.data;
+                    renderForms(forms);
                 });
         }
 
