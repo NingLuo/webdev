@@ -33,40 +33,69 @@
         function createForm(newForm) {
             FormService
                 .createForm(currentUserId, newForm)
-                .then(function (response) {
-                    return FormService.findFormsByUserId(currentUserId);
-                })
-                .then(function (response) {
-                    var forms = response.data;
-                    renderForms(forms);
-                    vm.newForm = {};
-                });
+                .then(
+                    function (success) {
+                        return FormService.findFormsByUserId(currentUserId);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+                .then(
+                    function (response) {
+                        var forms = response.data;
+                        renderForms(forms);
+                        vm.newForm = {};
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                );
         }
 
         function updateForm(newForm) {
             FormService
                 .updateFormById(newForm._id, newForm)
-                .then(function () {
-                    FormService
-                        .findFormsByUserId(currentUserId)
-                        .then(function (response) {
-                            var forms = response.data;
-                            renderForms(forms);
-                            vm.newForm = {};
-                        })
-                });
+                .then(
+                    function () {
+                        return FormService.findFormsByUserId(currentUserId);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+                .then(
+                    function (response) {
+                        var forms = response.data;
+                        renderForms(forms);
+                        vm.newForm = {};
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
         }
 
         function deleteForm(formId) {
             FormService
                 .deleteFormById(formId)
-                .then(function (response) {
-                    return FormService.findFormsByUserId(currentUserId);
-                })
-                .then(function (response) {
-                    var forms = response.data;
-                    renderForms(forms);
-                });
+                .then(
+                    function (success) {
+                        return FormService.findFormsByUserId(currentUserId);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+                .then(
+                    function (response) {
+                        var forms = response.data;
+                        renderForms(forms);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                );
         }
 
         function selectForm(form) {

@@ -32,7 +32,7 @@ module.exports = function (app, formModel) {
         formModel
             .deleteFormById(formId)
             .then(
-                function () {
+                function (success) {
                     res.send(200);
                 },
                 function (err) {
