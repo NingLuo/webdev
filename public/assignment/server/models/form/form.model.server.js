@@ -5,7 +5,8 @@ module.exports = function () {
 
     var api = {
         createForm: createForm,
-        findFormsByUserId: findFormsByUserId
+        findFormsByUserId: findFormsByUserId,
+        updateFormById:updateFormById
     };
     return api;
 
@@ -15,5 +16,9 @@ module.exports = function () {
 
     function findFormsByUserId(userId) {
         return Form.find({"userId": userId});
+    }
+
+    function updateFormById(formId, newForm) {
+        return Form.update({"_id": formId}, newForm);
     }
 };

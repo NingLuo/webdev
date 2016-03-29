@@ -11,8 +11,8 @@
         var renderForms = renderForms;
 
         // event handler declarations
-        vm.addForm = addForm;
-        $scope.updateForm = updateForm;
+        vm.createForm = createForm;
+        vm.updateForm = updateForm;
         vm.deleteForm = deleteForm;
         vm.selectForm = selectForm;
 
@@ -30,27 +30,25 @@
             vm.currentUserForms = userForms;
         }
 
-        function addForm(newForm) {
-            console.log(newForm.title);
+        function createForm(newForm) {
             FormService
                 .createForm(currentUserId, newForm)
                 .then(function (response) {
-                    FormService
-                        .findFormsByUserId(currentUserId)
-                        .then(function (response) {
-                            var forms = response.data;
-                            renderForms(forms);
-                            vm.newForm = {};
-                        })
+                    return FormService.findFormsByUserId(currentUserId)
+                })
+                .then(function (response) {
+                    var forms = response.data;
+                    renderForms(forms);
+                    vm.newForm = {};
                 });
         }
 
         function updateForm(newForm) {
             FormService
                 .updateFormById(newForm._id, newForm)
-                .then(function (response) {
+                .then(function () {
                     FormService
-                        .getAllForms(currentUserId)
+                        .findFormsByUserId(currentUserId)
                         .then(function (response) {
                             var forms = response.data;
                             renderForms(forms);

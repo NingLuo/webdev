@@ -79,7 +79,7 @@ module.exports = function (app, userModel) {
         userModel
             .updateUser(userId, newUser)
             .then(
-                function (reponse) {
+                function () {
                     req.session.currentUser = newUser;
                     res.send(200);
                 },
