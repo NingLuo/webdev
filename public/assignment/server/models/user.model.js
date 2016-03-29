@@ -4,7 +4,7 @@ module.exports = function() {
     var api = {
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
-        createUser: createUser,
+        createUser: createUser, //done
         findAllUsers: findAllUsers,
         findUserById: findUserById,
         updateUser: updateUser,

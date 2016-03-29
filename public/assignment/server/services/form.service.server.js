@@ -1,19 +1,27 @@
-module.exports = function (app, model) {
-    var formModel = require("./../models/form.model.js");
+module.exports = function (app, formModel) {
+    //var formModel = require("./../models/form.model.js");
 
-    app.get("/api/assignment/user/:userId/form", getFormsByUserId);
-    app.get("/api/assignment/form/:formId", getFormById);
+    app.get("/api/assignment/user/:userId/form", findFormsByUserId);
+    app.get("/api/assignment/form/:formId", findFormById);
     app.delete("/api/assignment/form/:formId", deleteFormById);
     app.post("/api/assignment/user/:userId/form", createForm);
     app.put("/api/assignment/form/:formId", updateForm);
 
-    function getFormsByUserId(req, res) {
+    function findFormsByUserId(req, res) {
         var userId = req.params.userId;
-        var forms = model.findFormsByUserId(userId);
-        res.json(forms);
+        formModel
+            .findFormsByUserId(userId)
+            .then(
+                function (forms) {
+                    res.json(forms);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
-    function getFormById(req, res) {
+    function findFormById(req, res) {
         var formId = req.params.formId;
         var form = model.findFormById(formId);
         res.json(form);
@@ -28,8 +36,18 @@ module.exports = function (app, model) {
     function createForm(req, res) {
         var userId = req.params.userId;
         var newForm = req.body;
-        var forms = model.createForm(userId, newForm);
-        res.json(forms);
+        newForm.userId = userId;
+        formModel
+            .createForm(newForm)
+            .then(
+                function (form) {
+                    res.json(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+        //res.json(forms);
     }
 
     function updateForm(req, res) {
@@ -38,4 +56,4 @@ module.exports = function (app, model) {
         var forms = model.updateForm(formId, newForm);
         res.json(forms);
     }
-}
+};

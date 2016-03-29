@@ -4,23 +4,37 @@ var bodyParser    = require('body-parser');
 var multer        = require('multer');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
-//Factual API
-var Factual = require('factual-api');
-var factual = new Factual('ksAE1xJeGZBoRvvJ6obQDWIDoxYZZ5fmDr6ImOhG', '4yVQ5f1KWMsc6l7EzjlzK7pj3JmE5vmtTzAuc5kc');
 
-//Yelp API
-//var Yelp = require('yelp');
-//var yelp = new Yelp({
-//    consumer_key: 'zYF3wNNT1BNWX8888RURMw',
-//    consumer_secret: 'KR9ocr3VE84rvz3CrJmAQcuF_1g',
-//    token: 'mA_P-dp13eKzjLYbWGnWyDqGQxpUgIu7',
-//    token_secret: 'fMxkgwKzTbx5Kc2OFxAA5_rCwBc'
-//});
+//install and require the mongoose library
+var mongoose      = require('mongoose');
+
+//create a connection String to local database, cs5610 is the database name, 127.0.0.1:27071 == localhost
+var connectionString = 'mongodb://localhost/cs5610';
+
+//create a connection String to Openshift, the mongoDB instance that runs on Openshif has its own IP address, port number,
+//user name and password and so on.
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {   //to check am I running locally? If this PASSWORD exists, then I'm running remotely
+    connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+        process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+        process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+        process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+        process.env.OPENSHIFT_APP_NAME;   // the name of the database, default value is the same as application name
+}
+//* all of those sensitive info above are made available to node.js instance through envrionment variables which are saved locally
+
+//connect to the database
+var db = mongoose.connect(connectionString);
+
+//test database connection, get notified if we connect successfully or if a connection error occurs
+mongodb = mongoose.connection;
+mongodb.on("error", console.error.bind(console, 'connection error:'));
+mongodb.once("open", function () {
+    console.log("we are connected to the database!");
+});
 
 app.use(express.static(__dirname + '/public'));
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,20 +42,7 @@ app.use(multer());
 app.use(session({ secret: "mySecret" }));
 app.use(cookieParser());
 
-//The get() method allows you to map a url to an executable
-app.get('/say/hello', function(req, res){
-    res.send('hello world');
-});
-app.get('/api/users', function(req, res){
-    var users = [
-        {username: "Ergou", first: "Ning", last: "Luo"},
-        {username: "Scarlet", first: "Yuan", last: "Fang"},
-        {username: "Kii", first: "Beyond", last: "Xu"}
-    ];
-    res.json(users);
-});
-
-require("./public/assignment/server/app.js")(app);
+require("./public/assignment/server/app.js")(app, db);
 require("./public/project/server/app.js")(app);
 
 app.listen(port, ipaddress);

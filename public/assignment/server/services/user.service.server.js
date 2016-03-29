@@ -1,11 +1,9 @@
-module.exports = function (app, model) {
-    //var userModel = require("./../models/user.model.js");
-
+module.exports = function (app, userModel) {
     app.post("/api/assignment/user", createUser);
     app.get("/api/assignment/user", getAllUsers);
-    app.get("/api/assignment/user/:id", getUserById);
+    app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
-    app.get("/api/assignment/login", getUserByCredentials); // 自己修改了一下,跟要求不一样
+    app.get("/api/assignment/login", findUserByCredentials); // 自己修改了一下,跟要求不一样
     app.get("/api/assignment/loggedin", loggedin);
     app.post("/api/assignment/logout", logout);
     app.put("/api/assignment/user/:id", updateUser);
@@ -16,15 +14,20 @@ module.exports = function (app, model) {
         console.log("username");
     }
 
-    function getUserByCredentials(req, res) {
-        //var username = req.param('username');
-        //var password = req.param('password');
+    function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        var user = model.findUserByCredentials({username: username, password: password});
-        req.session.currentUser = user;
-        console.log(user);
-        res.json(user);
+        userModel
+            .findUserByCredentials({username: username, password: password})
+            .then(
+                function (user) {
+                    req.session.currentUser = user;
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function loggedin(req, res) {
@@ -38,9 +41,17 @@ module.exports = function (app, model) {
 
     function createUser(req, res) {
         var user = req.body;
-        var newUser = model.createUser(user);
-        req.session.currentUser = newUser;
-        res.json(newUser);
+        model
+            .createUser(user)
+            .then(
+                function (user) {
+                    req.session.currentUser = user; //注意不再是response.data了!
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getAllUsers(req, res) {
@@ -48,18 +59,34 @@ module.exports = function (app, model) {
         res.json(users);
     }
 
-    function getUserById(req, res) {
+    function findUserById(req, res) {
         var userId = req.params.id;
-        var user = model.findUserById(userId);
-        res.json(user);
+        userModel
+            .findUserById(userId)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateUser(req, res) {
         var newUser = req.body;
         var userId = req.params.id;
-        var user = model.updateUser(userId, newUser);
-        req.session.currentUser = user;
-        res.send(200);
+        userModel
+            .updateUser(userId, newUser)
+            .then(
+                function (reponse) {
+                    req.session.currentUser = newUser;
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteUser(req, res) {
@@ -67,4 +94,4 @@ module.exports = function (app, model) {
         var restUsers = model.deleteUser(userId);
         res.json(restUsers);
     }
-}
+};

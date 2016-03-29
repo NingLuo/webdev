@@ -18,7 +18,7 @@
 
         function init() {
             FormService
-                .getAllForms(currentUserId)
+                .findFormsByUserId(currentUserId)
                 .then(function (response) {
                     renderForms(response.data);
                 })
@@ -33,10 +33,10 @@
         function addForm(newForm) {
             console.log(newForm.title);
             FormService
-                .addForm(currentUserId, newForm)
+                .createForm(currentUserId, newForm)
                 .then(function (response) {
                     FormService
-                        .getAllForms(currentUserId)
+                        .findFormsByUserId(currentUserId)
                         .then(function (response) {
                             var forms = response.data;
                             renderForms(forms);

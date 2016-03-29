@@ -1,4 +1,5 @@
 module.exports = function (app, UserModel) {
+    //The get() method allows you to map a url to an executable
     app.get('/api/user/login', findUserByCreDentials);
     app.post("/api/user/register", register);
     app.get("/api/user/loggedIn", getLoggedInUser);
