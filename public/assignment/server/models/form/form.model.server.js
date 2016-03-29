@@ -7,7 +7,8 @@ module.exports = function () {
         createForm: createForm,
         findFormsByUserId: findFormsByUserId,
         updateFormById: updateFormById,
-        deleteFormById: deleteFormById
+        deleteFormById: deleteFormById,
+        findFormById: findFormById
     };
     return api;
 
@@ -25,5 +26,9 @@ module.exports = function () {
 
     function deleteFormById(formId) {
         return Form.remove({"_id": formId});
+    }
+
+    function findFormById(formId) {
+        return Form.findById(formId);
     }
 };
