@@ -21,6 +21,7 @@
         }
 
         function update() {
+            //convert string back to option option object
             var optArray = vm.optStr.split("\n");
             for(var i in field.options)
             {
