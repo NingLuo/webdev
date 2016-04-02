@@ -80,6 +80,9 @@ module.exports = function (app, userModel) {
         if(typeof newUser.phones == "string") {
             newUser.phones = newUser.phones.split(",");
         }
+        if(typeof newUser.emails == "string") {
+            newUser.emails = newUser.emails.split(",");
+        }
         var userId = req.params.id;
         userModel
             .updateUser(userId, newUser)

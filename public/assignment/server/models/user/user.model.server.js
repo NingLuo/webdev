@@ -17,7 +17,6 @@ module.exports = function (db) {
     }
 
     function updateUser(userId, user) {
-        //this version cannot add new email
         return User.update({"_id": userId}, user);
     }
 
