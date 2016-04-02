@@ -16,10 +16,10 @@ module.exports = function (db) {
         return User.create(user);
     }
 
-    function updateUser(userId, newUser) {
+    function updateUser(userId, user) {
         userId = mongoose.Types.ObjectId(userId);
-        delete newUser._id;
-        return User.update({"_id": userId}, newUser);
+        delete user._id;
+        return User.update({"_id": userId}, user);
     }
 
     function findUserByCredentials(credentials) {
