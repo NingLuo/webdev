@@ -4,7 +4,6 @@
 module.exports = function (formModel) {
 
     var Form = formModel.getMongooseModel();
-    //var Field = mongoose.model('Field', FieldSchema);
 
     var api = {
         findFieldsByFormId: findFieldsByFormId,
