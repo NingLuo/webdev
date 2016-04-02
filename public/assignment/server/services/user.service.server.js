@@ -75,6 +75,11 @@ module.exports = function (app, userModel) {
 
     function updateUser(req, res) {
         var newUser = req.body;
+        //check if type of phonse is string then split it into an array of strings
+        //if it's not a string but an array of string(which means it hasn't been modified at client side), then do nothing
+        if(typeof newUser.phones == "string") {
+            newUser.phones = newUser.phones.split(",");
+        }
         var userId = req.params.id;
         userModel
             .updateUser(userId, newUser)
