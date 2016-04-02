@@ -17,6 +17,7 @@ module.exports = function (db) {
     }
 
     function updateUser(userId, user) {
+        userId = mongoose.Types.ObjectId(userId);
         return User.update({"_id": userId}, user);
     }
 
