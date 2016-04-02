@@ -16,6 +16,7 @@
         vm.openEmailPop = openEmailPop;
         vm.openCheckboxPop = openCheckboxPop;
         vm.openRadioButtonPop = openRadioButtonPop;
+        vm.openPasswordPop = openPasswordPop;
 
         function init() {
             formId = $routeParams.formId;
@@ -45,6 +46,10 @@
                 case "Email Field":
                     console.log("Email Field");
                     field = {"label": "New Email Field", "type": "EMAIL", "placeholder": "New EMAIL"};
+                    break;
+                case "Password Field":
+                    console.log("Password Field");
+                    field = {"label": "New Password Field", "type": "PASSWORD", "placeholder": "New PASSWORD"};
                     break;
                 case "Date Field":
                     field = {"label": "New Date Field", "type": "DATE"};
@@ -208,6 +213,33 @@
                 {
                     templateUrl: "views/forms/emailPop.view.html",
                     controller: 'EmailPopCtrl as model',
+                    resolve: {
+                        field: function () {
+                            var popField = {};
+                            popField._id = field._id;
+                            popField.label = field.label;
+                            popField.type = field.type;
+                            popField.placeholder = field.placeholder;
+
+                            return popField;
+                        },
+                        formId: function () {
+                            return formId;
+                        }
+                    }
+                }
+            );
+
+            modalInstance.result.then(function (response) {
+                renderFields(response.data);
+            });
+        }
+
+        function openPasswordPop(field) {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: "views/forms/passwordPop.view.html",
+                    controller: 'PasswordPopCtrl as model',
                     resolve: {
                         field: function () {
                             var popField = {};
