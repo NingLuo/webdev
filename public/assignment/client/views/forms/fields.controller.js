@@ -42,6 +42,10 @@
                     console.log("Multi Line");
                     field = {"label": "New Text Field", "type": "TEXTAREA", "placeholder": "New Field"};
                     break;
+                case "Email Field":
+                    console.log("Email Field");
+                    field = {"label": "New Email Field", "type": "EMAIL", "placeholder": "New EMAIL"};
+                    break;
                 case "Date Field":
                     field = {"label": "New Date Field", "type": "DATE"};
                     break;
@@ -199,13 +203,31 @@
             });
         }
 
-        function openEmailPop() {
+        function openEmailPop(field) {
             var modalInstance = $uibModal.open(
                 {
                     templateUrl: "views/forms/emailPop.view.html",
-                    controller: 'EmailPopCtrl as model'
+                    controller: 'EmailPopCtrl as model',
+                    resolve: {
+                        field: function () {
+                            var popField = {};
+                            popField._id = field._id;
+                            popField.label = field.label;
+                            popField.type = field.type;
+                            popField.placeholder = field.placeholder;
+
+                            return popField;
+                        },
+                        formId: function () {
+                            return formId;
+                        }
+                    }
                 }
-            )
+            );
+
+            modalInstance.result.then(function (response) {
+                renderFields(response.data);
+            });
         }
 
         function openCheckboxPop(field) {
