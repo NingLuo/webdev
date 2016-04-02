@@ -85,27 +85,20 @@ module.exports = function (app, formModel, fieldModel) {
                     console.log(err);
                 }
             );
-
-
-        //for(var i in form.fields) {
-        //    if(form.fields[i]._id == fieldId) {
-        //        form.fields[i].label = newField.label;
-        //        form.fields[i].type = newField.type;
-        //        form.fields[i].placeholder = newField.placeholder;
-        //        break;
-        //    }
-        //}
-
-        //res.json(form.fields);
     }
 
     function updateFields(req, res) {
-        console.log("updateFields server");
         var formId = req.params.formId;
         var fields = req.body;
-        var form = formModel.findFormById(formId);
-        form.fields = fields;
-
-        res.send(form);
+        fieldModel
+            .updateFields(formId, fields)
+            .then(
+                function (form) {
+                    res.json(form);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 };

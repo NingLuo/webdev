@@ -69,11 +69,17 @@ angular.module('ui.sortable', [])
           }
 
           function afterStop(e, ui) {
+            //this is where I added my code
             FieldService
                 .updateFields($routeParams.formId, ngModel.$modelValue)
-                .then(function (response) {
+                .then(
+                    function (response) {
                       console.log(response.data);
-                });
+                    },
+                    function (err) {
+                      console.log(err);
+                    }
+                );
             ui.item.sortable._destroy();
           }
 

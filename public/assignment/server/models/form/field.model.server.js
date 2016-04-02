@@ -10,7 +10,8 @@ module.exports = function (formModel) {
         findFieldsByFormId: findFieldsByFormId,
         createField: createField,
         deleteField: deleteField,
-        updateField: updateField
+        updateField: updateField,
+        updateFields: updateFields
     };
     return api;
 
@@ -64,6 +65,20 @@ module.exports = function (formModel) {
                     field.label = newField.label;
                     field.placeholder = newField.placeholder;
                     field.options = newField.options;
+                    return form.save();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
+    }
+
+    function updateFields(formId, newFields) {
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.fields = newFields;
                     return form.save();
                 },
                 function (err) {
