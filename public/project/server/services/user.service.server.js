@@ -1,9 +1,9 @@
 module.exports = function (app, UserModel) {
     //The get() method allows you to map a url to an executable
-    app.get('/api/user/login', findUserByCreDentials);
+    app.get('/api/user/login', login);
     app.post("/api/user/register", register);
     app.get("/api/user/loggedIn", getLoggedInUser);
-    app.put("/api/user/profile", updateProfile);
+    app.put("/api/user/profile", updateUser);
     app.get("/api/user/logout", logout);
     app.get("/api/user/:userId/favorite/:doctorUid", addFavoriteByUid);
     app.post("/api/user/:userId/rate/", addRateByUid);
@@ -14,31 +14,55 @@ module.exports = function (app, UserModel) {
     app.post("/api/user/:receiverId/message", sendMsgTo);
     app.delete("/api/user/:userId/message/:msgId", deleteMsg);
 
-    function findUserByCreDentials(req, res) {
+    function login(req, res) {
         var credentials = {};
         credentials.email = req.query.email;
         credentials.password = req.query.password;
-        var user = UserModel.findUserByCredentials(credentials);
-        req.session.currentUser = user;
-        res.json(user);
+        UserModel
+            .findUserByCredentials(credentials)
+            .then(
+                function (user) {
+                    req.session.currentUser = user;
+                    res.json(user);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
     function register(req, res) {
         var newUser = req.body;
-        var user = UserModel.createUser(newUser);
-        req.session.currentUser = user;
-        res.json(user);
+        UserModel
+            .createUser(newUser)
+            .then(
+                function (user) {
+                    req.session.currentUser = user;
+                    res.json(user);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
     function getLoggedInUser(req, res) {
         res.json(req.session.currentUser);
     }
 
-    function updateProfile(req, res) {
-        var profile = req.body;
-        var user = UserModel.updateProfile(profile);
-        req.session.currentUser = user;
-        res.json(user);
+    function updateUser(req, res) {
+        var newUser = req.body;
+        UserModel
+            .updateUser(newUser)
+            .then(
+                function (response) {
+                    req.session.currentUser = newUser;
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
     function logout(req, res) {

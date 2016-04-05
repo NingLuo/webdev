@@ -25,7 +25,10 @@
             .when('/profile', {
                 templateUrl: 'views/users/profile.view.html',
                 controller: 'ProfileCtrl',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when('/result/specialty/:specialty/location/:location/insurance/:insurance/gender/:gender/name/:name', {
                 templateUrl: 'views/search/result.view.html',
@@ -70,5 +73,28 @@
             .otherwise({
                 redirectTo: "/"
             });
+    }
+
+    function checkLoggedIn(UserService, $q) {
+        var deferred = $q.defer();
+        UserService
+            .getLoggedInUser()
+            .then(
+                function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        UserService.setCurrentUser(currentUser);
+                        deferred.resolve();
+                    } else {
+                        deferred.reject();
+                    }
+                },
+                function (err) {
+                    console.log(err);
+                    deferred.reject();
+                }
+            );
+
+        return deferred.promise;
     }
 })();

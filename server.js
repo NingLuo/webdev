@@ -43,7 +43,7 @@ app.use(session({ secret: "mySecret" }));
 app.use(cookieParser());
 
 require("./public/assignment/server/app.js")(app, db);
-require("./public/project/server/app.js")(app);
+require("./public/project/server/app.js")(app, db);
 
 app.listen(port, ipaddress);
 

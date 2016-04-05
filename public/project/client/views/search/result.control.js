@@ -18,15 +18,16 @@
         vm.renderResult = renderResult;
 
         function init() {
-            UserService
-                .getLoggedInUser()
-                .then(function (response) {
-                    var currentUser = response.data;
-                    if(currentUser) {
-                        $rootScope.currentUser = currentUser;
-                        search();
-                    }
-                });
+            search();
+            //UserService
+            //    .getLoggedInUser()
+            //    .then(function (response) {
+            //        var currentUser = response.data;
+            //        if(currentUser) {
+            //            $rootScope.currentUser = currentUser;
+            //            search();
+            //        }
+            //    });
         }
         init();
 
