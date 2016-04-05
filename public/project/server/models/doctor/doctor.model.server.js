@@ -24,6 +24,10 @@ module.exports = function () {
                     if(!doctor) {
                         return createDoctor(doctorUid, userId);
                     } else {
+                        //need to check if the doctor has already been favorited by this user
+                        for(var i in doctor.favoritedBy) {
+                            if(doctor.favoritedBy[i] == userId) return "This doctor has already been favorited by you before!"
+                        }
                         doctor.favoritedBy.push(userId);
                         return doctor.save();
                     }

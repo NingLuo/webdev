@@ -26,7 +26,6 @@
                     return DoctorService.addFavoritedBy(vm.uid, $rootScope.currentUser._id);
                 })
                 .then(function (res) {
-                    //console.log("doctor side now knows this user");
                     vm.addSuccess = true;
                 });
         }
