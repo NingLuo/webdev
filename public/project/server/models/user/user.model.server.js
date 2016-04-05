@@ -7,7 +7,8 @@ module.exports = function () {
     var api = {
         createUser: createUser,
         findUserByCredentials: findUserByCredentials,
-        updateUser: updateUser
+        updateUser: updateUser,
+        addFavoriteByUid: addFavoriteByUid
     };
     return api;
 
@@ -23,5 +24,23 @@ module.exports = function () {
         var userId = mongoose.Types.ObjectId(newUser._id);
         delete newUser._id;
         return User.update({"_id": userId}, newUser);
+    }
+
+    function addFavoriteByUid(userId, doctorUid) {
+        return User
+            .findById(userId)
+            .then(
+                function (user) {
+                    //need to check if the user has already favorited this doctor
+                    for(var i in user.favorites) {
+                        if(user.favorites[i] == doctorUid) return "You have alreay liked this doctor before!";
+                    }
+                    user.favorites.push(doctorUid);
+                    return user.save();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 };

@@ -11,41 +11,24 @@
         vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
 
         function init() {
-            UserService
-                .getLoggedInUser()
-                .then(function (response) {
-                    var currentUser = response.data;
-                    if(currentUser) {
-                        $rootScope.currentUser = currentUser;
-                        //find and render the doctor detail of which the user wants
-                        DoctorSearchService
-                            .findDoctorByUid(vm.uid)
-                            .then(function(response) {
-                                vm.data = response.data.data;
-                                //$rootScope.currentDoctor = response.data.data;
-                            });
-                    }
+            DoctorSearchService
+                .findDoctorByUid(vm.uid)
+                .then(function(response) {
+                    vm.data = response.data.data;
                 });
         }
         init();
 
         function addFavorite() {
-            //check if the user has logged in
-            if($rootScope.currentUser) {
-                UserService
-                    .addFavoriteByUid($rootScope.currentUser.u_id ,vm.uid)
-                    .then(function (res) {
-                        vm.addSuccess = true;
-                    });
-                DoctorService
-                    .addFavoriteUserById(vm.uid, $rootScope.currentUser.u_id)
-                    .then(function (res) {
-                        console.log("doctor side now knows this user");
-                    });
-            } else {
-                //if user is not logged in, redirect to login page
-                $location.url('/login');
-            }
+            UserService
+                .addFavoriteByUid($rootScope.currentUser._id ,vm.uid)
+                .then(function () {
+                    return DoctorService.addFavoritedBy(vm.uid, $rootScope.currentUser._id);
+                })
+                .then(function (res) {
+                    //console.log("doctor side now knows this user");
+                    vm.addSuccess = true;
+                });
         }
 
         function rate() {

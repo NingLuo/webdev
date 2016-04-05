@@ -7,15 +7,15 @@
 
     function DoctorService($http) {
         var api = {
-            addFavoriteUserById: addFavoriteUserById,
+            addFavoritedBy: addFavoritedBy,
             addRate: addRate,
             updateRate: updateRate,
             deleteRate: deleteRate
         };
         return api;
 
-        function addFavoriteUserById(doctorId, userId) {
-            return $http.get("/api/doctor/" + doctorId + "/favorited/" + userId);
+        function addFavoritedBy(doctorUid, userId) {
+            return $http.get("/api/doctor/" + doctorUid + "/favorited/" + userId);
         }
 
         function addRate(doctorId, rate) {

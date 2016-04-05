@@ -75,7 +75,7 @@
             });
     }
 
-    function checkLoggedIn(UserService, $q) {
+    function checkLoggedIn(UserService, $q, $location) {
         var deferred = $q.defer();
         UserService
             .getLoggedInUser()
@@ -87,6 +87,7 @@
                         deferred.resolve();
                     } else {
                         deferred.reject();
+                        $location.url("/login");
                     }
                 },
                 function (err) {

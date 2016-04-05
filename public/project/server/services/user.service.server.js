@@ -73,9 +73,17 @@ module.exports = function (app, UserModel) {
     function addFavoriteByUid(req, res) {
         var userId = req.params.userId;
         var doctorUid = req.params.doctorUid;
-        var user = UserModel.addFavoriteByUid(userId, doctorUid);
-        req.session.currentUser = user;
-        res.send(200);
+        UserModel
+            .addFavoriteByUid(userId, doctorUid)
+            .then(
+                function (response) {
+                    console.log(response);
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
     function addRateByUid(req, res) {

@@ -1,14 +1,23 @@
 module.exports = function(app, DoctorModel) {
-    app.get("/api/doctor/:doctorId/favorited/:userId", addFavoriteUserById);
+    app.get("/api/doctor/:doctorUid/favorited/:userId", addFavoritedBy);
     app.post("/api/doctor/:doctorId/rated", addRate);
     app.put("/api/doctor/:doctorId/rated", updateRate);
     app.delete("/api/doctor/:doctorId/rated/:rateId", deleteRate);
 
-    function addFavoriteUserById(req, res) {
-        var doctorId = req.params.doctorId;
+    function addFavoritedBy(req, res) {
+        var doctorUid = req.params.doctorUid;
         var userId = req.params.userId;
-        var doctor = DoctorModel.addFavoriteUserById(doctorId, userId);
-        res.send(200);
+        DoctorModel
+            .addFavoritedBy(doctorUid, userId)
+            .then(
+                function (response) {
+                    console.log(response);
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
     function addRate(req, res) {
