@@ -6,7 +6,8 @@ module.exports = function (app, UserModel) {
     app.put("/api/user/profile", updateUser);
     app.get("/api/user/logout", logout);
     app.get("/api/user/:userId/favorite/:doctorUid", addFavoriteByUid);
-    app.post("/api/user/:userId/rate/", addRateByUid);
+    //app.post("/api/user/:userId/rate/", addRateByUid);
+    app.put("/api/user/:userId/review/:reviewId", addReview);
     app.get("/api/user/:userId/rates", findRatesByUserId);
     app.put("/api/user/:userId/rate", updateRate);
     app.delete("/api/user/:userId/rate/:rateId", deleteRate);
@@ -86,13 +87,28 @@ module.exports = function (app, UserModel) {
             );
     }
 
-    function addRateByUid(req, res) {
+    function addReview(req, res) {
         var userId = req.params.userId;
-        var rate = req.body;
-        var user = UserModel.addRateByUid(userId, rate);
-        req.session.currentUser = user;
-        res.send(200);
+        var reviewId = req.params.reviewId;
+        UserModel
+            .addReview(userId, reviewId)
+            .then(
+                function (response) {
+                    console.log(response);
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
     }
+    //function addRateByUid(req, res) {
+    //    var userId = req.params.userId;
+    //    var rate = req.body;
+    //    var user = UserModel.addRateByUid(userId, rate);
+    //    req.session.currentUser = user;
+    //    res.send(200);
+    //}
 
     function findRatesByUserId(req, res) {
         var userId = req.params.userId;

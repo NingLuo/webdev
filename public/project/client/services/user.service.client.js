@@ -42,15 +42,16 @@
             findUserByCredentials: findUserByCredentials,
             register: register,
             addFavoriteByUid: addFavoriteByUid,
-            addRateByUid: addRateByUid,
-            findReviewsByUserId: findReviewsByUserId,
+            //addRateByUid: addRateByUid,
+            addReview: addReview,
+            //findReviewsByUserId: findReviewsByUserId,
             findMessagesByUserId: findMessagesByUserId,
             sendMsgTo: sendMsgTo,
-            updateReview: updateReview,
+            //updateReview: updateReview,
             getLoggedInUser:getLoggedInUser,
             updateUser: updateUser,
             logout: logout,
-            deleteReview: deleteReview,
+            //deleteReview: deleteReview,
             deleteMsg: deleteMsg,
             setCurrentUser: setCurrentUser
         };
@@ -87,13 +88,16 @@
             return $http.get("/api/user/" + userId + "/favorite/" + doctorUid);
         }
 
-        function addRateByUid(userId, rate) {
-            return $http.post("/api/user/" + userId + "/rate/", rate);
+        function addReview(userId, reviewId) {
+            return $http.put("/api/user/" + userId +"/review/" + reviewId);
         }
+        //function addRateByUid(userId, rate) {
+        //    return $http.post("/api/user/" + userId + "/rate/", rate);
+        //}
 
-        function findReviewsByUserId(userId) {
-            return $http.get("/api/user/" + userId + "/rates");
-        }
+        //function findReviewsByUserId(userId) {
+        //    return $http.get("/api/user/" + userId + "/rates");
+        //}
 
         function findMessagesByUserId(userId) {
             return $http.get("/api/user/" + userId +"/message");
@@ -107,12 +111,12 @@
             return $http.delete("/api/user/" + userId + "/message/" + msgId);
         }
 
-        function updateReview(userId, rate) {
-            return $http.put("/api/user/" + userId + "/rate", rate);
-        }
+        //function updateReview(userId, rate) {
+        //    return $http.put("/api/user/" + userId + "/rate", rate);
+        //}
 
-        function deleteReview(userId, rateId) {
-            return $http.delete("/api/user/" + userId + "/rate/" + rateId);
-        }
+        //function deleteReview(userId, rateId) {
+        //    return $http.delete("/api/user/" + userId + "/rate/" + rateId);
+        //}
     }
 })();

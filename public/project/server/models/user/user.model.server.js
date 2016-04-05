@@ -8,7 +8,8 @@ module.exports = function () {
         createUser: createUser,
         findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
-        addFavoriteByUid: addFavoriteByUid
+        addFavoriteByUid: addFavoriteByUid,
+        addReview: addReview
     };
     return api;
 
@@ -42,5 +43,19 @@ module.exports = function () {
                     console.log(err);
                 }
             );
+    }
+
+    function addReview(userId, reviewId) {
+        return User
+            .findById(userId)
+            .then(
+                function (user) {
+                    user.reviews.push(reviewId);
+                    return user.save();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
     }
 };

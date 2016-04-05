@@ -43,7 +43,10 @@
             .when('/rate/:uid', {
                 templateUrl: 'views/rate/rate.view.html',
                 controller: 'RateCtrl',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when('/favorite', {
                 templateUrl: 'views/favorites/favorite.view.html',
