@@ -5,7 +5,7 @@
         .module("FindDoctorApp")
         .controller("ProfileCtrl", ProfileCtrl);
 
-    function ProfileCtrl($rootScope, $location, UserService) {
+    function ProfileCtrl($rootScope, UserService) {
         var vm = this;
         vm.currentUser = {}; //if vm.currentUser = null, system will report error --> can not set u_id of null value on line 23
         vm.updateProfile = updateProfile;
