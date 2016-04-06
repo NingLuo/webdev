@@ -9,6 +9,7 @@ module.exports = function () {
         findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
         addFavoriteByUid: addFavoriteByUid,
+        unfavorite: unfavorite,
         addReview: addReview
     };
     return api;
@@ -43,6 +44,25 @@ module.exports = function () {
                     console.log(err);
                 }
             );
+    }
+
+    function unfavorite(userId, doctorUid) {
+        return User
+            .findById(userId)
+            .then(
+                function (user) {
+                    for(var i in user.favorites) {
+                        if(user.favorites[i] == doctorUid) {
+                            user.favorites.splice(i, 1);
+                            break;
+                        }
+                    }
+                    return user.save();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
     }
 
     function addReview(userId, reviewId) {

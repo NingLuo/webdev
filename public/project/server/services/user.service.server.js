@@ -6,6 +6,7 @@ module.exports = function (app, UserModel) {
     app.put("/api/user/profile", updateUser);
     app.get("/api/user/logout", logout);
     app.get("/api/user/:userId/favorite/:doctorUid", addFavoriteByUid);
+    app.delete("/api/user/:userId/favorite/:doctorUid", unfavorite);
     //app.post("/api/user/:userId/rate/", addRateByUid);
     app.put("/api/user/:userId/review/:reviewId", addReview);
     app.get("/api/user/:userId/rates", findRatesByUserId);
@@ -78,13 +79,30 @@ module.exports = function (app, UserModel) {
             .addFavoriteByUid(userId, doctorUid)
             .then(
                 function (response) {
-                    console.log(response);
+                    //if the response is not "You have alreay liked this doctor before!" string but the user object, then added it to session
+                    if(typeof response != "string") req.session.currentUser = response;
                     res.send(200);
                 },
                 function (err) {
                     console.log(err);
                 }
             );
+    }
+
+    function unfavorite(req, res) {
+        var userId = req.params.userId;
+        var doctorUid = req.params.doctorUid;
+        UserModel
+            .unfavorite(userId, doctorUid)
+            .then(
+                function (user) {
+                    req.session.currentUser = user;
+                    res.send(user);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
     }
 
     function addReview(req, res) {

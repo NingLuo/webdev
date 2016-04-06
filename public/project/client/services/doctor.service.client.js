@@ -3,11 +3,12 @@
     
     angular
         .module("FindDoctorApp")
-        .factory("DoctorService", DoctorService)
+        .factory("DoctorService", DoctorService);
 
     function DoctorService($http) {
         var api = {
             addFavoritedBy: addFavoritedBy,
+            unfavorite: unfavorite,
             addReview: addReview,
             addRate: addRate,
             updateRate: updateRate,
@@ -16,7 +17,11 @@
         return api;
 
         function addFavoritedBy(doctorUid, userId) {
-            return $http.get("/api/doctor/" + doctorUid + "/favorited/" + userId);
+            return $http.post("/api/doctor/" + doctorUid + "/favorited/" + userId);
+        }
+
+        function unfavorite(doctorUid, userId) {
+            return $http.delete("/api/doctor/" + doctorUid + "/favorited/" + userId);
         }
 
         function addReview(doctorUid, reviewId) {

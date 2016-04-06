@@ -1,5 +1,6 @@
 module.exports = function(app, DoctorModel) {
-    app.get("/api/doctor/:doctorUid/favorited/:userId", addFavoritedBy);
+    app.post("/api/doctor/:doctorUid/favorited/:userId", addFavoritedBy);
+    app.delete("/api/doctor/:doctorUid/favorited/:userId", unfavorite);
     app.put("/api/doctor/:doctorUid/review/:reviewId", addReview);
 
     app.post("/api/doctor/:doctorId/rated", addRate);
@@ -14,12 +15,28 @@ module.exports = function(app, DoctorModel) {
             .then(
                 function (response) {
                     console.log(response);
+                    console.log("above from doctor update success from server");
                     res.send(200);
                 },
                 function (err) {
                     console.log(err);
                 }
             );
+    }
+
+    function unfavorite(req, res) {
+        var doctorUid = req.params.doctorUid;
+        var userId = req.params.userId;
+        DoctorModel
+            .unfavorite(doctorUid, userId)
+            .then(
+                function (doctor) {
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
     }
 
     function addReview(req, res) {

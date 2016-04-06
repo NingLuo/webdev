@@ -42,6 +42,7 @@
             findUserByCredentials: findUserByCredentials,
             register: register,
             addFavoriteByUid: addFavoriteByUid,
+            unfavorite: unfavorite,
             //addRateByUid: addRateByUid,
             addReview: addReview,
             //findReviewsByUserId: findReviewsByUserId,
@@ -86,6 +87,10 @@
 
         function addFavoriteByUid (userId, doctorUid) {
             return $http.get("/api/user/" + userId + "/favorite/" + doctorUid);
+        }
+        //new
+        function unfavorite(userId, doctorUid) {
+            return $http.delete("/api/user/" + userId + "/favorite/" + doctorUid);
         }
 
         function addReview(userId, reviewId) {

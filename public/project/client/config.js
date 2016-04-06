@@ -51,7 +51,10 @@
             .when('/favorite', {
                 templateUrl: 'views/favorites/favorite.view.html',
                 controller: 'FavoriteCtrl',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when('/favoriteDetail/:index', {
                 templateUrl: 'views/favorites/favoriteDetail.view.html',

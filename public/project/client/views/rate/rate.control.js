@@ -23,7 +23,6 @@
         init();
 
         function submit(rate) {
-            //rate.id = (new Date).getTime();
             rate.userId = $rootScope.currentUser._id;
             rate.username = $rootScope.currentUser.username;
             rate.doctorName = "Dr." + vm.doctor.profile.first_name + " " + vm.doctor.profile.last_name;
@@ -57,27 +56,17 @@
                     function (response) {
                         //response from adding review to doctor
                         console.log(response);
+                        vm.submitSuccuss = true;
+                        $location.url("/detail/"+vm.uid);
                     },
                     function (err) {
                         console.log(err);
                     }
                 );
-            //UserService
-            //    .addRateByUid($rootScope.currentUser.u_id, rate)
-            //    .then(function () {
-            //        //jump to previous detail page
-            //        DoctorService
-            //            .addRate(vm.uid, rate)
-            //            .then(function () {
-            //                vm.submitSuccuss = true;
-            //                //$location.url("/detail/"+vm.uid);
-            //            });
-            //    });
         }
 
         function cancel(rate) {
             rate = {};
-            console.log("cancel");
             $location.url("/detail/"+vm.uid);
         }
     }
