@@ -7,7 +7,8 @@ module.exports = function () {
     var api = {
         addFavoritedBy: addFavoritedBy,
         unfavorite: unfavorite,
-        addReview: addReview
+        addReview: addReview,
+        deleteReview: deleteReview
     };
     return api;
 
@@ -74,11 +75,30 @@ module.exports = function () {
                             "uid": doctorUid,
                             "reviews": [reviewId]
                         };
-                        return Doctor.update(newdoctor);
+                        return Doctor.create(newdoctor);
                     } else {
                         doctor.reviews.push(reviewId);
                         return doctor.save();
                     }
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
+    }
+
+    function deleteReview(doctorUid, reviewId) {
+        return Doctor
+            .findOne({"uid": doctorUid})
+            .then(
+                function (doctor) {
+                    for(var i in doctor.reviews) {
+                        if(doctor.reviews[i] == reviewId) {
+                            doctor.reviews.splice(i, 1);
+                            break;
+                        }
+                    }
+                    return doctor.save();
                 },
                 function (err) {
                     console.log(err);

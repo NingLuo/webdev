@@ -6,7 +6,8 @@
     function ReviewService($http) {
         var api = {
             createReview: createReview,
-            findReviewByUserId: findReviewByUserId
+            findReviewByUserId: findReviewByUserId,
+            deleteReview: deleteReview
         };
         return api;
 
@@ -16,6 +17,10 @@
 
         function findReviewByUserId(userId) {
             return $http.get("/api/review/" + userId);
+        }
+
+        function deleteReview(reviewId) {
+            return $http.delete("/api/review/" + reviewId);
         }
     }
 })();

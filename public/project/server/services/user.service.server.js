@@ -9,6 +9,7 @@ module.exports = function (app, UserModel) {
     app.delete("/api/user/:userId/favorite/:doctorUid", unfavorite);
     //app.post("/api/user/:userId/rate/", addRateByUid);
     app.put("/api/user/:userId/review/:reviewId", addReview);
+    app.delete("/api/user/:userId/review/:reviewId", deleteReview);
     app.get("/api/user/:userId/rates", findRatesByUserId);
     app.put("/api/user/:userId/rate", updateRate);
     app.delete("/api/user/:userId/rate/:rateId", deleteRate);
@@ -119,6 +120,22 @@ module.exports = function (app, UserModel) {
                     console.log(err);
                 }
             )
+    }
+
+    function deleteReview(req, res) {
+        var userId = req.params.userId;
+        var reviewId = req.params.reviewId;
+        UserModel
+            .deleteReview(userId, reviewId)
+            .then(
+                function (user) {
+                    req.session.currentUser = user;
+                    res.json(user);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
     //function addRateByUid(req, res) {
     //    var userId = req.params.userId;

@@ -10,6 +10,7 @@
             addFavoritedBy: addFavoritedBy,
             unfavorite: unfavorite,
             addReview: addReview,
+            deleteReview: deleteReview,
             addRate: addRate,
             updateRate: updateRate,
             deleteRate: deleteRate
@@ -28,6 +29,9 @@
             return $http.put("/api/doctor/" + doctorUid + "/review/" + reviewId);
         }
 
+        function deleteReview(doctorUid, reviewId) {
+            return $http.delete("/api/doctor/" + doctorUid + "/review/" + reviewId);
+        }
 
 
 

@@ -45,6 +45,7 @@
             unfavorite: unfavorite,
             //addRateByUid: addRateByUid,
             addReview: addReview,
+            deleteReview: deleteReview,
             //findReviewsByUserId: findReviewsByUserId,
             findMessagesByUserId: findMessagesByUserId,
             sendMsgTo: sendMsgTo,
@@ -95,6 +96,10 @@
 
         function addReview(userId, reviewId) {
             return $http.put("/api/user/" + userId +"/review/" + reviewId);
+        }
+
+        function deleteReview(userId, reviewId) {
+            return $http.delete("/api/user/"+ userId + "/review/" + reviewId);
         }
         //function addRateByUid(userId, rate) {
         //    return $http.post("/api/user/" + userId + "/rate/", rate);

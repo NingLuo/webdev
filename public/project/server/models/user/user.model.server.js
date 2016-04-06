@@ -10,7 +10,8 @@ module.exports = function () {
         updateUser: updateUser,
         addFavoriteByUid: addFavoriteByUid,
         unfavorite: unfavorite,
-        addReview: addReview
+        addReview: addReview,
+        deleteReview: deleteReview
     };
     return api;
 
@@ -71,6 +72,25 @@ module.exports = function () {
             .then(
                 function (user) {
                     user.reviews.push(reviewId);
+                    return user.save();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
+    }
+
+    function deleteReview(userId, reviewId) {
+        return User
+            .findById(userId)
+            .then(
+                function (user) {
+                    for(var i in user.reviews) {
+                        if(user.reviews[i] == reviewId) {
+                            user.reviews.splice(i, 1);
+                            break;
+                        }
+                    }
                     return user.save();
                 },
                 function (err) {

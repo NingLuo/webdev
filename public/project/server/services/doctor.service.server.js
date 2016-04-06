@@ -2,6 +2,7 @@ module.exports = function(app, DoctorModel) {
     app.post("/api/doctor/:doctorUid/favorited/:userId", addFavoritedBy);
     app.delete("/api/doctor/:doctorUid/favorited/:userId", unfavorite);
     app.put("/api/doctor/:doctorUid/review/:reviewId", addReview);
+    app.delete("/api/doctor/:doctorUid/review/:reviewId", deleteReview);
 
     app.post("/api/doctor/:doctorId/rated", addRate);
     app.put("/api/doctor/:doctorId/rated", updateRate);
@@ -46,13 +47,27 @@ module.exports = function(app, DoctorModel) {
             .addReview(doctorUid, reviewId)
             .then(
                 function (doctor) {
-                    console.log(doctor);
                     res.send(200);
                 },
                 function (err) {
                     console.log(err);
                 }
             )
+    }
+
+    function deleteReview(req, res) {
+        var doctorUid = req.params.doctorUid;
+        var reviewId = req.params.reviewId;
+        DoctorModel
+            .deleteReview(doctorUid, reviewId)
+            .then(
+                function (doctor) {
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
     }
 
 

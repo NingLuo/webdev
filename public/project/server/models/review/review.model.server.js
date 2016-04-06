@@ -6,7 +6,8 @@ module.exports = function () {
 
     var api = {
         createReview: createReview,
-        findReviewByUserId: findReviewByUserId
+        findReviewByUserId: findReviewByUserId,
+        deleteReview: deleteReview
     };
     return api;
 
@@ -16,5 +17,9 @@ module.exports = function () {
 
     function findReviewByUserId(userId) {
         return Review.find({"userId": userId});
+    }
+
+    function deleteReview(reviewId) {
+        return Review.remove({"_id": reviewId});
     }
 };

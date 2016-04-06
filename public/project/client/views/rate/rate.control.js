@@ -44,7 +44,6 @@
                 .then(
                     function (response) {
                         //response from adding review to user
-                        console.log(response);
                         //save the reviewId in doctor model
                         return DoctorService.addReview(rate.doctorId, reviewId);
                     },
@@ -55,7 +54,6 @@
                 .then(
                     function (response) {
                         //response from adding review to doctor
-                        console.log(response);
                         vm.submitSuccuss = true;
                         $location.url("/detail/"+vm.uid);
                     },
