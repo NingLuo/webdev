@@ -5,11 +5,16 @@ module.exports = function () {
     var Review = mongoose.model("Project_Review", ReviewSchema);
 
     var api = {
-        createReview: createReview
+        createReview: createReview,
+        findReviewByUserId: findReviewByUserId
     };
     return api;
 
     function createReview(review) {
         return Review.create(review);
+    }
+
+    function findReviewByUserId(userId) {
+        return Review.find({"userId": userId});
     }
 };

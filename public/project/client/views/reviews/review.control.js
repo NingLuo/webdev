@@ -5,29 +5,23 @@
         .module("FindDoctorApp")
         .controller("ReviewCtrl", ReviewCtrl);
 
-    function ReviewCtrl ($rootScope, $location, UserService, DoctorService) {
+    function ReviewCtrl ($rootScope, $location, UserService, DoctorService, ReviewService) {
         var vm = this;
         vm.reviews = null;
         vm.edit = edit;
         vm.deleteReview= deleteReview;
 
         function init() {
-            UserService
-                .getLoggedInUser()
-                .then(function (response) {
-                    var currentUser = response.data;
-                    if(currentUser) {
-                        $rootScope.currentUser = currentUser;
-                        UserService
-                            .findReviewsByUserId($rootScope.currentUser.u_id)
-                            .then(function (response) {
-                                vm.reviews = response.data;
-                            });
+            ReviewService
+                .findReviewByUserId($rootScope.currentUser._id)
+                .then(
+                    function (response) {
+                        vm.reviews = response.data;
+                    },
+                    function (err) {
+                        console.log(err)
                     }
-                    else {
-                        $location.url('/login');
-                    }
-                });
+                );
         }
         init();
 
