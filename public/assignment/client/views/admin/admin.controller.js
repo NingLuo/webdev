@@ -1,3 +1,17 @@
-/**
- * Created by ningluo on 2/18/16.
- */
+(function () {
+    "use strict";
+
+    angular
+        .module("FormBuilderApp")
+        .controller("AdminController", AdminController);
+
+    function AdminController() {
+        var vm = this;
+
+        function init() {
+            console.log("AdminController");
+        }
+        init();
+    }
+})();
+

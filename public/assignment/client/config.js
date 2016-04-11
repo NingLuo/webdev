@@ -14,9 +14,9 @@
             })
             .when("/home", {
                 templateUrl: "views/home/home.view.html",
-                //resolve: {
-                //    getLoggedIn: getLoggedIn
-                //}
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
@@ -31,7 +31,12 @@
                 }
             })
             .when("/admin", {
-                templateUrl: "views/admin/admin.view.html"
+                templateUrl: "views/admin/admin.view.html",
+                controller: "AdminController",
+                controllerAs: "model",
+                resolve: {
+                    checkAdmin: checkAdmin
+                }
             })
             .when("/forms", {
                 templateUrl: "views/forms/forms.view.html",
@@ -61,7 +66,7 @@
             .getCurrentUser()
             .then(function (response) {
                 var currentUser = response.data;
-                if(response.data) {
+                if(currentUser) {
                     UserService.setCurrentUser(currentUser);
                     deferred.resolve();
                 } else {
@@ -70,6 +75,34 @@
                 }
             });
 
+        return deferred.promise;
+    }
+
+    function checkAdmin(UserService, $q, $location) {
+        var deferred = $q.defer();
+        UserService
+            .getCurrentUser()
+            .then(
+                function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        UserService.setCurrentUser(currentUser);
+                        if(currentUser.roles.indexOf("admin") > 0) {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                            $location.url("/login");
+                        }
+
+                    } else {
+                        deferred.reject();
+                        $location.url("/login");
+                    }
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
         return deferred.promise;
     }
 

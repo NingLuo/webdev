@@ -191,4 +191,11 @@ module.exports = function (app, userModel) {
             next();
         }
     }
+
+    function isAdmin(user) {
+        if(user.roles.indexOf("admin") > 0) {
+            return true;
+        }
+        return false;
+    }
 };
