@@ -2,15 +2,16 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function (app, userModel) {
-    app.post("/api/assignment/user", register);
-    app.get("/api/assignment/user", getAllUsers);
-    app.get("/api/assignment/user/:id", findUserById);
+    var auth = authorized;
+    app.post("/api/assignment/user",            register);
+    app.get("/api/assignment/user",  auth, getAllUsers);
+    app.get("/api/assignment/user/:id",         findUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
     app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
-    app.get("/api/assignment/loggedin", loggedin);
-    app.post("/api/assignment/logout", logout);
-    app.put("/api/assignment/user/:id", updateUser);
-    app.delete("/api/assignment/user/:id", deleteUser);
+    app.get("/api/assignment/loggedin",         loggedin);
+    app.post("/api/assignment/logout",          logout);
+    app.put("/api/assignment/user/:id", auth, updateUser);
+    app.delete("/api/assignment/user/:id", auth, deleteUser);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -83,13 +84,18 @@ module.exports = function (app, userModel) {
     }
 
     function register(req, res) {
-        var user = req.body;
+        var newUser = req.body;
+        if(newUser.username == 'admin'){
+            newUser.roles = ["student", "admin"];
+        } else {
+            newUser.roles = ["student"];
+        }
         userModel
-            .findUserByUsername(user.username)
+            .findUserByUsername(newUser.username)
             .then(
                 function (user) {
                     if(!user) {
-                        return userModel.createUser(user);
+                        return userModel.createUser(newUser);
                     } else {
                         res.json(null);
                     }
@@ -176,5 +182,13 @@ module.exports = function (app, userModel) {
         var userId = req.params.id;
         var restUsers = model.deleteUser(userId);
         res.json(restUsers);
+    }
+
+    function authorized(req, res, next) {
+        if(!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
     }
 };

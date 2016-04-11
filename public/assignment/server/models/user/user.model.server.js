@@ -14,6 +14,8 @@ module.exports = function (db) {
     return api;
 
     function createUser(user) {
+        console.log("userModel server");
+        console.log(user);
         return User.create(user);
     }
 
