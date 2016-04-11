@@ -4,13 +4,12 @@ var bodyParser    = require('body-parser');
 var multer        = require('multer');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
-
+var passport      = require('passport');
 //install and require the mongoose library
 var mongoose      = require('mongoose');
 
 //create a connection String to local database, cs5610 is the database name, 127.0.0.1:27071 == localhost
 var connectionString = 'mongodb://localhost/cs5610';
-
 //create a connection String to Openshift, the mongoDB instance that runs on Openshif has its own IP address, port number,
 //user name and password and so on.
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {   //to check am I running locally? If this PASSWORD exists, then I'm running remotely
@@ -39,8 +38,16 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
-app.use(session({ secret: "mySecret" }));
+
+//configure session support
+app.use(session({ secret: "GameOfThrone" }));
+
+//confiture cookieParser, needed for oauth
 app.use(cookieParser());
+
+//initialize passport and session support
+app.use(passport.initialize());
+app.use(passport.session());
 
 require("./public/assignment/server/app.js")(app, db);
 require("./public/project/server/app.js")(app, db);

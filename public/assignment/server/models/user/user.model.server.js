@@ -8,7 +8,8 @@ module.exports = function (db) {
         createUser: createUser,
         updateUser: updateUser,
         findUserByCredentials: findUserByCredentials,
-        findUserById: findUserById
+        findUserById: findUserById,
+        findUserByUsername: findUserByUsername
     };
     return api;
 
@@ -27,6 +28,10 @@ module.exports = function (db) {
     }
 
     function findUserById(userId) {
-        return User.findUserById(userId);
+        return User.findById(userId);
+    }
+
+    function findUserByUsername(username) {
+        return User.findOne({"username": username});
     }
 };

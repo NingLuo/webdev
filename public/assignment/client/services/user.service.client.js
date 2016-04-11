@@ -24,8 +24,8 @@
             return $http.get("/api/assignment/user?username=" + username);
         }
 
-        function findUserByCredentials(credentials) {
-            return $http.get("/api/assignment/login?username=" + credentials.username + "&password=" + credentials.password);
+        function findUserByCredentials(user) {
+            return $http.post("/api/assignment/login", user);
         }
 
         function setCurrentUser(user) {

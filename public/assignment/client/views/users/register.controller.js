@@ -10,18 +10,27 @@
         vm.register = register;
 
         function register(user){
-            UserService
-                .createUser(user)
-                .then(function (response) {
-                    console.log(response.data);
-                    if(response.data) {
-                        var currentUser = response.data;
-                        UserService.setCurrentUser(currentUser);
-                        $location.url('/profile');
-                    } else {
-                        console.log("register error");
-                    }
-                });
+            if(user.password != user.verifyPassword || !user.password) {
+                console.log("Your two passwords don't match");
+            }
+            else
+            {
+                UserService
+                    .createUser(user)
+                    .then(
+                        function (response) {
+                            if(response.data) {
+                                UserService.setCurrentUser(response.data);
+                                $location.url('/profile');
+                            } else {
+                                console.log("The username has already been used.");
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                    );
+            }
         }
     }
 })();

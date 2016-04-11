@@ -26,7 +26,7 @@
         init();
 
         function edit(review) {
-            $location.url('editReview/'+ review.id);
+            $location.url('editReview/'+ review._id);
         }
 
         function deleteReview(review) {
@@ -34,6 +34,7 @@
                 .deleteReview(review._id)
                 .then(
                     function (response) {
+                        //delete review reference in doctor model
                         return DoctorService.deleteReview(review.doctorId, review._id);
                     },
                     function (err) {
@@ -42,6 +43,7 @@
                 )
                 .then(
                     function (response) {
+                        //delete review reference in user model
                         return UserService.deleteReview($rootScope.currentUser._id, review._id);
                     },
                     function (err) {
@@ -56,16 +58,6 @@
                         console.log(err);
                     }
                 );
-            //UserService
-            //    .deleteReview($rootScope.currentUser.u_id, review.id)
-            //    .then(function (response) {
-            //        vm.reviews = response.data; // shouldn't be put here, fix this in future version
-            //        DoctorService
-            //            .deleteRate(review.doctorId, review.id)
-            //            .then(function () {
-            //                console.log("also deleted rate in doctor model")
-            //            });
-            //    });
         }
     }
 })();

@@ -72,7 +72,10 @@
             .when('/editReview/:reviewId', {
                 templateUrl: 'views/reviews/editReview.view.html',
                 controller: 'EditReviewCtrl',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when('/message', {
                 templateUrl: 'views/messages/message.view.html',

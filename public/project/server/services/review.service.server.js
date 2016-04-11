@@ -1,7 +1,8 @@
 module.exports = function (app, ReviewModel) {
     app.post("/api/review", createReview);
-    app.get("/api/review/:userId", findReviewByUserId);
     app.delete("/api/review/:reviewId", deleteReview);
+    app.get("/api/review/:userId", findReviewByUserId);
+    app.get("/api/review/:reviewId", findReviewById);
 
     function createReview(req, res) {
         var review = req.body;
@@ -10,6 +11,20 @@ module.exports = function (app, ReviewModel) {
             .then(
                 function (review) {
                     res.send(review);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
+    }
+
+    function deleteReview(req, res) {
+        var reviewId = req.params.reviewId;
+        ReviewModel
+            .deleteReview(reviewId)
+            .then(
+                function (response) {
+                    res.send(200);
                 },
                 function (err) {
                     console.log(err);
@@ -31,13 +46,13 @@ module.exports = function (app, ReviewModel) {
             );
     }
 
-    function deleteReview(req, res) {
+    function findReviewById(req, res) {
         var reviewId = req.params.reviewId;
         ReviewModel
-            .deleteReview(reviewId)
+            .findReviewById(reviewId)
             .then(
-                function (response) {
-                    res.send(200);
+                function (review) {
+                    res.json(review);
                 },
                 function (err) {
                     console.log(err);

@@ -1,58 +1,133 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function (app, userModel) {
-    app.post("/api/assignment/user", createUser);
+    app.post("/api/assignment/user", register);
     app.get("/api/assignment/user", getAllUsers);
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
-    app.get("/api/assignment/login", findUserByCredentials); // 自己修改了一下,跟要求不一样
+    app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
     app.get("/api/assignment/loggedin", loggedin);
     app.post("/api/assignment/logout", logout);
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
 
     function getUserByUsername(req, res) {
         var username =req.param.username;
         console.log("username");
     }
 
-    function findUserByCredentials(req, res) {
-        var username = req.query.username;
-        var password = req.query.password;
+    function localStrategy(username, password, done) {
         userModel
-            .findUserByCredentials({username: username, password: password})
+            .findUserByCredentials({username: username, password:password})
             .then(
                 function (user) {
-                    req.session.currentUser = user;
-                    res.json(user);
+                    if(!user) { return done(null, false, {message: 'Incorrect username or password'});}
+                    return done(null, user);
                 },
                 function (err) {
-                    res.status(400).send(err);
+                    return done(err);
                 }
             );
     }
 
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            )
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    //function findUserByCredentials(req, res) {
+    //    var username = req.query.username;
+    //    var password = req.query.password;
+    //    userModel
+    //        .findUserByCredentials({username: username, password: password})
+    //        .then(
+    //            function (user) {
+    //                req.session.currentUser = user;
+    //                res.json(user);
+    //            },
+    //            function (err) {
+    //                res.status(400).send(err);
+    //            }
+    //        );
+    //}
+
     function loggedin(req, res) {
-        res.json(req.session.currentUser);
+        res.send(req.isAuthenticated()? req.user : "0");
     }
 
     function logout(req, res) {
-        req.session.destroy();
+        req.logout();
         res.send(200);
     }
 
-    function createUser(req, res) {
+    function register(req, res) {
         var user = req.body;
         userModel
-            .createUser(user)
+            .findUserByUsername(user.username)
             .then(
                 function (user) {
-                    req.session.currentUser = user; //注意不再是response.data了!
-                    res.json(user);
+                    if(!user) {
+                        return userModel.createUser(user);
+                    } else {
+                        res.json(null);
+                    }
                 },
                 function (err) {
                     res.status(400).send(err);
                 }
-            );
+            )
+            .then(
+                function (user) {
+                    req.login(user, function(err){
+                        if(err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    })
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
+
+    //function createUser(req, res) {
+    //    var user = req.body;
+    //    userModel
+    //        .createUser(user)
+    //        .then(
+    //            function (user) {
+    //                req.session.currentUser = user; //注意不再是response.data了!
+    //                res.json(user);
+    //            },
+    //            function (err) {
+    //                res.status(400).send(err);
+    //            }
+    //        );
+    //}
 
     function getAllUsers(req, res) {
         var users = model.findAllUsers();

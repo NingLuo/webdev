@@ -6,8 +6,9 @@ module.exports = function () {
 
     var api = {
         createReview: createReview,
+        deleteReview: deleteReview,
         findReviewByUserId: findReviewByUserId,
-        deleteReview: deleteReview
+        findReviewById: findReviewById
     };
     return api;
 
@@ -15,11 +16,15 @@ module.exports = function () {
         return Review.create(review);
     }
 
+    function deleteReview(reviewId) {
+        return Review.remove({"_id": reviewId});
+    }
+
     function findReviewByUserId(userId) {
         return Review.find({"userId": userId});
     }
 
-    function deleteReview(reviewId) {
-        return Review.remove({"_id": reviewId});
+    function findReviewById(reviewId) {
+        return Review.findById(reviewId);
     }
 };
