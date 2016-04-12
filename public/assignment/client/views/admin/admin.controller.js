@@ -11,6 +11,8 @@
         vm.user;
         vm.createUser = createUser;
         vm.removeUser = removeUser;
+        vm.selectUser = selectUser;
+        vm.updateUser = updateUser;
 
         function init() {
             UserService
@@ -51,6 +53,24 @@
                     function (response) {
                         //remove success, reset vm.users
                         init();
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+        }
+
+        function selectUser(user) {
+            vm.user = angular.copy(user);
+        }
+
+        function updateUser() {
+            UserService
+                .adminUpdateUser(vm.user._id, vm.user)
+                .then(
+                    function (response) {
+                        init();
+                        vm.user = null;
                     },
                     function (err) {
                         console.log(err);

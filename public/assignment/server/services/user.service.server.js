@@ -7,6 +7,7 @@ module.exports = function (app, userModel) {
     app.get("/api/assignment/admin/user",  auth, findAllUsers);
     app.post("/api/assignment/admin/user", auth, createUser);
     app.delete("/api/assignment/admin/user/:userId", auth, removeUserById);
+    app.put("/api/assignment/admin/user/:userId", auth, adminUpdateUser);
     app.get("/api/assignment/user/:id",         findUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
     app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
@@ -59,22 +60,6 @@ module.exports = function (app, userModel) {
         var user = req.user;
         res.json(user);
     }
-
-    //function findUserByCredentials(req, res) {
-    //    var username = req.query.username;
-    //    var password = req.query.password;
-    //    userModel
-    //        .findUserByCredentials({username: username, password: password})
-    //        .then(
-    //            function (user) {
-    //                req.session.currentUser = user;
-    //                res.json(user);
-    //            },
-    //            function (err) {
-    //                res.status(400).send(err);
-    //            }
-    //        );
-    //}
 
     function loggedin(req, res) {
         res.send(req.isAuthenticated()? req.user : null);
@@ -176,6 +161,25 @@ module.exports = function (app, userModel) {
         if(isAdmin(req.user)) {
             userModel
                 .removeUserById(userId)
+                .then(
+                    function (response) {
+                        res.send(200);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+        } else {
+            res.status(403);
+        }
+    }
+
+    function adminUpdateUser(req, res) {
+        var userId = req.params.userId;
+        var newUser = req.body;
+        if(isAdmin(req.user)) {
+            userModel
+                .updateUser(userId, newUser)
                 .then(
                     function (response) {
                         res.send(200);

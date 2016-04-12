@@ -13,6 +13,7 @@
             register: register,
             createUser: createUser,
             removeUserById: removeUserById,
+            adminUpdateUser: adminUpdateUser,
             updateUser: updateUser,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
@@ -55,6 +56,10 @@
 
         function removeUserById(userId) {
             return $http.delete("/api/assignment/admin/user/" + userId);
+        }
+
+        function adminUpdateUser(userId, newUser) {
+            return $http.put("/api/assignment/admin/user/" + userId, newUser);
         }
 
         function updateUser(userId, user) {

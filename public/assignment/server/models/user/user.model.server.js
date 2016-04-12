@@ -22,7 +22,7 @@ module.exports = function (db) {
     function updateUser(userId, newUser) {
         userId = mongoose.Types.ObjectId(userId);
         delete newUser._id;
-        return User.update({"_id": userId}, newUser);
+        return User.update({"_id": userId}, {$set: newUser});
     }
 
     function removeUserById(userId) {
