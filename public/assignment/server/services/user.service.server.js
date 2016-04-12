@@ -3,27 +3,21 @@ var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function (app, userModel) {
     var auth = authorized;
+    var isAdmin = isAdmin;
     app.post("/api/assignment/user",            register);
-    app.get("/api/assignment/admin/user",  auth, findAllUsers);
-    app.post("/api/assignment/admin/user", auth, createUser);
-    app.delete("/api/assignment/admin/user/:userId", auth, removeUserById);
-    app.put("/api/assignment/admin/user/:userId", auth, adminUpdateUser);
+    app.get("/api/assignment/admin/user",  isAdmin, findAllUsers);
+    app.post("/api/assignment/admin/user", isAdmin, createUser);
+    app.delete("/api/assignment/admin/user/:userId", isAdmin, removeUserById);
+    app.put("/api/assignment/admin/user/:userId", isAdmin, adminUpdateUser);
     app.get("/api/assignment/user/:id",         findUserById);
-    app.get("/api/assignment/user?username=username", getUserByUsername);
     app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
     app.get("/api/assignment/loggedin",         loggedin);
     app.post("/api/assignment/logout",          logout);
     app.put("/api/assignment/user/:id", auth, updateUser);
-    app.delete("/api/assignment/user/:id", auth, deleteUser);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
-
-    function getUserByUsername(req, res) {
-        var username =req.param.username;
-        console.log("username");
-    }
 
     function localStrategy(username, password, done) {
         userModel
@@ -109,88 +103,72 @@ module.exports = function (app, userModel) {
 
     function createUser(req, res) {
         var newUser = req.body;
-        if(isAdmin(req.user)) {
-            userModel
-                .findUserByUsername(newUser.username)
-                .then(
-                    function (user) {
-                        if(!user) {
-                            return userModel.createUser(newUser);
-                        } else {
-                            res.json(null);
-                        }
-                    },
-                    function (err) {
-                        res.status(403).send(err);
+        userModel
+            .findUserByUsername(newUser.username)
+            .then(
+                function (user) {
+                    if(!user) {
+                        return userModel.createUser(newUser);
+                    } else {
+                        res.json(null);
                     }
-                )
-                .then(
-                    function (user) {
-                        console.log("createUser");
-                        console.log(user);
-                        res.json(user);
-                    },
-                    function (err) {
-                        res.status(403).send(err);
-                    }
-                )
-        } else {
-            res.status(403);
-        }
+                },
+                function (err) {
+                    res.status(403).send(err);
+                }
+            )
+            .then(
+                function (user) {
+                    console.log("createUser");
+                    console.log(user);
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(403).send(err);
+                }
+            )
     }
 
     function findAllUsers(req, res) {
-        if(isAdmin(req.user)) {
-            userModel
-                .findAllUsers()
-                .then(
-                    function (users) {
-                        res.json(users);
-                    },
-                    function () {
-                        res.status(400).send(err);
-                    }
-                )
-        } else {
-            res.status(403);
-        }
+        userModel
+            .findAllUsers()
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function () {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function removeUserById(req, res) {
         var userId = req.params.userId;
-        if(isAdmin(req.user)) {
-            userModel
-                .removeUserById(userId)
-                .then(
-                    function (response) {
-                        res.send(200);
-                    },
-                    function (err) {
-                        res.status(400).send(err);
-                    }
-                )
-        } else {
-            res.status(403);
-        }
+        userModel
+            .removeUserById(userId)
+            .then(
+                function (response) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function adminUpdateUser(req, res) {
         var userId = req.params.userId;
         var newUser = req.body;
-        if(isAdmin(req.user)) {
-            userModel
-                .updateUser(userId, newUser)
-                .then(
-                    function (response) {
-                        res.send(200);
-                    },
-                    function (err) {
-                        res.status(400).send(err);
-                    }
-                )
-        } else {
-            res.status(403);
-        }
+        userModel
+            .updateUser(userId, newUser)
+            .then(
+                function (response) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function findUserById(req, res) {
@@ -231,12 +209,6 @@ module.exports = function (app, userModel) {
             );
     }
 
-    function deleteUser(req, res) {
-        var userId = req.params.id;
-        var restUsers = model.deleteUser(userId);
-        res.json(restUsers);
-    }
-
     function authorized(req, res, next) {
         if(!req.isAuthenticated()) {
             res.send(401);
@@ -245,8 +217,15 @@ module.exports = function (app, userModel) {
         }
     }
 
-    function isAdmin(user) {
-        if(user.roles.indexOf("admin") > 0) { return true; }
-        return false;
+    function isAdmin(req, res, next) {
+        if(req.isAuthenticated) {
+            if(req.user.roles.indexOf("admin") > 0) {
+                next();
+            } else {
+                res.send(403);
+            }
+        } else {
+            res.send(401);
+        }
     }
 };
