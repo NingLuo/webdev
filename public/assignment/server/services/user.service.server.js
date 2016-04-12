@@ -6,6 +6,7 @@ module.exports = function (app, userModel) {
     var isAdmin = isAdmin;
     app.post("/api/assignment/user",            register);
     app.get("/api/assignment/admin/user",  isAdmin, findAllUsers);
+    app.get("/api/assignment/admin/user/:userId", isAdmin, adminFindUserById);
     app.post("/api/assignment/admin/user", isAdmin, createUser);
     app.delete("/api/assignment/admin/user/:userId", isAdmin, removeUserById);
     app.put("/api/assignment/admin/user/:userId", isAdmin, adminUpdateUser);
@@ -142,6 +143,19 @@ module.exports = function (app, userModel) {
                     res.json(users);
                 },
                 function () {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+    function adminFindUserById(req, res) {
+        userModel
+            .findUserById(userId)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (err) {
                     res.status(400).send(err);
                 }
             )
