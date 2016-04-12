@@ -10,6 +10,7 @@
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
+            register: register,
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
@@ -44,8 +45,12 @@
             return $http.get("/api/assignment/admin/user");
         }
 
-        function createUser(user) {
+        function register(user) {
             return $http.post("/api/assignment/user", user);
+        }
+
+        function createUser(user) {
+            return $http.post("/api/assignment/admin/user", user);
         }
 
         function deleteUserById(userId) {

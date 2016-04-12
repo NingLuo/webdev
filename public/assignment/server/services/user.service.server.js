@@ -5,6 +5,7 @@ module.exports = function (app, userModel) {
     var auth = authorized;
     app.post("/api/assignment/user",            register);
     app.get("/api/assignment/admin/user",  auth, findAllUsers);
+    app.post("/api/assignment/admin/user", auth, createUser);
     app.get("/api/assignment/user/:id",         findUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
     app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
@@ -120,20 +121,37 @@ module.exports = function (app, userModel) {
             )
     }
 
-    //function createUser(req, res) {
-    //    var user = req.body;
-    //    userModel
-    //        .createUser(user)
-    //        .then(
-    //            function (user) {
-    //                req.session.currentUser = user; //注意不再是response.data了!
-    //                res.json(user);
-    //            },
-    //            function (err) {
-    //                res.status(400).send(err);
-    //            }
-    //        );
-    //}
+    function createUser(req, res) {
+        var newUser = req.body;
+        if(isAdmin(req.user)) {
+            userModel
+                .findUserByUsername(newUser.username)
+                .then(
+                    function (user) {
+                        if(!user) {
+                            return userModel.createUser(newUser);
+                        } else {
+                            res.json(null);
+                        }
+                    },
+                    function (err) {
+                        res.status(403).send(err);
+                    }
+                )
+                .then(
+                    function (user) {
+                        console.log("createUser");
+                        console.log(user);
+                        res.json(user);
+                    },
+                    function (err) {
+                        res.status(403).send(err);
+                    }
+                )
+        } else {
+            res.status(403);
+        }
+    }
 
     function findAllUsers(req, res) {
         if(isAdmin(req.user)) {

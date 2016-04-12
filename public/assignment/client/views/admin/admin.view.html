@@ -14,23 +14,23 @@
             </tr>
             <tr>
                 <th>
-                    <input type="text" class="form-control" placeholder="username">
+                    <input ng-model="model.user.username" type="text" class="form-control" placeholder="username">
 
                 </th>
                 <th>
-                    <input type="text" class="form-control" placeholder="password">
+                    <input ng-model="model.user.password" type="password" class="form-control" placeholder="password">
                 </th>
                 <th>
-                    <input type="text" class="form-control" placeholder="role">
+                    <input ng-model="model.user.firstName" type="text" class="form-control" placeholder="firstName">
                 </th>
                 <th>
-                    <input type="text" class="form-control" placeholder="firstname">
+                    <input ng-model="model.user.lastName" type="text" class="form-control" placeholder="lastName">
                 </th>
                 <th>
-                    <input type="text" class="form-control" placeholder="lastname">
+                    <input ng-model="model.user.roles" type="text" class="form-control" placeholder="roles">
                 </th>
                 <th>
-                    <a href="#" class="btn btn-primary" role="button">
+                    <a ng-click="model.createUser()" class="btn btn-primary" role="button">
                         <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </a>
                     <a href="#" class="btn btn-success" role="button">
@@ -40,13 +40,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Alice</td>
+            <tr ng-repeat="user in model.users">
+                <td>{{user.username}}</td>
                 <td>&nbsp;</td>
-                <td>student</td>
-                <td>Alice</td>
-                <td>Wonderland</td>
-                <td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.roles}}</td>
+                <td class="text-nowrap">
                     <a href="#" class="btn btn-danger" role="button">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>

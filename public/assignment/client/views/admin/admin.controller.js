@@ -7,13 +7,16 @@
 
     function AdminController(UserService) {
         var vm = this;
+        vm.users;
+        vm.user;
+        vm.createUser = createUser;
 
         function init() {
             UserService
                 .findAllUsers()
                 .then(
                     function (response) {
-                        console.log(response.date);
+                        vm.users = response.data;
                     },
                     function (err) {
                         console.log(err);
@@ -21,6 +24,24 @@
                 )
         }
         init();
+
+        function createUser() {
+            UserService
+                .createUser(vm.user)
+                .then(
+                    function (response) {
+                        if(response.data) {
+                            vm.users.push(response.data);
+                            vm.user = {};
+                        } else {
+                            console.log("The username has been used.");
+                        }
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+        }
     }
 })();
 
