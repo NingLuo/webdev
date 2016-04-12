@@ -103,6 +103,13 @@ module.exports = function (app, userModel) {
 
     function createUser(req, res) {
         var newUser = req.body;
+        //if the admin didn't give a role, then default role is "student"
+        if(newUser.roles == null){
+            newUser.roles = ["student"];
+        }
+        if(typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
         userModel
             .findUserByUsername(newUser.username)
             .then(
@@ -119,8 +126,6 @@ module.exports = function (app, userModel) {
             )
             .then(
                 function (user) {
-                    console.log("createUser");
-                    console.log(user);
                     res.json(user);
                 },
                 function (err) {
@@ -159,6 +164,14 @@ module.exports = function (app, userModel) {
     function adminUpdateUser(req, res) {
         var userId = req.params.userId;
         var newUser = req.body;
+        console.log(newUser.roles);
+        //if there's no value in newUser.roles, then set it to default value "student"fe
+        if(newUser.roles == ''){
+            newUser.roles = ["student"];
+        }
+        if(typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
         userModel
             .updateUser(userId, newUser)
             .then(
