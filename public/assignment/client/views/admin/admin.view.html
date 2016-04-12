@@ -47,7 +47,7 @@
                 <td>{{user.lastName}}</td>
                 <td>{{user.roles}}</td>
                 <td class="text-nowrap">
-                    <a href="#" class="btn btn-danger" role="button">
+                    <a ng-click="model.removeUser(user)" class="btn btn-danger" role="button">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                     <a href="#" class="btn btn-warning" role="button">
@@ -55,7 +55,6 @@
                     </a>
                 </td>
             </tr>
-
         </tbody>
     </table>
 </div>

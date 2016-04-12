@@ -6,6 +6,7 @@ module.exports = function (app, userModel) {
     app.post("/api/assignment/user",            register);
     app.get("/api/assignment/admin/user",  auth, findAllUsers);
     app.post("/api/assignment/admin/user", auth, createUser);
+    app.delete("/api/assignment/admin/user/:userId", auth, removeUserById);
     app.get("/api/assignment/user/:id",         findUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
     app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
@@ -162,6 +163,24 @@ module.exports = function (app, userModel) {
                         res.json(users);
                     },
                     function () {
+                        res.status(400).send(err);
+                    }
+                )
+        } else {
+            res.status(403);
+        }
+    }
+
+    function removeUserById(req, res) {
+        var userId = req.params.userId;
+        if(isAdmin(req.user)) {
+            userModel
+                .removeUserById(userId)
+                .then(
+                    function (response) {
+                        res.send(200);
+                    },
+                    function (err) {
                         res.status(400).send(err);
                     }
                 )

@@ -7,6 +7,7 @@ module.exports = function (db) {
     var api = {
         createUser: createUser,
         updateUser: updateUser,
+        removeUserById: removeUserById,
         findUserByCredentials: findUserByCredentials,
         findUserById: findUserById,
         findUserByUsername: findUserByUsername,
@@ -22,6 +23,10 @@ module.exports = function (db) {
         userId = mongoose.Types.ObjectId(userId);
         delete newUser._id;
         return User.update({"_id": userId}, newUser);
+    }
+
+    function removeUserById(userId) {
+        return User.remove({"_id": userId});
     }
 
     function findUserByCredentials(credentials) {
