@@ -5,11 +5,20 @@
         .module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController() {
+    function AdminController(UserService) {
         var vm = this;
 
         function init() {
-            console.log("AdminController");
+            UserService
+                .findAllUsers()
+                .then(
+                    function (response) {
+                        console.log(response.date);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
         }
         init();
     }

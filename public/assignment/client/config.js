@@ -106,17 +106,17 @@
         return deferred.promise;
     }
 
-    function getLoggedIn(UserService, $q, $location) {
+    function getLoggedIn(UserService, $q) {
         var deferred = $q.defer();
 
         UserService
             .getCurrentUser()
             .then(function (response) {
-                var currentUser = response.data;
-                UserService.setCurrentUser(currentUser);
+                if(response.data){
+                    UserService.setCurrentUser(response.data);
+                }
                 deferred.resolve();
             });
-
         return deferred.promise;
     }
 

@@ -41,7 +41,7 @@
         }
         
         function findAllUsers() {
-            return $http.get("/api/assignment/user");
+            return $http.get("/api/assignment/admin/user");
         }
 
         function createUser(user) {

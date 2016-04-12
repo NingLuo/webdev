@@ -4,7 +4,7 @@ var LocalStrategy = require('passport-local').Strategy;
 module.exports = function (app, userModel) {
     var auth = authorized;
     app.post("/api/assignment/user",            register);
-    app.get("/api/assignment/user",  auth, getAllUsers);
+    app.get("/api/assignment/admin/user",  auth, findAllUsers);
     app.get("/api/assignment/user/:id",         findUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
     app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
@@ -75,7 +75,7 @@ module.exports = function (app, userModel) {
     //}
 
     function loggedin(req, res) {
-        res.send(req.isAuthenticated()? req.user : "0");
+        res.send(req.isAuthenticated()? req.user : null);
     }
 
     function logout(req, res) {
@@ -135,9 +135,21 @@ module.exports = function (app, userModel) {
     //        );
     //}
 
-    function getAllUsers(req, res) {
-        var users = model.findAllUsers();
-        res.json(users);
+    function findAllUsers(req, res) {
+        if(isAdmin(req.user)) {
+            userModel
+                .findAllUsers()
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function () {
+                        res.status(400).send(err);
+                    }
+                )
+        } else {
+            res.status(403);
+        }
     }
 
     function findUserById(req, res) {
@@ -193,9 +205,7 @@ module.exports = function (app, userModel) {
     }
 
     function isAdmin(user) {
-        if(user.roles.indexOf("admin") > 0) {
-            return true;
-        }
+        if(user.roles.indexOf("admin") > 0) { return true; }
         return false;
     }
 };

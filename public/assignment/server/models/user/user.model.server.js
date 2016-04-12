@@ -9,13 +9,12 @@ module.exports = function (db) {
         updateUser: updateUser,
         findUserByCredentials: findUserByCredentials,
         findUserById: findUserById,
-        findUserByUsername: findUserByUsername
+        findUserByUsername: findUserByUsername,
+        findAllUsers: findAllUsers
     };
     return api;
 
     function createUser(user) {
-        console.log("userModel server");
-        console.log(user);
         return User.create(user);
     }
 
@@ -35,5 +34,9 @@ module.exports = function (db) {
 
     function findUserByUsername(username) {
         return User.findOne({"username": username});
+    }
+
+    function findAllUsers() {
+        return User.find();
     }
 };
