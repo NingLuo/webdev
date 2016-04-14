@@ -1,5 +1,5 @@
 (function () {
     "use strict";
 
-    angular.module("FindDoctorApp", ["ngRoute"]);
+    angular.module("FindDoctorApp", ["ngRoute","ui.bootstrap"]);
 })();

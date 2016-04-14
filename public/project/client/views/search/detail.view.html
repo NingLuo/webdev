@@ -75,7 +75,7 @@
             <div ng-repeat="insurance in model.data.insurances | limitTo:4">
                 <div>{{insurance.insurance_plan.name}}</div>
             </div>
-            <a ng-click=""><strong>View all</strong></a>
+            <a ng-click="model.viewInsurance(model.data.insurances)"><strong>View all</strong></a>
         </div>
     </div>
 </div>

@@ -3,11 +3,12 @@
         .module("FindDoctorApp")
         .controller("DetailCtrl", DetailCtrl);
 
-    function DetailCtrl ($routeParams, DoctorSearchService, UserService, DoctorService, $location, $rootScope) {
+    function DetailCtrl ($routeParams, DoctorSearchService, UserService, DoctorService, $location, $rootScope, $uibModal) {
         var vm = this;
         vm.uid = $routeParams.uid;   //this doctor's universal id
         vm.addFavorite = addFavorite;
         vm.rate = rate;
+        vm.viewInsurance = viewInsurance;
         vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
 
         function init() {
@@ -39,6 +40,22 @@
             //if user is not logged in, redirect to login page
                 $location.url('/login');
             }
+        }
+
+        function viewInsurance(insuranceList) {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: 'views/search/insuranceDetail.view.html',
+                    controller: 'InsuranceDetailCtrl as model',
+                    resolve: {
+                        //this is the variable that passed the to insuranceDetail controller
+                        insuranceList: function () {
+                            return insuranceList;
+                        }
+                    }
+                }
+            );
+
         }
     }
 })();
