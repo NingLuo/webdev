@@ -15,6 +15,7 @@
                 .findDoctorByUid(vm.uid)
                 .then(function(response) {
                     vm.data = response.data.data;
+                    console.log(vm.data);
                 });
         }
         init();
