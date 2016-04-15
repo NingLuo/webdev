@@ -2,10 +2,10 @@
 <br>
 <div class="row">
     <div class="col-md-7">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-4">
             <img class="img-circle" height="180px" ng-src="{{model.data.profile.image_url}}">
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6 col-sm-6">
             <ul class="list-unstyled">
                 <li><h3>Dr.{{model.data.profile.first_name}}&nbsp{{model.data.profile.last_name}}, {{model.data.profile.title}} </h3></li>
                 <li><h4>{{model.data.specialties[0].actor}}</h4></li>
@@ -14,7 +14,7 @@
                 <li>Phone {{model.data.practices[0].phones[0].number}}</li>
             </ul>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-6">
             <br><!--bad practice-->
             <button class="btn btn-default btn-block" role="button" ng-click="model.rate()">Rate</button>
             <button ng-click="model.addFavorite()" class="btn btn-default btn-block">Favorite</button>
@@ -28,8 +28,8 @@
 <hr>
 <div class="row">
     <div class="col-md-7">
-        <div class="col-md-4"><strong>Education</strong></div>
-        <div class="col-md-8">
+        <div class="col-md-4 col-sm-4"><strong>Education</strong></div>
+        <div class="col-md-8 col-sm-4">
             <div ng-repeat="education in model.data.educations">
                 <div>{{education.school}}</div>
             </div>
@@ -39,8 +39,8 @@
 <hr>
 <div class="row">
     <div class="col-md-7">
-        <div class="col-md-4"><strong>Professional Statement</strong></div>
-        <div class="col-md-8">
+        <div class="col-md-4 col-sm-4"><strong>Professional Statement</strong></div>
+        <div class="col-md-8 col-sm-4">
             <div class="text-justify">{{model.data.profile.bio}}</div>
         </div>
     </div>
@@ -48,8 +48,8 @@
 <hr>
 <div class="row">
     <div class="col-md-7">
-        <div class="col-md-4"><strong>Specialties</strong> </div>
-        <div class="col-md-8">
+        <div class="col-md-4 col-sm-4"><strong>Specialties</strong> </div>
+        <div class="col-md-8 col-sm-4">
             <div ng-repeat="specialty in model.data.specialties">
                 <div>{{specialty.actor}}</div>
             </div>
@@ -59,8 +59,8 @@
 <hr>
 <div class="row">
     <div class="col-md-7">
-        <div class="col-md-4"><strong>Languages Spoken</strong> </div>
-        <div class="col-md-8">
+        <div class="col-md-4 col-sm-4"><strong>Languages Spoken</strong> </div>
+        <div class="col-md-8 col-sm-4">
             <div ng-repeat="language in model.data.profile.languages">
                 <div>{{language.name}}</div>
             </div>
@@ -70,8 +70,8 @@
 <hr>
 <div class="row">
     <div class="col-md-7">
-        <div class="col-md-4"><strong>Insurances</strong> </div>
-        <div class="col-md-8">
+        <div class="col-md-4 col-sm-4"><strong>Insurances</strong> </div>
+        <div class="col-md-8 col-sm-4">
             <div ng-repeat="insurance in model.data.insurances | limitTo:4">
                 <div>{{insurance.insurance_plan.name}}</div>
             </div>
@@ -86,11 +86,12 @@
 <div class="row">
     <div class="col-md-12" ng-repeat="review in model.reviews">
         <div class="col-md-2">
-            {{review.username}}
+            <div>by {{review.username}}</div>
+            <div><button ng-click="model.openMsgPop(review.userId, review.username)" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button></div>
         </div>
         <div class="col-md-7">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div>Overall Rating</div>
                     <input-stars
                             max="5"
@@ -101,7 +102,7 @@
                             ng-model="review.overall"
                             readonly="true">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div>Bedside Manner</div>
                     <input-stars
                             max="5"
@@ -112,7 +113,7 @@
                             ng-model="review.bedsideManner"
                             readonly="true">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div>Wait Time</div>
                     <input-stars
                             max="5"

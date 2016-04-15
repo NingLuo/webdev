@@ -10,6 +10,7 @@
         vm.rate = rate;
         vm.viewInsurance = viewInsurance;
         vm.reviews;
+        vm.openMsgPop = openMsgPop;
         vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
 
         function init() {
@@ -65,6 +66,32 @@
                     }
                 }
             );
+        }
+
+        function openMsgPop(reviewerId, reviewerName) {
+            console.log(reviewerId);
+            if($rootScope.currentUser) { // remember to fix this
+                var modalInstance = $uibModal.open(
+                    {
+                        templateUrl: 'views/search/sendMsgPop.view.html',
+                        controller: 'SendMsgPopCtrl as model',
+                        resolve: {
+                            //this is the variable that passed the to SendMsgPopCtrl
+                            reviewerId: function () {
+                                return reviewerId;
+                            },
+                            reviewerName: function () {
+                                return reviewerName;
+                            }
+                        }
+                    }
+                );
+            }
+            else {
+                //record this page's url in a variable so that after login user can be redirected back to this page
+                $rootScope.previousUrl = $location.path();
+                $location.url("/login");
+            }
 
         }
     }

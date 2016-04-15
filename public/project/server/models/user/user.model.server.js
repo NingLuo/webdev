@@ -11,7 +11,8 @@ module.exports = function () {
         addFavoriteByUid: addFavoriteByUid,
         unfavorite: unfavorite,
         addReview: addReview,
-        deleteReview: deleteReview
+        deleteReview: deleteReview,
+        sendMsgTo: sendMsgTo
     };
     return api;
 
@@ -91,6 +92,20 @@ module.exports = function () {
                             break;
                         }
                     }
+                    return user.save();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
+    }
+
+    function sendMsgTo(receiverId, message) {
+        return User
+            .findById(receiverId)
+            .then(
+                function (user) {
+                    user.messages.push(message);
                     return user.save();
                 },
                 function (err) {

@@ -171,11 +171,21 @@ module.exports = function (app, UserModel) {
         res.json(messages);
     }
 
+    //new
     function sendMsgTo(req, res) {
         var receiverId = req.params.receiverId;
         var msgToSend = req.body;
-        UserModel.sendMsgTo(receiverId, msgToSend);
-        res.send(200);
+        UserModel
+            .sendMsgTo(receiverId, msgToSend)
+            .then(
+                function (response) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.send(err);
+                }
+            );
+
     }
 
     function deleteMsg(req, res) {

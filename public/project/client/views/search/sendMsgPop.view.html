@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h3>Message to:&nbsp {{model.reviewerName}}</h3>
+</div>
+<div class="modal-body">
+    <textarea ng-model="msgContent" class="form-control" rows="5"></textarea>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-success btn-block" ng-click="model.sendMsg(msgContent)">Send</button></div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-danger btn-block" ng-click="model.close()">Cancel</button></div>
+    </div>
+</div>
