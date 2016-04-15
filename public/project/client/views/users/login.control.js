@@ -24,8 +24,10 @@
                         }
                         else {
                             //if $rootScope.previousUrl is not null, which means the user was redirected to login page from a previous url,
-                            // then direct back to that page
-                            $location.url($rootScope.previousUrl);
+                            // then direct back to that page;
+                            //the replace() is for using previousUrl to replace the last history url,(which is the login url), so that
+                            //when user hit the back button it won't come back to login, instead, it stays at the same page(the previousUrl page).
+                            $location.url($rootScope.previousUrl).replace();
                             $rootScope.previousUrl = null;
                         }
                     } else {
