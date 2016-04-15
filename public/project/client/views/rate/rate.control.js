@@ -13,6 +13,12 @@
         vm.submitSuccuss = false;   //a boolean variable for controlling the hide and show of success alert in the view
         var reviewId;
 
+        vm.rating = 4;
+
+
+
+
+
         function init () {
             DoctorSearchService
                 .findDoctorByUid(vm.uid)

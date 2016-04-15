@@ -84,28 +84,49 @@
 <div><h3>Patient Reviews</h3></div>
 <hr>
 <div class="row">
-    <div class="col-md-7">
-        <div class="col-md-4">
-            By PatientName
+    <div class="col-md-12" ng-repeat="review in model.reviews">
+        <div class="col-md-2">
+            {{review.username}}
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="row">
                 <div class="col-md-4">
                     <div>Overall Rating</div>
-                    <div>123</div>
+                    <input-stars
+                            max="5"
+                            icon-base="fa fa-fw"
+                            icon-empty="fa fa-star-o"
+                            icon-hover="hover"
+                            icon-full="fa fa-star"
+                            ng-model="review.overall"
+                            readonly="true">
                 </div>
                 <div class="col-md-4">
                     <div>Bedside Manner</div>
-                    <div>123</div>
+                    <input-stars
+                            max="5"
+                            icon-base="fa fa-fw"
+                            icon-empty="fa fa-star-o"
+                            icon-hover="hover"
+                            icon-full="fa fa-star"
+                            ng-model="review.bedsideManner"
+                            readonly="true">
                 </div>
                 <div class="col-md-4">
                     <div>Wait Time</div>
-                    <div>123</div>
+                    <input-stars
+                            max="5"
+                            icon-base="fa fa-fw"
+                            icon-empty="fa fa-star-o"
+                            icon-hover="hover"
+                            icon-full="fa fa-star"
+                            ng-model="review.waitTime"
+                            readonly="true">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    Lorem ipsum dolor sit amet, vivamus scelerisque a turpis laoreet, wisi morbi magna lacinia ipsum, aliquam in. Et fermentum neque vivamus, risus nulla tempus sollicitudin convallis potenti posuere, aliquam sem magna, ut quis sociosqu voluptas eget nisl eu, id nullam vel varius nec.
+                    {{review.comments}}
                 </div>
             </div>
         </div>

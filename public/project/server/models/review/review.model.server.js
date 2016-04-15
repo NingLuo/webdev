@@ -8,6 +8,7 @@ module.exports = function () {
         createReview: createReview,
         deleteReview: deleteReview,
         findReviewByUserId: findReviewByUserId,
+        findReviewByDoctorId: findReviewByDoctorId,
         findReviewById: findReviewById
     };
     return api;
@@ -22,6 +23,10 @@ module.exports = function () {
 
     function findReviewByUserId(userId) {
         return Review.find({"userId": userId});
+    }
+
+    function findReviewByDoctorId(doctorId) {
+        return Review.find({"doctorId": doctorId});
     }
 
     function findReviewById(reviewId) {
