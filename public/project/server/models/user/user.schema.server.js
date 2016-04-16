@@ -8,6 +8,7 @@ module.exports = function() {
         email   : String,
         phone   : String,
         gender  : {type: String, enum:['Male', 'Female']},
+        role: {type: String, enum:['Patient', 'Provider']},
         favorites: [String],
         reviews: [String],
         messages: [MessageSchema]

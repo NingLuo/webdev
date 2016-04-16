@@ -36,6 +36,9 @@ module.exports = function (app, UserModel) {
 
     function register(req, res) {
         var newUser = req.body;
+        if(newUser.role == null) {
+            newUser.role = "Patient";
+        }
         UserModel
             .createUser(newUser)
             .then(
