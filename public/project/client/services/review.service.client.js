@@ -9,7 +9,8 @@
             deleteReview: deleteReview,
             findReviewByUserId: findReviewByUserId,
             findReviewByDoctorId: findReviewByDoctorId,
-            findReviewById: findReviewById
+            findReviewById: findReviewById,
+            updateReview: updateReview
         };
         return api;
 
@@ -22,7 +23,7 @@
         }
 
         function findReviewByUserId(userId) {
-            return $http.get("/api/review/" + userId);
+            return $http.get("/api/review/user/" + userId);
         }
 
         function findReviewByDoctorId(doctorId) {
@@ -31,6 +32,10 @@
 
         function findReviewById(reviewId) {
             return $http.get("/api/review/" + reviewId);
+        }
+
+        function updateReview(newReivew) {
+            return $http.put("/api/reivew/", newReivew);
         }
     }
 })();

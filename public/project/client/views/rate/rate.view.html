@@ -20,33 +20,18 @@
     <div class="col-md-5 col-md-offset-1">
         <div class="form-group">
             <label for="overallRating">Overall Rating:</label>
-            <select ng-model="rate.overall" class="form-control" placeholder="rate" id="overallRating">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+            <jk-rating-stars id="overallRating" max-rating="5" rating="rate.overall" read-only="false">
+            </jk-rating-stars>
         </div>
         <div class="form-group">
             <label for="waitTime">Wait Time:</label>
-            <select ng-model="rate.waitTime" class="form-control" placeholder="rate" id="waitTime">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+            <jk-rating-stars id="waitTime" max-rating="5" rating="rate.waitTime" read-only="false">
+            </jk-rating-stars>
         </div>
         <div class="form-group">
             <label for="bedsideManner">Bedside Manner:</label>
-            <select ng-model="rate.bedsideManner" class="form-control" placeholder="rate" id="bedsideManner">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+            <jk-rating-stars id="bedsideManner" max-rating="5" rating="rate.bedsideManner" read-only="false">
+            </jk-rating-stars>
         </div>
     </div>
     <div class="col-md-5 ">
@@ -65,6 +50,10 @@
     </div>
 </div>
 <hr>
+
+<!--This is an example, rating is the value of input-->
+<!--<jk-rating-stars max-rating="8" rating="ctrl.rating" read-only="ctrl.readOnly" on-rating="ctrl.onRating(rating)" ></jk-rating-stars>-->
+
 
 
 

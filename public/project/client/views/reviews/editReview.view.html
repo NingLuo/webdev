@@ -20,33 +20,18 @@
     <div class="col-md-5 col-md-offset-1">
         <div class="form-group">
             <label for="overallRating">Overall Rating:</label>
-            <select ng-model="model.review.overall" class="form-control" id="overallRating">
-                <option>1 star</option>
-                <option>2 star</option>
-                <option>3 star</option>
-                <option>4 star</option>
-                <option>5 star</option>
-            </select>
+            <jk-rating-stars id="overallRating" max-rating="5" rating="model.review.overall" read-only="false">
+            </jk-rating-stars>
         </div>
         <div class="form-group">
             <label for="waitTime">Wait Time:</label>
-            <select ng-model="model.review.waitTime" class="form-control" id="waitTime">
-                <option>1 star</option>
-                <option>2 star</option>
-                <option>3 star</option>
-                <option>4 star</option>
-                <option>5 star</option>
-            </select>
+            <jk-rating-stars id="waitTime" max-rating="5" rating="model.review.waitTime" read-only="false">
+            </jk-rating-stars>
         </div>
         <div class="form-group">
             <label for="bedsideManner">Bedside Manner:</label>
-            <select ng-model="model.review.bedsideManner" class="form-control" id="bedsideManner">
-                <option>1 star</option>
-                <option>2 star</option>
-                <option>3 star</option>
-                <option>4 star</option>
-                <option>5 star</option>
-            </select>
+            <jk-rating-stars id="bedsideManner" max-rating="5" rating="model.review.bedsideManner" read-only="false">
+            </jk-rating-stars>
         </div>
     </div>
     <div class="col-md-5 ">

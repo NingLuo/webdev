@@ -9,7 +9,8 @@ module.exports = function () {
         deleteReview: deleteReview,
         findReviewByUserId: findReviewByUserId,
         findReviewByDoctorId: findReviewByDoctorId,
-        findReviewById: findReviewById
+        findReviewById: findReviewById,
+        updateReview: updateReview
     };
     return api;
 
@@ -31,5 +32,9 @@ module.exports = function () {
 
     function findReviewById(reviewId) {
         return Review.findById(reviewId);
+    }
+
+    function updateReview(newReview) {
+        return Review.update({"_id": newReview._id},{$set:newReview});
     }
 };

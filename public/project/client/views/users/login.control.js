@@ -31,7 +31,6 @@
                             $rootScope.previousUrl = null;
                         }
                     } else {
-                        console.log("not success");
                         vm.userNotFound = true;
                     }
                 });

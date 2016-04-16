@@ -1,9 +1,10 @@
 module.exports = function (app, ReviewModel) {
     app.post("/api/review", createReview);
     app.delete("/api/review/:reviewId", deleteReview);
-    app.get("/api/review/:userId", findReviewByUserId);
+    app.get("/api/review/user/:userId", findReviewByUserId);
     app.get("/api/review/doctor/:doctorId", findReviewByDoctorId);
     app.get("/api/review/:reviewId", findReviewById);
+    app.put("/api/reivew/", updateReview);
 
     function createReview(req, res) {
         var review = req.body;
@@ -73,5 +74,19 @@ module.exports = function (app, ReviewModel) {
                     console.log(err);
                 }
             );
+    }
+
+    function updateReview(req, res) {
+        var newReview = req.body;
+        ReviewModel
+            .updateReview(newReview)
+            .then(
+                function (review) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 };

@@ -28,7 +28,16 @@
         }
         init();
 
+        vm.readOnly = false;
+        vm.rating = 2;
+        vm.onRating = onRating;
+
+        function onRating() {
+            console.log("onRating")
+        }
+
         function submit(rate) {
+            console.log(rate);
             rate.userId = $rootScope.currentUser._id;
             rate.username = $rootScope.currentUser.username;
             rate.doctorName = "Dr." + vm.doctor.profile.first_name + " " + vm.doctor.profile.last_name;
