@@ -11,9 +11,12 @@
         vm.viewInsurance = viewInsurance;
         vm.reviews;
         vm.openMsgPop = openMsgPop;
+        vm.openVerifPop = openVerifPop;
+
         vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
 
         function init() {
+            console.log(vm.uid);
             DoctorSearchService
                 .findDoctorByUid(vm.uid)
                 .then(function(response) {
@@ -23,7 +26,6 @@
                 .then(
                     function (response) {
                         vm.reviews = response.data;
-                        console.log(vm.reviews);
                     },
                     function (err) {
                         console.log(err);
@@ -69,7 +71,6 @@
         }
 
         function openMsgPop(reviewerId, reviewerName) {
-            console.log(reviewerId);
             if($rootScope.currentUser) { // remember to fix this
                 var modalInstance = $uibModal.open(
                     {
@@ -93,6 +94,24 @@
                 $location.url("/login");
             }
 
+        }
+
+        function openVerifPop() {
+            $uibModal.open(
+                {
+                    templateUrl: 'views/search/docVerifPop.view.html',
+                    controller: 'DocVerifPopCtrl as model',
+                    resolve: {
+                        //this is the variable that passed the to SendMsgPopCtrl
+                        doctorUid: function () {
+                            return vm.uid;
+                        },
+                        reviewerName: function () {
+                            //return reviewerName;
+                        }
+                    }
+                }
+            );
         }
     }
 })();

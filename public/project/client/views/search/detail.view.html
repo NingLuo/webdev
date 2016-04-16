@@ -3,7 +3,8 @@
 <div class="row">
     <div class="col-md-7">
         <div class="col-md-4 col-sm-4">
-            <img class="img-circle" height="180px" ng-src="{{model.data.profile.image_url}}">
+            <div align="center"><img class="img-circle" height="180px" ng-src="{{model.data.profile.image_url}}"></div>
+            <div align="center"><a ng-click="model.openVerifPop()">This is me</a></div>
         </div>
         <div class="col-md-6 col-sm-6">
             <ul class="list-unstyled">
@@ -22,7 +23,6 @@
     </div>
 </div>
 <div ng-show="model.addSuccess" class="alert alert-success" role="alert"><p align="center">Added to my favorites!</p></div>
-<br>
 <!--Doctor's demographic information-->
 <!--Education-->
 <hr>
