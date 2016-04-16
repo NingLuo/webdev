@@ -80,7 +80,10 @@
             .when('/message', {
                 templateUrl: 'views/messages/message.view.html',
                 controller: 'MessageCtrl',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .otherwise({
                 redirectTo: "/"

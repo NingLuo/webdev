@@ -5,7 +5,7 @@
         .module("FindDoctorApp")
         .controller("EditReviewCtrl", EditReviewCtrl);
 
-    function EditReviewCtrl($rootScope, $routeParams, $location, UserService, DoctorSearchService, DoctorService, ReviewService) {
+    function EditReviewCtrl($routeParams, $location, DoctorSearchService, ReviewService) {
         var vm = this;
         var reviewId = $routeParams.reviewId;
         vm.review;

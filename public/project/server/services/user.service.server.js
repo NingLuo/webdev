@@ -167,8 +167,16 @@ module.exports = function (app, UserModel) {
 
     function findMessageByUserId(req, res) {
         var userId = req.params.userId;
-        var messages = UserModel.findMessageByUserId(userId);
-        res.json(messages);
+        UserModel
+            .findMessageByUserId(userId)
+            .then(
+                function (messages) {
+                    res.json(messages);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     //new

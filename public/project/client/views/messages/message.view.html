@@ -19,7 +19,7 @@
             </thead>
             <tbody>
             <tr ng-show="model.needReply">
-                <td>To: {{model.targetMsg.from}}</td>
+                <td>To: {{model.targetMsg.senderName}}</td>
                 <td>{{model.date | date}}</td>
                 <td><input ng-model="model.msgToSend.content" class="form-control"></td>
                 <td>
@@ -28,7 +28,7 @@
                 </td>
             </tr>
             <tr ng-repeat="message in model.messages">
-                <td>{{message.from}}</td>
+                <td>{{message.senderName}}</td>
                 <td>{{message.date | date}}</td>
                 <td>{{message.content}}</td>
                 <td>

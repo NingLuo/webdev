@@ -12,17 +12,13 @@
             register: register,
             addFavoriteByUid: addFavoriteByUid,
             unfavorite: unfavorite,
-            //addRateByUid: addRateByUid,
             addReview: addReview,
             deleteReview: deleteReview,
-            //findReviewsByUserId: findReviewsByUserId,
             findMessagesByUserId: findMessagesByUserId,
             sendMsgTo: sendMsgTo,
-            //updateReview: updateReview,
             getLoggedInUser:getLoggedInUser,
             updateUser: updateUser,
             logout: logout,
-            //deleteReview: deleteReview,
             deleteMsg: deleteMsg,
             setCurrentUser: setCurrentUser
         };
@@ -70,13 +66,6 @@
         function deleteReview(userId, reviewId) {
             return $http.delete("/api/user/"+ userId + "/review/" + reviewId);
         }
-        //function addRateByUid(userId, rate) {
-        //    return $http.post("/api/user/" + userId + "/rate/", rate);
-        //}
-
-        //function findReviewsByUserId(userId) {
-        //    return $http.get("/api/user/" + userId + "/rates");
-        //}
 
         function findMessagesByUserId(userId) {
             return $http.get("/api/user/" + userId +"/message");
@@ -91,12 +80,5 @@
             return $http.delete("/api/user/" + userId + "/message/" + msgId);
         }
 
-        //function updateReview(userId, rate) {
-        //    return $http.put("/api/user/" + userId + "/rate", rate);
-        //}
-
-        //function deleteReview(userId, rateId) {
-        //    return $http.delete("/api/user/" + userId + "/rate/" + rateId);
-        //}
     }
 })();

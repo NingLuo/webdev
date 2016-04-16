@@ -12,7 +12,8 @@ module.exports = function () {
         unfavorite: unfavorite,
         addReview: addReview,
         deleteReview: deleteReview,
-        sendMsgTo: sendMsgTo
+        sendMsgTo: sendMsgTo,
+        findMessageByUserId: findMessageByUserId
     };
     return api;
 
@@ -101,6 +102,7 @@ module.exports = function () {
     }
 
     function sendMsgTo(receiverId, message) {
+        console.log(receiverId, "at model");
         return User
             .findById(receiverId)
             .then(
@@ -109,6 +111,19 @@ module.exports = function () {
                     return user.save();
                 },
                 function (err) {
+                    console.log(err);
+                }
+            )
+    }
+
+    function findMessageByUserId(userId) {
+        return User
+            .findById(userId)
+            .then(
+                function (user) {
+                    return user.messages;
+                },
+                function () {
                     console.log(err);
                 }
             )

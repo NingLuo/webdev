@@ -8,7 +8,7 @@
     function MessageCtrl (UserService, $rootScope, $location) {
         var vm = this;
         vm.messages;    //user's messages retrived from user service
-        vm.targetMsg;
+        vm.targetMsg;   //the message was chosen to reply
         vm.needReply = false; //a flag for show/hide reply bar
         vm.msgToSend;     //the message which was inputed into relpy bar
         vm.date = (new Date).getTime();
@@ -19,21 +19,15 @@
 
         function init() {
             UserService
-                .getLoggedInUser()
-                .then(function (response) {
-                    var currentUser = response.data;
-                    if(currentUser) {
-                        $rootScope.currentUser = currentUser;
-                        UserService
-                            .findMessagesByUserId($rootScope.currentUser.u_id)
-                            .then(function (response) {
-                                vm.messages = response.data;
-                            });
+                .findMessagesByUserId($rootScope.currentUser._id)
+                .then(
+                    function (response) {
+                        vm.messages = response.data;
+                    },
+                    function (err) {
+                        console.log(err);
                     }
-                    else {
-                        $location.url('/login');
-                    }
-                });
+                );
         }
         init();
 
@@ -46,9 +40,8 @@
         //send reply message
         function send() {
             //vm.msgToSend.receiver = vm.targetMsg.from;
-            vm.msgToSend.id = (new Date).getTime();
-            vm.msgToSend.senderId = $rootScope.currentUser.u_id;
-            vm.msgToSend.from = $rootScope.currentUser.username;
+            vm.msgToSend.senderId = $rootScope.currentUser._id;
+            vm.msgToSend.senderName = $rootScope.currentUser.username;
             vm.msgToSend.date = vm.date;
             //two params: first is reciever id, second is the message object
             UserService
