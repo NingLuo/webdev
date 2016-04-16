@@ -14,7 +14,7 @@
         vm.date = (new Date).getTime();
         vm.reply = reply;
         vm.send = send;
-        vm.deleteMsg = deleteMsg;
+        vm.removeMsg = removeMsg;
         vm.cancel = cancel;
 
         function init() {
@@ -52,9 +52,9 @@
                 });
         }
 
-        function deleteMsg(message) {
+        function removeMsg(message) {
             UserService
-                .deleteMsg($rootScope.currentUser.u_id, message.id)
+                .removeMsg($rootScope.currentUser._id, message._id)
                 .then(function (response) {
                     vm.messages = response.data.messages;
                 });

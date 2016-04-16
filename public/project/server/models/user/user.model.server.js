@@ -13,7 +13,8 @@ module.exports = function () {
         addReview: addReview,
         deleteReview: deleteReview,
         sendMsgTo: sendMsgTo,
-        findMessageByUserId: findMessageByUserId
+        findMessageByUserId: findMessageByUserId,
+        removeMsg: removeMsg
     };
     return api;
 
@@ -124,6 +125,25 @@ module.exports = function () {
                     return user.messages;
                 },
                 function () {
+                    console.log(err);
+                }
+            )
+    }
+
+    function removeMsg(userId, msgId) {
+        return User
+            .findById(userId)
+            .then(
+                function (user) {
+                    for(var i in user.messages) {
+                        if(user.messages[i]._id == msgId) {
+                            user.messages.splice(i, 1);
+                            break;
+                        }
+                    }
+                    return user.save();
+                },
+                function (err) {
                     console.log(err);
                 }
             )

@@ -19,7 +19,7 @@
             getLoggedInUser:getLoggedInUser,
             updateUser: updateUser,
             logout: logout,
-            deleteMsg: deleteMsg,
+            removeMsg: removeMsg,
             setCurrentUser: setCurrentUser
         };
 
@@ -76,7 +76,7 @@
             return $http.post("/api/user/" + receiverId + "/message", msgToSend);
         }
 
-        function deleteMsg(userId, msgId) {
+        function removeMsg(userId, msgId) {
             return $http.delete("/api/user/" + userId + "/message/" + msgId);
         }
 

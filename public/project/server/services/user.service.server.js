@@ -15,7 +15,7 @@ module.exports = function (app, UserModel) {
     app.delete("/api/user/:userId/rate/:rateId", deleteRate);
     app.get("/api/user/:userId/message", findMessageByUserId);
     app.post("/api/user/:receiverId/message", sendMsgTo);
-    app.delete("/api/user/:userId/message/:msgId", deleteMsg);
+    app.delete("/api/user/:userId/message/:msgId", removeMsg);
 
     function login(req, res) {
         var credentials = {};
@@ -196,11 +196,19 @@ module.exports = function (app, UserModel) {
 
     }
 
-    function deleteMsg(req, res) {
+    function removeMsg(req, res) {
         var userId = req.params.userId;
         var msgId = req.params.msgId;
-        var user = UserModel.deleteMsg(userId, msgId);
-        req.session.currentUser = user;
-        res.json(user);
+        UserModel
+            .removeMsg(userId, msgId)
+            .then(
+                function (user) {
+                    req.session.currentUser = user;
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 };
