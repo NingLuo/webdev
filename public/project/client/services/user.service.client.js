@@ -30,7 +30,6 @@
         }
 
         function register(newUser) {
-            console.log("create user from user service");
             return $http.post("/api/user/register", newUser);
         }
 

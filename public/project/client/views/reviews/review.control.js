@@ -12,16 +12,32 @@
         vm.deleteReview= deleteReview;
 
         function init() {
-            ReviewService
-                .findReviewByUserId($rootScope.currentUser._id)
-                .then(
-                    function (response) {
-                        vm.reviews = response.data;
-                    },
-                    function (err) {
-                        console.log(err)
-                    }
-                );
+            //if logged in user is a patient
+            if($rootScope.currentUser.role == "Patient") {
+                ReviewService
+                    .findReviewByUserId($rootScope.currentUser._id)
+                    .then(
+                        function (response) {
+                            vm.reviews = response.data;
+                        },
+                        function (err) {
+                            console.log(err)
+                        }
+                    );
+            }
+            else {
+                //if logged in user is a provider
+                ReviewService
+                    .findReviewByDoctorId($rootScope.currentUser.doctorId)
+                    .then(
+                        function (response) {
+                            vm.reviews = response.data;
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                    )
+            }
         }
         init();
 

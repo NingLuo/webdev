@@ -118,7 +118,6 @@ module.exports = function (app, UserModel) {
             .addReview(userId, reviewId)
             .then(
                 function (response) {
-                    console.log(response);
                     res.send(200);
                 },
                 function (err) {
