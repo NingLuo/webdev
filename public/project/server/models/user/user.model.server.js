@@ -23,7 +23,7 @@ module.exports = function () {
     }
 
     function findUserByCredentials(credentials) {
-        return User.findOne({email: credentials.email, password: credentials.password});
+        return User.findOne({username: credentials.username, password: credentials.password});
     }
 
     function updateUser(newUser) {
