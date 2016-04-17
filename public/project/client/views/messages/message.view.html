@@ -2,7 +2,7 @@
     <div class="col-md-2 hidden-xs hidden-sm">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation"><a href="#/profile">Profile</a></li>
-            <li role="presentation"><a href="#/favorite">Favorite Doctors</a></li>
+            <li ng-if="currentUser.role == 'Patient'" role="presentation"><a href="#/favorite">Favorite Doctors</a></li>
             <li role="presentation"><a href="#/review">My Reviews</a></li>
             <li role="presentation"  class="active"><a href="#/message">My Messages</a></li>
         </ul>
