@@ -102,12 +102,12 @@
                     templateUrl: 'views/search/docVerifPop.view.html',
                     controller: 'DocVerifPopCtrl as model',
                     resolve: {
-                        //this is the variable that passed the to SendMsgPopCtrl
                         doctorUid: function () {
                             return vm.uid;
                         },
-                        reviewerName: function () {
-                            //return reviewerName;
+                        doctorName: function () {
+                            var doctorName = vm.data.profile.last_name;
+                            return doctorName;
                         }
                     }
                 }

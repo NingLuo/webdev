@@ -6,11 +6,18 @@
         <label for="uid">Please enter your doctor UID:</label>
         <input ng-model="uid" class="form-control" type="text" id="uid">
     </div>
-    <div ng-show="model.uidVerifFailed" class="alert alert-danger" role="alert"><p align="center">Sorry, we didn't find a matching UID.</p></div>
+    <div ng-if="model.uidVerifFailed" class="alert alert-danger" role="alert"><p align="center">Sorry, we didn't find a matching UID.</p></div>
+    <div ng-if="model.uidVerifSuccess" class="alert alert-success" role="alert">
+        <p align="center">Verify Success!</p>
+        <p> Welcome Dr.{{model.doctorName}}! Your account has been created:</p>
+        <p>username: "{{model.doctorName}}"</p>
+        <p>password: "password"</p>
+    </div>
 </div>
 <div class="modal-footer">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-success btn-block" ng-click="model.verifyUid(uid)">Verify</button></div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-warning btn-block" ng-click="model.close()">Cancel</button></div>
+        <div ng-hide="model.uidVerifSuccess" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-success btn-block" ng-click="model.verifyUid(uid)">Verify</button></div>
+        <div ng-hide="model.uidVerifSuccess" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-warning btn-block" ng-click="model.close()">Cancel</button></div>
+        <div ng-show="model.uidVerifSuccess"><button class="btn btn-success btn-block" ng-click="model.login()">Ok, go to my profile</button></div>
     </div>
 </div>
