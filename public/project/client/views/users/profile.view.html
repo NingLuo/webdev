@@ -10,19 +10,23 @@
     <div class="col-md-6 col-md-offset-1">
         <h1>Profile</h1>
         <hr>
-        <div class="form-group">
+        <div ng-if="currentUser.role == 'Patient'" class="form-group">
             <label for="email">Email Address:</label>
             <input ng-model="model.currentUser.email" class="form-control" type="text" id="email" placeholder="Emial">
         </div>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input ng-model="model.currentUser.username" class="form-control" type="text" id="username" placeholder="username">
+        <div ng-if="currentUser.role == 'Patient'" class="form-group">
+            <label for="patientName">Username:</label>
+            <input ng-model="model.currentUser.username" class="form-control" type="text" id="patientName" placeholder="username">
+        </div>
+        <div ng-if="currentUser.role == 'Provider'" class="form-group">
+            <label for="providerName">Username:</label>
+            <input ng-model="model.currentUser.username" class="form-control" type="text" id="providerName" placeholder="username" disabled>
         </div>
         <div class="form-group">
-            <label for="password">Password:</label>
-            <input ng-model="model.currentUser.password" class="form-control" type="text" id="password" placeholder="password">
+            <label for="patientPwd">Password:</label>
+            <input ng-model="model.currentUser.password" class="form-control" type="text" id="patientPwd" placeholder="password">
         </div>
-        <div class="form-group">
+        <div ng-if="currentUser.role == 'Patient'" class="form-group">
             <label for="phone">phone:</label>
             <input ng-model="model.currentUser.phone" class="form-control" type="text" id="phone" placeholder="phone number">
         </div>

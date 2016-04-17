@@ -39,6 +39,8 @@ module.exports = function (app, UserModel) {
         if(newUser.role == null) {
             newUser.role = "Patient";
         }
+        //needs to check if username already exists or if doctorId already exists
+        // add your code here
         UserModel
             .createUser(newUser)
             .then(
