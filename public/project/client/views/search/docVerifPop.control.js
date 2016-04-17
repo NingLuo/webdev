@@ -20,6 +20,7 @@
                 newUser.username = doctorName;
                 newUser.password = "password";
                 newUser.role = "Provider";
+                newUser.doctorId = uid;
                 //register this user
                 UserService
                     .register(newUser)
