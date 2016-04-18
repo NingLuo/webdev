@@ -11,7 +11,8 @@ module.exports = function () {
         findReviewByDoctorId: findReviewByDoctorId,
         findReviewById: findReviewById,
         updateReview: updateReview,
-        addReply: addReply
+        addReply: addReply,
+        updateReply: updateReply
     };
     return api;
 
@@ -51,5 +52,9 @@ module.exports = function () {
                     console.log(err, "addReply at ReviewModel");
                 }
             )
+    }
+
+    function updateReply(reviewId, newReivew) {
+        return Review.update({"_id": reviewId}, {$set:newReivew});
     }
 };

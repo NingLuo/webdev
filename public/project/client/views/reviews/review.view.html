@@ -12,8 +12,8 @@
         <div class="col-md-3">
             <p>{{review.reviewDate | date}}</p>
             <p>by {{review.username}}</p>
-            <div> <a ng-click="model.openReplyBox(review._id)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Reply</a></div>
-            <div> <a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a></div>
+            <div ng-hide="review.reply"> <a ng-click="model.openReplyBox(review._id)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Reply</a></div>
+            <div> <a ng-click="model.openEditBox(review._id, review.reply.content)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a></div>
             <div> <a><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a></div>
         </div>
         <div class="col-md-9">
@@ -63,7 +63,7 @@
                     <p>{{review.comments}}</p>
                 </div>
             </div>
-            <div ng-if="review.reply" class="row commentCard">
+            <div ng-if="review.reply" ng-hide="model.editId == review._id" class="row commentCard">
                 <div class="col-md-12">
                     <p><strong>Comment from {{review.doctorName}}</strong></p>
                     <p>{{review.reply.date | date}}</p>
@@ -79,6 +79,15 @@
                 <div class="pull-right">
                     <button class="btn btn-success" ng-click="model.submiteReply(reply, review)">Reply</button>
                     <button class="btn btn-danger" ng-click="model.cancelReply(reply)">Cancel</button>
+                </div>
+            </div>
+            <div class="row replyBox" ng-hide="model.editId!= review._id">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" ng-model="model.reviewContent"/>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-success" ng-click="model.updateReply(review)">Update</button>
+                    <button class="btn btn-danger" ng-click="model.cancelEdit()">Cancel</button>
                 </div>
             </div>
         </div>

@@ -13,7 +13,13 @@
         vm.openReplyBox = openReplyBox;
         vm.cancelReply = cancelReply;
         vm.submiteReply = submiteReply;
+        vm.openEditBox = openEditBox;
+        vm.cancelEdit = cancelEdit;
+        vm.updateReply = updateReply;
         vm.replyId;
+        vm.editId;
+        vm.reviewContent;
+        vm.oldContent;
 
         function init() {
             //if logged in user is a patient
@@ -112,6 +118,38 @@
                 .then(
                     function (response) {
                         vm.reviews = response.data;
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+        }
+
+        function openEditBox(reviewId, oldContent) {
+            //used as backup content for recovery after canceling the edit
+            vm.oldContent = oldContent;
+            //used for rendering in the edit textarea
+            vm.reviewContent = oldContent;
+
+            vm.editId = reviewId;
+        }
+
+        function cancelEdit() {
+            //recover to unchanged old content after canceling the edit
+            vm.reviewContent = vm.oldContent;
+
+            vm.editId = null;
+        }
+
+        function updateReply(review) {
+            review.reply.content = vm.reviewContent;
+            review.reply.date = new Date();
+            ReviewService
+                .updateReply(review)
+                .then(
+                    function (response) {
+                        //close edit box
+                        vm.editId = null;
                     },
                     function (err) {
                         console.log(err);

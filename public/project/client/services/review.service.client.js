@@ -11,7 +11,8 @@
             findReviewByDoctorId: findReviewByDoctorId,
             findReviewById: findReviewById,
             updateReview: updateReview,
-            addReply: addReply
+            addReply: addReply,
+            updateReply: updateReply
         };
         return api;
 
@@ -40,7 +41,11 @@
         }
 
         function addReply(reviewId, newReply) {
-            return $http.put("/api/review/"+ reviewId + "/reply", newReply);
+            return $http.post("/api/review/"+ reviewId + "/reply", newReply);
+        }
+
+        function updateReply(newReivew) {
+            return $http.put("/api/review/" + newReivew._id + "/reply", newReivew);
         }
     }
 })();
