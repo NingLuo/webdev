@@ -91,7 +91,7 @@
                 <button ng-click="model.openMsgPop(review.userId, review.username)" class="btn btn-default">
                     <span class="glyphicon glyphicon-envelope"></span></button>Send Message
             </div>
-            <div >
+            <div ng-hide="currentUser.role == 'Patient'|| !currentUser">
                 <button ng-click="model.openReplyPop(review)" class="btn btn-default">
                 <span class="glyphicon glyphicon-comment"></span></button>Reply
             </div>

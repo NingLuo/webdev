@@ -5,12 +5,12 @@
         .module("FindDoctorApp")
         .controller("ReviewCtrl", ReviewCtrl);
 
-    function ReviewCtrl ($rootScope, $location, UserService, DoctorService, ReviewService) {
+    function ReviewCtrl ($rootScope, $location, UserService, DoctorService, ReviewService, $uibModal) {
         var vm = this;
         vm.reviews = null;
         vm.edit = edit;
         vm.deleteReview= deleteReview;
-        vm.replyReview = replyReview;
+        vm.openReplyPop = openReplyPop;
 
         function init() {
             //if logged in user is a patient
@@ -77,8 +77,34 @@
                 );
         }
 
-        function replyReview() {
-            console.log("replyReview");
+        function openReplyPop(review) {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: 'views/search/docReplyPop.view.html',
+                    controller: 'DocReplyPopCtrl as model',
+                    resolve: {
+                        review: function () {
+                            return review;
+                        }
+                    }
+                }
+            );
+
+            modalInstance.result.then(
+                //function to be called after the openReplyPop is auto closed;
+                function () {
+                    ReviewService
+                        .findReviewByDoctorId($rootScope.currentUser.doctorId)
+                        .then(
+                            function (response) {
+                                vm.reviews = response.data;
+                            },
+                            function (err) {
+                                console.log(err);
+                            }
+                        );
+                }
+            );
         }
     }
 })();
