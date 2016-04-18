@@ -44,7 +44,7 @@ module.exports = function () {
             .findById(reviewId)
             .then(
                 function (review) {
-                    review.replies.push(newReply);
+                    review.reply = newReply;
                     return review.save();
                 },
                 function (err) {

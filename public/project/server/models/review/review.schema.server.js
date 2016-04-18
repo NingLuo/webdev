@@ -12,7 +12,7 @@ module.exports = function () {
         waitTime     : String,
         bedsideManner: String,
         comments     : String,
-        replies      : [ReplySchema]
+        reply        : ReplySchema
     }, {collection: 'project_review'});
     return ReviewSchema;
 };

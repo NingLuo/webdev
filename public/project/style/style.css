@@ -27,6 +27,11 @@ td {
 
 .reviewCard {
     border:1px solid #bbb;
-    margin:25px;
+    margin:15px;
     padding: 10px;
+}
+
+.commentCard {
+    background-color:#eeeeee;
+    padding-top: 10px;
 }
