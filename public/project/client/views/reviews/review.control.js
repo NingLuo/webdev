@@ -10,7 +10,9 @@
         vm.reviews = null;
         vm.edit = edit;
         vm.deleteReview= deleteReview;
-        vm.openReplyPop = openReplyPop;
+        vm.openReplyBox = openReplyBox;
+        vm.cancelReply = cancelReply;
+        vm.replyId;
 
         function init() {
             //if logged in user is a patient
@@ -77,34 +79,12 @@
                 );
         }
 
-        function openReplyPop(review) {
-            var modalInstance = $uibModal.open(
-                {
-                    templateUrl: 'views/search/docReplyPop.view.html',
-                    controller: 'DocReplyPopCtrl as model',
-                    resolve: {
-                        review: function () {
-                            return review;
-                        }
-                    }
-                }
-            );
+        function openReplyBox(reviewId) {
+            vm.replyId = reviewId;
+        }
 
-            modalInstance.result.then(
-                //function to be called after the openReplyPop is auto closed;
-                function () {
-                    ReviewService
-                        .findReviewByDoctorId($rootScope.currentUser.doctorId)
-                        .then(
-                            function (response) {
-                                vm.reviews = response.data;
-                            },
-                            function (err) {
-                                console.log(err);
-                            }
-                        );
-                }
-            );
+        function cancelReply() {
+            vm.replyId = null;
         }
     }
 })();
