@@ -10,6 +10,7 @@
         vm.reviews = null;
         vm.edit = edit;
         vm.deleteReview= deleteReview;
+        vm.replyReview = replyReview;
 
         function init() {
             //if logged in user is a patient
@@ -74,6 +75,10 @@
                         console.log(err);
                     }
                 );
+        }
+
+        function replyReview() {
+            console.log("replyReview");
         }
     }
 })();

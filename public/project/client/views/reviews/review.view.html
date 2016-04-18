@@ -25,7 +25,7 @@
                 <td>{{review.overall}}</td>
                 <td>{{review.comments}}</td>
                 <td>
-                    <a ng-if="currentUser.role == 'Provider'" class="btn btn-warning" ng-click=""  role="button">Reply</a>
+                    <a ng-if="currentUser.role == 'Provider'" class="btn btn-warning" ng-click="model.replyReview()"  role="button">Reply</a>
                     <a ng-if="currentUser.role == 'Patient'" class="btn btn-warning" ng-click="model.edit(review)"  role="button">Edit</a>
                     <button ng-if="currentUser.role == 'Patient'" class="btn btn-danger" ng-click="model.deleteReview(review)" role="button">Delete</button>
                 </td>
