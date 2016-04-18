@@ -19,7 +19,7 @@
                 .addReply(review._id, reply)
                 .then(
                     function (response) {
-                        console.log(response.data);
+                        $uibModalInstance.close();
                     },
                     function (err) {
                         console.log(err);

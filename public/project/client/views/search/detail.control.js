@@ -98,7 +98,7 @@
         }
 
         function openReplyPop(review) {
-            $uibModal.open(
+            var modalInstance = $uibModal.open(
                 {
                     templateUrl: 'views/search/docReplyPop.view.html',
                     controller: 'DocReplyPopCtrl as model',
@@ -107,6 +107,22 @@
                             return review;
                         }
                     }
+                }
+            );
+
+            modalInstance.result.then(
+                //function to be called after the openReplyPop is auto closed;
+                function () {
+                    ReviewService
+                        .findReviewByDoctorId(vm.uid)
+                        .then(
+                            function (response) {
+                                vm.reviews = response.data;
+                            },
+                            function (err) {
+                                console.log(err);
+                            }
+                        );
                 }
             );
         }
