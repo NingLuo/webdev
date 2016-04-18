@@ -12,6 +12,7 @@
         vm.deleteReview= deleteReview;
         vm.openReplyBox = openReplyBox;
         vm.cancelReply = cancelReply;
+        vm.submiteReply = submiteReply;
         vm.replyId;
 
         function init() {
@@ -83,8 +84,39 @@
             vm.replyId = reviewId;
         }
 
-        function cancelReply() {
+        function cancelReply(reply) {
+            //clear content in the textarea
+            if(reply!=null) {
+                reply.content = null;
+            }
+            //hide the reply box
             vm.replyId = null;
+        }
+
+        function submiteReply(reply, review) {
+            reply.senderId = review.doctorId;
+            reply.senderName = review.doctorName;
+            ReviewService
+                .addReply(review._id, reply)
+                .then(
+                    function (response) {
+                        //close reply box
+                        vm.replyId = null;
+                        //refetch page content
+                        return ReviewService.findReviewByDoctorId($rootScope.currentUser.doctorId)
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+                .then(
+                    function (response) {
+                        vm.reviews = response.data;
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
         }
     }
 })();

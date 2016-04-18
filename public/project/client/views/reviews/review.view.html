@@ -74,11 +74,11 @@
             </div>
             <div class="row replyBox" ng-hide="model.replyId!= review._id">
                 <div class="form-group">
-                    <textarea class="form-control" rows="3"/>
+                    <textarea class="form-control" rows="3" ng-model="reply.content"/>
                 </div>
                 <div class="pull-right">
-                    <button class="btn btn-success">Reply</button>
-                    <button class="btn btn-danger" ng-click="model.cancelReply()">Cancel</button>
+                    <button class="btn btn-success" ng-click="model.submiteReply(reply, review)">Reply</button>
+                    <button class="btn btn-danger" ng-click="model.cancelReply(reply)">Cancel</button>
                 </div>
             </div>
         </div>
