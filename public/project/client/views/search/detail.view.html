@@ -87,7 +87,8 @@
     <div class="col-md-12" ng-repeat="review in model.reviews">
         <div class="col-md-2">
             <div>by {{review.username}}</div>
-            <div><button ng-click="model.openMsgPop(review.userId, review.username)" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button>Send Message</div>
+            <div ng-hide="currentUser.role == 'Provider'"><button ng-click="model.openMsgPop(review.userId, review.username)" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button>Send Message</div>
+            <div ng-show="currentUser.role == 'Provider'"><button ng-click="model.openMsgPop(review.userId, review.username)" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button>Reply</div>
         </div>
         <div class="col-md-7">
             <div class="row">
