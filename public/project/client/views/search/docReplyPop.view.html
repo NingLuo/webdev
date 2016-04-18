@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3>Reply to {{model.reviewerName}}</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label for="uid">Content</label>
+        <textarea ng-model="content" class="form-control" type="text" id="uid"/>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div ng-hide="model.uidVerifSuccess" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-success btn-block" ng-click="model.reply(content)">Reply</button></div>
+        <div ng-hide="model.uidVerifSuccess" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-warning btn-block" ng-click="model.close()">Cancel</button></div>
+    </div>
+</div>

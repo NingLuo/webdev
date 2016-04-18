@@ -10,7 +10,8 @@
             findReviewByUserId: findReviewByUserId,
             findReviewByDoctorId: findReviewByDoctorId,
             findReviewById: findReviewById,
-            updateReview: updateReview
+            updateReview: updateReview,
+            addReply: addReply
         };
         return api;
 
@@ -36,6 +37,10 @@
 
         function updateReview(newReivew) {
             return $http.put("/api/reivew/", newReivew);
+        }
+
+        function addReply(reviewId, newReply) {
+            return $http.put("/api/review/"+ reviewId + "/reply", newReply);
         }
     }
 })();

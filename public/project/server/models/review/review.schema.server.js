@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var ReplySchema = require("./reply.schema.server.js")();
 
 module.exports = function () {
     var ReviewSchema = mongoose.Schema({
@@ -10,7 +11,8 @@ module.exports = function () {
         overall      : String,
         waitTime     : String,
         bedsideManner: String,
-        comments     : String
+        comments     : String,
+        replies      : [ReplySchema]
     }, {collection: 'project_review'});
     return ReviewSchema;
 };

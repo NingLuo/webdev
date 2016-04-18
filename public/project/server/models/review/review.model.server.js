@@ -10,7 +10,8 @@ module.exports = function () {
         findReviewByUserId: findReviewByUserId,
         findReviewByDoctorId: findReviewByDoctorId,
         findReviewById: findReviewById,
-        updateReview: updateReview
+        updateReview: updateReview,
+        addReply: addReply
     };
     return api;
 
@@ -36,5 +37,19 @@ module.exports = function () {
 
     function updateReview(newReview) {
         return Review.update({"_id": newReview._id},{$set:newReview});
+    }
+
+    function addReply(reviewId, newReply) {
+        return Review
+            .findById(reviewId)
+            .then(
+                function (review) {
+                    review.replies.push(newReply);
+                    return review.save();
+                },
+                function (err) {
+                    console.log(err, "addReply at ReviewModel");
+                }
+            )
     }
 };

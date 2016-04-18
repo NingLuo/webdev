@@ -11,6 +11,7 @@
         vm.viewInsurance = viewInsurance;
         vm.reviews;
         vm.openMsgPop = openMsgPop;
+        vm.openReplyPop = openReplyPop;
         vm.openVerifPop = openVerifPop;
 
         vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
@@ -94,6 +95,20 @@
                 $location.url("/login");
             }
 
+        }
+
+        function openReplyPop(review) {
+            $uibModal.open(
+                {
+                    templateUrl: 'views/search/docReplyPop.view.html',
+                    controller: 'DocReplyPopCtrl as model',
+                    resolve: {
+                        review: function () {
+                            return review;
+                        }
+                    }
+                }
+            );
         }
 
         function openVerifPop() {
