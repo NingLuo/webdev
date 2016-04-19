@@ -7,6 +7,7 @@ module.exports = function (app, ReviewModel) {
     app.put("/api/reivew/", updateReview);
     app.post("/api/review/:reviewId/reply", addReply);
     app.put("/api/review/:reviewId/reply", updateReply);
+    app.delete("/api/review/:reviewId/reply/:replyId", removeReply);
 
     function createReview(req, res) {
         var review = req.body;
@@ -112,6 +113,21 @@ module.exports = function (app, ReviewModel) {
         var newReivew = req.body;
         ReviewModel
             .updateReply(reviewId, newReivew)
+            .then(
+                function (response) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+    function removeReply(req, res) {
+        var reviewId = req.params.reviewId;
+        var replyId = req.params.replyId;
+        ReviewModel
+            .removeReply(reviewId, replyId)
             .then(
                 function (response) {
                     res.send(200);

@@ -13,8 +13,8 @@
             <p>{{review.reviewDate | date}}</p>
             <p>by {{review.username}}</p>
             <div ng-hide="review.reply"> <a ng-click="model.openReplyBox(review._id)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Reply</a></div>
-            <div> <a ng-click="model.openEditBox(review._id, review.reply.content)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a></div>
-            <div> <a><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a></div>
+            <div ng-hide="!review.reply"> <a ng-click="model.openEditBox(review._id, review.reply.content)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a></div>
+            <div ng-hide="!review.reply"> <a ng-click="model.openRemovePop(review)"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a></div>
         </div>
         <div class="col-md-9">
             <div class="row">

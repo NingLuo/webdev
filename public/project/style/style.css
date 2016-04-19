@@ -39,3 +39,9 @@ td {
 .replyBox {
     padding: 10px;
 }
+
+.popText {
+    font-size: large;
+    text-align: center;
+    margin-top: 5%;
+}

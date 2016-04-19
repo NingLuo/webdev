@@ -16,6 +16,7 @@
         vm.openEditBox = openEditBox;
         vm.cancelEdit = cancelEdit;
         vm.updateReply = updateReply;
+        vm.openRemovePop = openRemovePop;
         vm.replyId;
         vm.editId;
         vm.reviewContent;
@@ -155,6 +156,40 @@
                         console.log(err);
                     }
                 )
+        }
+
+        function openRemovePop(review) {
+            var modalInstance = $uibModal.open(
+                {
+                    templateUrl: "views/reviews/removePop.view.html",
+                    controller: "RemovePopCtrl as model",
+                    resolve:{
+                        reviewId: function () {
+                            return review._id;
+                        },
+                        replyId: function () {
+                            return review.reply._id;
+                        }
+                    }
+                }
+            );
+
+            modalInstance.result.then(
+                //function to be called after the openReplyPop is auto closed;
+                function () {
+                    ReviewService
+                        .findReviewByDoctorId($rootScope.currentUser.doctorId)
+                        .then(
+                            function (response) {
+                                vm.reviews = response.data;
+                            },
+                            function (err) {
+                                console.log(err);
+                            }
+                        );
+                }
+            );
+
         }
     }
 })();

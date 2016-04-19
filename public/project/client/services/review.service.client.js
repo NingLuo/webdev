@@ -12,7 +12,8 @@
             findReviewById: findReviewById,
             updateReview: updateReview,
             addReply: addReply,
-            updateReply: updateReply
+            updateReply: updateReply,
+            removeReply: removeReply
         };
         return api;
 
@@ -46,6 +47,10 @@
 
         function updateReply(newReivew) {
             return $http.put("/api/review/" + newReivew._id + "/reply", newReivew);
+        }
+
+        function removeReply(reviewId, replyId) {
+            return $http.delete("/api/review/" + reviewId + "/reply/" + replyId);
         }
     }
 })();

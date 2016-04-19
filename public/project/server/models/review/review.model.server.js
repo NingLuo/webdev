@@ -12,7 +12,8 @@ module.exports = function () {
         findReviewById: findReviewById,
         updateReview: updateReview,
         addReply: addReply,
-        updateReply: updateReply
+        updateReply: updateReply,
+        removeReply: removeReply
     };
     return api;
 
@@ -56,5 +57,9 @@ module.exports = function () {
 
     function updateReply(reviewId, newReivew) {
         return Review.update({"_id": reviewId}, {$set:newReivew});
+    }
+
+    function removeReply(reviewId, replyId) {
+        return Review.update({_id:reviewId},{$unset:{reply:""}});
     }
 };
