@@ -4,17 +4,18 @@
             <li role="presentation"><a href="#/profile">Profile</a></li>
             <li ng-if="currentUser.role == 'Patient'" role="presentation"><a href="#/favorite">Favorite Doctors</a></li>
             <li role="presentation" class="active"><a href="#/review">My Reviews</a></li>
-            <li role="presentation"><a href="#/message">My Messages</a></li>
+            <li ng-if="currentUser.role == 'Patient'" role="presentation"><a href="#/message">My Messages</a></li>
         </ul>
     </div>
     <div class="col-md-8 ">
     <div class="row reviewCard" ng-repeat="review in model.reviews">
         <div class="col-md-3">
+            <p ng-show="currentUser.role == 'Provider'">By {{review.username}}</p>
+            <p ng-show="currentUser.role == 'Patient'">To {{review.doctorName}}</p>
             <p>{{review.reviewDate | date}}</p>
-            <p>by {{review.username}}</p>
-            <div ng-hide="review.reply"> <a ng-click="model.openReplyBox(review._id)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Reply</a></div>
-            <div ng-hide="!review.reply"> <a ng-click="model.openEditBox(review._id, review.reply.content)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a></div>
-            <div ng-hide="!review.reply"> <a ng-click="model.openRemovePop(review)"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a></div>
+            <div ng-hide="review.reply || currentUser.role == 'Patient'"> <a ng-click="model.openReplyBox(review._id)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Reply</a></div>
+            <div ng-if="currentUser.role == 'Patient'"> <a ng-click="model.edit(review)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a></div>
+            <div ng-if="currentUser.role == 'Patient'"> <a ng-click="model.openRemovePop(review)"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a></div>
         </div>
         <div class="col-md-9">
             <div class="row">
@@ -63,9 +64,13 @@
                     <p>{{review.comments}}</p>
                 </div>
             </div>
-            <div ng-if="review.reply" ng-hide="model.editId == review._id" class="row commentCard">
+            <div ng-if="review.reply" ng-hide="model.editId == review._id" ng-mouseenter="model.toggleIcon(review._id)" ng-mouseleave="model.toggleIcon()" class="row commentCard">
                 <div class="col-md-12">
-                    <p><strong>Comment from {{review.doctorName}}</strong></p>
+                    <p>
+                        <strong>Comment from {{review.doctorName}}</strong>
+                        <a class="pull-right replyBtn" ng-show="model.showIcon == review._id && currentUser.role == 'Provider'" ng-click="model.openRemovePop(review)"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+                        <a class="pull-right replyBtn" ng-show="model.showIcon == review._id && currentUser.role == 'Provider'" ng-click="model.openEditBox(review._id, review.reply.content)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+                    </p>
                     <p>{{review.reply.date | date}}</p>
                 </div>
                 <div class="col-md-12">

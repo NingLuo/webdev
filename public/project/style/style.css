@@ -45,3 +45,8 @@ td {
     text-align: center;
     margin-top: 5%;
 }
+
+.replyBtn {
+    margin-left: 10px;
+    color: #5e5e5e;
+}

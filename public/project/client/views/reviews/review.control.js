@@ -21,6 +21,8 @@
         vm.editId;
         vm.reviewContent;
         vm.oldContent;
+        vm.toggleIcon = toggleIcon;
+        vm.showIcon = false;
 
         function init() {
             //if logged in user is a patient
@@ -168,7 +170,10 @@
                             return review._id;
                         },
                         replyId: function () {
-                            return review.reply._id;
+                            if(review.reply) return review.reply._id;
+                        },
+                        doctorId: function () {
+                            return review.doctorId;
                         }
                     }
                 }
@@ -176,20 +181,30 @@
 
             modalInstance.result.then(
                 //function to be called after the openReplyPop is auto closed;
-                function () {
-                    ReviewService
-                        .findReviewByDoctorId($rootScope.currentUser.doctorId)
-                        .then(
-                            function (response) {
-                                vm.reviews = response.data;
-                            },
-                            function (err) {
-                                console.log(err);
-                            }
-                        );
-                }
+                init
+                //function () {
+                //    ReviewService
+                //        .findReviewByDoctorId($rootScope.currentUser.doctorId)
+                //        .then(
+                //            function (response) {
+                //                vm.reviews = response.data;
+                //            },
+                //            function (err) {
+                //                console.log(err);
+                //            }
+                //        );
+                //}
             );
 
+        }
+
+        function toggleIcon(reviewId) {
+            if(!vm.showIcon) {
+                vm.showIcon = reviewId;
+            }
+            else {
+                vm.showIcon = null;
+            }
         }
     }
 })();
