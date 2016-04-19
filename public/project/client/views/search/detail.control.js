@@ -36,14 +36,20 @@
         init();
 
         function addFavorite() {
-            UserService
-                .addFavoriteByUid($rootScope.currentUser._id ,vm.uid)
-                .then(function () {
-                    return DoctorService.addFavoritedBy(vm.uid, $rootScope.currentUser._id);
-                })
-                .then(function (res) {
-                    vm.addSuccess = true;
-                });
+            if($rootScope.currentUser ) {
+                UserService
+                    .addFavoriteByUid($rootScope.currentUser._id ,vm.uid)
+                    .then(function () {
+                        return DoctorService.addFavoritedBy(vm.uid, $rootScope.currentUser._id);
+                    })
+                    .then(function (res) {
+                        vm.addSuccess = true;
+                    });
+            } else {
+                //if user is not logged in, redirect to login page
+                $rootScope.previousUrl = $location.path();
+                $location.url('/login');
+            }
         }
 
         function rate() {
@@ -52,6 +58,7 @@
                 $location.url('/rate/'+vm.data.uid);
             } else {
             //if user is not logged in, redirect to login page
+                $rootScope.previousUrl = $location.path();
                 $location.url('/login');
             }
         }

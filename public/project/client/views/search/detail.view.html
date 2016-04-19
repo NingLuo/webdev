@@ -1,9 +1,8 @@
 <!--Doctor's basic and contact information-->
-<br>
-<div class="row">
-    <div class="col-md-7">
+<div class="row doctorHeader">
+    <div class="col-md-7 col-md-push-1">
         <div class="col-md-4 col-sm-4">
-            <div align="center"><img class="img-circle" height="180px" ng-src="{{model.data.profile.image_url}}"></div>
+            <div align="center"><img class="img-circle" height="150px" ng-src="{{model.data.profile.image_url}}"></div>
             <div align="center"><a ng-click="model.openVerifPop()">This is me</a></div>
         </div>
         <div class="col-md-6 col-sm-6">
@@ -18,58 +17,87 @@
         <div class="col-md-2 col-sm-6">
             <br><!--bad practice-->
             <button class="btn btn-default btn-block" role="button" ng-click="model.rate()">Rate</button>
-            <button ng-click="model.addFavorite()" class="btn btn-default btn-block">Favorite</button>
+            <button ng-click="model.addFavorite()" class="btn btn-success btn-block"><span class="glyphicon glyphicon-star-empty"></span> Like</button>
         </div>
     </div>
 </div>
 <div ng-show="model.addSuccess" class="alert alert-success" role="alert"><p align="center">Added to my favorites!</p></div>
-<!--Doctor's demographic information-->
-<!--Education-->
-<hr>
+<div class="pageContent">
+<!--Doctor's demographic information overview-->
 <div class="row">
-    <div class="col-md-7">
-        <div class="col-md-4 col-sm-4"><strong>Education</strong></div>
+    <div class="col-md-7 col-md-push-1">
+        <div class="col-md-12">
+            <h3>Overview</h3>
+            <hr>
+        </div>
+
+    </div>
+</div>
+<!--Education-->
+<div class="row">
+    <div class="col-md-7 col-md-push-1">
+        <div class="col-md-4 col-sm-4"><strong>Medical Education</strong></div>
         <div class="col-md-8 col-sm-4">
             <div ng-repeat="education in model.data.educations">
                 <div>{{education.school}}</div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
     </div>
 </div>
-<hr>
+
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-7 col-md-push-1">
         <div class="col-md-4 col-sm-4"><strong>Professional Statement</strong></div>
         <div class="col-md-8 col-sm-4">
             <div class="text-justify">{{model.data.profile.bio}}</div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
     </div>
 </div>
-<hr>
+
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-7 col-md-push-1">
         <div class="col-md-4 col-sm-4"><strong>Specialties</strong> </div>
         <div class="col-md-8 col-sm-4">
             <div ng-repeat="specialty in model.data.specialties">
                 <div>{{specialty.actor}}</div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
     </div>
 </div>
-<hr>
+
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-7 col-md-push-1">
         <div class="col-md-4 col-sm-4"><strong>Languages Spoken</strong> </div>
         <div class="col-md-8 col-sm-4">
             <div ng-repeat="language in model.data.profile.languages">
                 <div>{{language.name}}</div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
     </div>
 </div>
-<hr>
+
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-7 col-md-push-1">
         <div class="col-md-4 col-sm-4"><strong>Insurances</strong> </div>
         <div class="col-md-8 col-sm-4">
             <div ng-repeat="insurance in model.data.insurances | limitTo:4">
@@ -80,23 +108,33 @@
     </div>
 </div>
 <br>
+<br>
+<br>
 <!--Patient Review Section-->
-<div><h3>Patient Reviews</h3></div>
-<hr>
 <div class="row">
-    <div class="col-md-12" ng-repeat="review in model.reviews">
-        <div class="col-md-2">
-            <div>by {{review.username}}</div>
+    <div class="col-md-7 col-md-push-1">
+        <div class="col-md-12">
+            <h3>Patient Reviews</h3>
+            <hr>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7 col-md-push-1 patientReviewSection" ng-repeat="review in model.reviews">
+        <div class="col-md-4">
+            <div>{{review.reviewDate | date}}</div>
+            <p>by {{review.username}}</p>
             <div ng-hide="currentUser.role == 'Provider'">
-                <button ng-click="model.openMsgPop(review.userId, review.username)" class="btn btn-default">
-                    <span class="glyphicon glyphicon-envelope"></span></button>Send Message
+                <div><a ng-click="model.openMsgPop(review.userId, review.username)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</a></div>
             </div>
             <div ng-hide="currentUser.role == 'Patient'|| !currentUser">
                 <button ng-click="model.openReplyPop(review)" class="btn btn-default">
                 <span class="glyphicon glyphicon-comment"></span></button>Reply
             </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="row">
                 <div class="col-md-4 col-sm-4">
                     <div>Overall Rating</div>
@@ -137,24 +175,21 @@
                     {{review.comments}}
                 </div>
             </div>
-            <!--doctor's comment section-->
-            <div class="row"  ng-repeat="reply in review.replies">
-                <div class="col-md-12 detailBox">
-                    <div class="titleBox">
-                        <label>Comment from {{reply.senderName}}</label>
-                    </div>
-                    <div class="commentBox">
-                        <p class="taskDescription">{{reply.content}}</p>
-                    </div>
+            <br>
+            <!--Doctor's rely section-->
+            <div class="row commentCard" ng-if="review.reply" ng-hide="model.editId == review._id" >
+                <div class="col-md-12">
+                    <p><strong>Comment from {{review.doctorName}}</strong></p>
+                    <p>{{review.reply.date | date}}</p>
+                </div>
+                <div class="col-md-12">
+                    <p>{{review.reply.content}}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<br>
-<h3>Favorites</h3>
-<hr>
-
+</div>
 
 
 

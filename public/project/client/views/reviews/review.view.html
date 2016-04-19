@@ -64,6 +64,7 @@
                     <p>{{review.comments}}</p>
                 </div>
             </div>
+            <!--Doctor rely section-->
             <div ng-if="review.reply" ng-hide="model.editId == review._id" ng-mouseenter="model.toggleIcon(review._id)" ng-mouseleave="model.toggleIcon()" class="row commentCard">
                 <div class="col-md-12">
                     <p>
@@ -101,33 +102,3 @@
 </div>
 
 
-<!--<div class="table-responsive col-md-10">-->
-<!--<table class="table table-striped">-->
-<!--<thead>-->
-<!--<th ng-if="currentUser.role == 'Patient'">To</th>-->
-<!--<th ng-if="currentUser.role == 'Provider'">From</th>-->
-<!--<th>Date</th>-->
-<!--<th>Overall Rating</th>-->
-<!--<th>Comment</th>-->
-<!--<th>My reply</th>-->
-<!--<th>&nbsp;</th>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--<tr ng-repeat="review in model.reviews">-->
-<!--<td ng-if="currentUser.role == 'Patient'">{{review.doctorName}}</td>-->
-<!--<td ng-if="currentUser.role == 'Provider'">{{review.username}}</td>-->
-<!--<td>{{review.reviewDate | date}}</td>-->
-<!--<td>{{review.overall}}</td>-->
-<!--<td>{{review.comments}}</td>-->
-<!--<td>{{review.reply}}</td>-->
-<!--<td>-->
-<!--<a ng-if="currentUser.role == 'Provider'" class="btn btn-warning" ng-click="model.openReplyPop(review)"  role="button">Reply</a>-->
-<!--<a ng-if="currentUser.role == 'Provider'" class="btn btn-warning" ng-click="model.openReplyPop(review)"  role="button">Edit Reply</a>-->
-<!--<a ng-if="currentUser.role == 'Provider'" class="btn btn-warning" ng-click="model.openReplyPop(review)"  role="button">Delete Rely</a>-->
-<!--<a ng-if="currentUser.role == 'Patient'" class="btn btn-warning" ng-click="model.edit(review)"  role="button">Edit</a>-->
-<!--<button ng-if="currentUser.role == 'Patient'" class="btn btn-danger" ng-click="model.deleteReview(review)" role="button">Delete</button>-->
-<!--</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
