@@ -4,27 +4,6 @@ td {
     white-space: nowrap;
 }
 
-.detailBox {
-    width:320px;
-    border:1px solid #bbb;
-    /*margin:50px;*/
-}
-
-.titleBox {
-    background-color:#fdfdfd;
-    padding:10px;
-}
-.titleBox label{
-    color:#444;
-    margin:0;
-    display:inline-block;
-}
-
-.commentBox {
-    padding:10px;
-    border-top:1px dotted #bbb;
-}
-
 .reviewCard {
     border:1px solid #bbb;
     margin:15px;
@@ -67,7 +46,8 @@ td {
     width:320px;
     border:1px solid #bbb;
     white-space: nowrap;
-    margin:15px;
+    float:left;
+    margin:20px;
 }
 
 .favoriteCardHeader {
