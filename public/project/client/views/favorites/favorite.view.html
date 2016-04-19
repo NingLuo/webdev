@@ -1,4 +1,5 @@
 <div class="row">
+    <!--side bar-->
     <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked hidden-xs hidden-sm">
             <li role="presentation"><a href="#/profile">Profile</a></li>
@@ -7,26 +8,37 @@
             <li role="presentation"><a href="#/message">My Messages</a></li>
         </ul>
     </div>
-    <div class="col-md-8 table-responsive">
-       <table class="table table-striped">
-           <thead>
-            <th>Photo</th>
-            <th>Doctor Name</th>
-            <th>Specialty</th>
-            <th>Rate</th>
-            <th>&nbsp;</th>
-           </thead>
-           <tbody>
-            <tr ng-repeat="doctor in model.favoriteDoctors">
-                <td><img ng-src="{{doctor.profile.image_url}}"></td>
-                <td><a ng-click="model.showDetail($index)">{{doctor.profile.first_name}} {{doctor.profile.last_name}}</a></td>
-                <td>{{doctor.specialties[0].name}}</td>
-                <td><img ng-src="{{doctor.ratings[0].image_url_small}}"></td>
-                <td>
-                    <button ng-click="model.unfavorite(doctor)" class="btn btn-danger" role="button">Unfavorite</button>
-                </td>
-            </tr>
-           </tbody>
-       </table>
+    <!--page content-->
+    <div class="col-md-8 col-md-push-1">
+        <div class="row">
+            <div ng-repeat="doctor in model.favoriteDoctors">
+                <!--whenever the number of cards per row hits even number, start a new row, wrap the next content from left side or new row-->
+                <div class="clearfix" ng-if="$index % 2 == 0"></div>
+                <!--every card takes half space of the row-->
+                <div class="col-md-6">
+                    <div class="favoriteCard row">
+                        <!--card header-->
+                        <div class="favoriteCardHeader col-md-12">
+                            <p><a ng-click="model.unfavorite(doctor)"><span class="glyphicon glyphicon-remove pull-right"></span></a></p>
+                        </div>
+                        <!--card body-->
+                        <div class="favoriteCardBody col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="favoriteCardImg" ng-src="{{doctor.profile.image_url}}">
+                                </div>
+                                <div class="col-md-8 favoriteCardInfo">
+                                    <div>Dr.{{doctor.profile.first_name}} {{doctor.profile.last_name}}</div>
+                                    <div><img ng-src="{{doctor.ratings[0].image_url_small}}"></div>
+                                    <br>
+                                    <div>{{doctor.specialties[0].name}}</div>
+                                    <div>Phone: {{doctor.practices[0].phones[0].number}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

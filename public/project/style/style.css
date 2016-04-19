@@ -62,3 +62,30 @@ td {
 .pageContent {
 
 }
+
+.favoriteCard {
+    width:320px;
+    border:1px solid #bbb;
+    white-space: nowrap;
+    margin:15px;
+}
+
+.favoriteCardHeader {
+    width:320px;
+    height: 30px;
+    padding: 5px;
+    padding-right: 10px;
+    background-color:#eeeeee;
+}
+
+.favoriteCardBody {
+    padding:20px;
+}
+
+.favoriteCardImg {
+    width:100px;
+}
+
+.favoriteCardInfo {
+    padding-left: 30px;
+}
