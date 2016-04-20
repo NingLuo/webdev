@@ -55,7 +55,7 @@ td {
     height: 30px;
     padding: 5px;
     padding-right: 10px;
-    background-color:#eeeeee;
+    background-color:lightgrey;
 }
 
 .favoriteCardBody {
@@ -68,4 +68,32 @@ td {
 
 .favoriteCardInfo {
     padding-left: 30px;
+}
+
+.unfavoriteIcon {
+    color: #5e5e5e;
+}
+
+.messageBox {
+    border:1px solid #bbb;
+}
+
+.messageBoxHeader {
+    height: 40px;
+    padding-top: 10px;
+    background-color:lightgrey;
+}
+
+.messageBoxBody {
+    padding: 10px;
+}
+
+.messageCard {
+    /*border:1px solid #bbb;*/
+    padding: 5px;
+}
+
+.messageDate {
+    color: darkgrey;
+    margin-left: 20px;
 }

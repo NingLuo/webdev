@@ -11,19 +11,23 @@
         vm.reviewerName = reviewerName;
         vm.sendMsg = sendMsg;
 
-        function sendMsg(msgContent) {
+        function sendMsg(content) {
             //$http.post need to take an object as body, not a string message
+            var msgContent = {
+                date: new Date(),
+                content: content
+            };
+
             var message = {
                 senderId   : $rootScope.currentUser._id,
                 senderName : $rootScope.currentUser.username,
-                content    : msgContent
+                msgContent    : [msgContent]
             };
-
             UserService
                 .sendMsgTo(reviewerId, message)
                 .then(
                     function (response) {
-                        console.log(response.data);
+                        $uibModalInstance.close();
                     },
                     function (err) {
                         console.log(err);

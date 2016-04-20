@@ -179,23 +179,7 @@
                 }
             );
 
-            modalInstance.result.then(
-                //function to be called after the openReplyPop is auto closed;
-                init
-                //function () {
-                //    ReviewService
-                //        .findReviewByDoctorId($rootScope.currentUser.doctorId)
-                //        .then(
-                //            function (response) {
-                //                vm.reviews = response.data;
-                //            },
-                //            function (err) {
-                //                console.log(err);
-                //            }
-                //        );
-                //}
-            );
-
+            modalInstance.result.then(init);
         }
 
         function toggleIcon(reviewId) {

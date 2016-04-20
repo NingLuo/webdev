@@ -102,19 +102,27 @@ module.exports = function () {
             )
     }
 
-    function sendMsgTo(receiverId, message) {
-        console.log(receiverId, "at model");
+    function sendMsgTo(receiverId, newMessage) {
         return User
             .findById(receiverId)
             .then(
                 function (user) {
-                    user.messages.push(message);
-                    return user.save();
+                    var message = user.messages.filter(function (messages) {
+                        return messages.senderName == newMessage.senderName;
+                    }).pop();
+                    if(!message) {
+                        user.messages.push(newMessage);
+                        return user.save();
+                    }
+                    else {
+                        message.msgContent.push(newMessage.msgContent[0]);
+                        return user.save()
+                    }
                 },
                 function (err) {
-                    console.log(err);
+                    console.log(err, "sendMsgTo UserModel");
                 }
-            )
+            );
     }
 
     function findMessageByUserId(userId) {

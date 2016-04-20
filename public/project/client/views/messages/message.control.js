@@ -9,13 +9,15 @@
         var vm = this;
         vm.messages;    //user's messages retrived from user service
         vm.targetMsg;   //the message was chosen to reply
-        vm.needReply = false; //a flag for show/hide reply bar
+        vm.needReplyId = null; //a flag for show/hide reply bar
         vm.msgToSend;     //the message which was inputed into relpy bar
         vm.date = (new Date).getTime();
         vm.reply = reply;
         vm.send = send;
         vm.removeMsg = removeMsg;
         vm.cancel = cancel;
+        
+        vm.openReplyBox = openReplyBox
 
         function init() {
             UserService
@@ -33,8 +35,8 @@
 
         //select a message, show it in the reply input area
         function reply(message) {
-            vm.needReply = true;
-            vm.targetMsg = message;
+            vm.needReplyId = message._id;
+            //vm.targetMsg = message;
         }
 
         //send reply message
@@ -64,6 +66,10 @@
         function cancel() {
             vm.msgToSend = {};
             vm.needReply = false;
+        }
+
+        function openReplyBox() {
+            vm.needReplyId = message._id;
         }
     }
 })();

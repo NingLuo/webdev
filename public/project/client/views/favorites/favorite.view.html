@@ -18,12 +18,12 @@
                 <div class="favoriteCard">
                     <!--card header-->
                     <div class="favoriteCardHeader">
-                        <p><a ng-click="model.unfavorite(doctor)"><span class="glyphicon glyphicon-remove pull-right"></span></a></p>
+                        <p><a ng-click="model.unfavorite(doctor)" class="unfavoriteIcon"><span class="glyphicon glyphicon-remove pull-right"></span></a></p>
                     </div>
                     <!--card body-->
                     <div class="favoriteCardBody">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-sm-4 col-xs-4 col-md-4">
                                 <img class="favoriteCardImg" ng-src="{{doctor.profile.image_url}}">
                             </div>
                             <div class="col-md-8 favoriteCardInfo">
