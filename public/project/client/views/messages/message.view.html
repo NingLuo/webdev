@@ -16,23 +16,26 @@
                     <a class="pull-right replyBtn" ng-click="model.removeMsg(message)"><span class="glyphicon glyphicon-remove"></span></a>
                     <a class="pull-right replyBtn" ng-click="model.toggleMsg($index)" ng-hide="$index==model.toggleMsgId"><span class="glyphicon glyphicon-chevron-down"></span></a>
                     <a class="pull-right replyBtn" ng-click="model.toggleMsg($index)" ng-show="$index==model.toggleMsgId"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                    <a class="pull-right replyBtn" ng-click="model.toggleMsg($index)"><span class="glyphicon glyphicon-edit"></span></a>
                 </div>
             </div>
             <div ng-class="($index==model.toggleMsgId) ? 'messageBoxBody row' : 'messageBoxBodyToggle row'">
                 <div ng-repeat="msgContent in message.msgContent">
                     <div class="messageCard col-md-12">
-                        <div>{{message.senderName}}<span class="messageDate">{{msgContent.date | date:medium}}</span></div>
+                        <div><span class="msgSenderName">{{message.senderName}}</span> said:</div>
                         <div>{{msgContent.content}}</div>
-                        <div><a ng-click="model.openReplyBox(msgContent)">reply</a></div>
+                        <div>
+                            <span class="messageDate">{{msgContent.date | date:medium}}</span>
+                        </div>
                     </div>
-                    <div class="replyBox col-md-12" ng-show="msgContent._id == model.needReplyId">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3" ng-model="model.msgContent"/>
-                        </div>
-                        <div class="pull-right">
-                            <button class="btn btn-success" ng-click="model.send(message.senderId)">Send</button>
-                            <button class="btn btn-danger" ng-click="model.cancel()">Cancel</button>
-                        </div>
+                </div>
+                <div class="replyBox col-md-12" >
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" ng-model="model.msgContent"/>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-success" ng-click="model.send(message.senderId)">Send</button>
+                        <button class="btn btn-danger" ng-click="model.cancel()">Cancel</button>
                     </div>
                 </div>
             </div>

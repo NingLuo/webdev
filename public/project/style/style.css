@@ -75,32 +75,40 @@ td {
 }
 
 .messageBox {
-    border:1px solid #bbb;
+    border:1px dashed #bbb;
     margin: 15px;
 }
 
 .messageBoxHeader {
     height: 40px;
     padding-top: 10px;
-    background-color:lightgrey;
+    /*background-color:lightgrey;*/
 }
 
 .messageBoxBody {
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 .messageBoxBodyToggle {
-    padding: 10px;
-    height: 60px;
+    /*padding: 10px;*/
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 70px;
     overflow: hidden;
 }
 
 .messageCard {
-    /*border:1px solid #bbb;*/
+    border-bottom:1px dashed #bbb;
     padding: 5px;
 }
 
 .messageDate {
     color: darkgrey;
-    margin-left: 20px;
+}
+
+.msgSenderName {
+    color: #2aabd2;
+    font-weight: bold;
 }
