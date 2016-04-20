@@ -143,12 +143,7 @@ module.exports = function () {
             .findById(userId)
             .then(
                 function (user) {
-                    for(var i in user.messages) {
-                        if(user.messages[i]._id == msgId) {
-                            user.messages.splice(i, 1);
-                            break;
-                        }
-                    }
+                    user.messages.pull(msgId);
                     return user.save();
                 },
                 function (err) {

@@ -13,7 +13,7 @@
             <div class="messageBoxHeader row">
                 <div class="col-md-12">
                     <strong>From: {{message.senderName}}</strong>
-                    <a class="pull-right replyBtn"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a class="pull-right replyBtn" ng-click="model.removeMsg(message)"><span class="glyphicon glyphicon-remove"></span></a>
                     <a class="pull-right replyBtn" ng-click="model.toggleMsg($index)" ng-hide="$index==model.toggleMsgId"><span class="glyphicon glyphicon-chevron-down"></span></a>
                     <a class="pull-right replyBtn" ng-click="model.toggleMsg($index)" ng-show="$index==model.toggleMsgId"><span class="glyphicon glyphicon-chevron-up"></span></a>
                 </div>

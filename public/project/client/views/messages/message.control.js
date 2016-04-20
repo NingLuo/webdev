@@ -25,7 +25,6 @@
                 .then(
                     function (response) {
                         vm.messages = response.data;
-                        console.log(vm.messages);
                     },
                     function (err) {
                         console.log(err);
@@ -54,6 +53,7 @@
         }
 
         function removeMsg(message) {
+            console.log(message);
             UserService
                 .removeMsg($rootScope.currentUser._id, message._id)
                 .then(function (response) {
