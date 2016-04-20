@@ -14,6 +14,7 @@
         function sendMsg(content) {
             //$http.post need to take an object as body, not a string message
             var msgContent = {
+                senderName: $rootScope.currentUser.username,
                 date: new Date(),
                 content: content
             };

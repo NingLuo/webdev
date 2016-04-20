@@ -20,7 +20,8 @@
             updateUser: updateUser,
             logout: logout,
             removeMsg: removeMsg,
-            setCurrentUser: setCurrentUser
+            setCurrentUser: setCurrentUser,
+            saveMyMsg: saveMyMsg
         };
 
         return api;
@@ -79,5 +80,8 @@
             return $http.delete("/api/user/" + userId + "/message/" + msgId);
         }
 
+        function saveMyMsg(myUserId, messageId, newMessage) {
+            return $http.put("/api/user/" + myUserId + "/message/" + messageId, newMessage);
+        }
     }
 })();

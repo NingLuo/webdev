@@ -22,7 +22,8 @@
             <div ng-class="($index==model.toggleMsgId) ? 'messageBoxBody row' : 'messageBoxBodyToggle row'">
                 <div ng-repeat="msgContent in message.msgContent">
                     <div class="messageCard col-md-12">
-                        <div><span class="msgSenderName">{{message.senderName}}</span> said:</div>
+                        <div ng-hide="msgContent.senderName == currentUser.username"><span class="msgSenderName">{{msgContent.senderName}}</span> said:</div>
+                        <div ng-if="msgContent.senderName == currentUser.username"><span class="msgSenderName">Me</span> said:</div>
                         <div>{{msgContent.content}}</div>
                         <div>
                             <span class="messageDate">{{msgContent.date | date:medium}}</span>
@@ -34,7 +35,7 @@
                         <textarea class="form-control" rows="3" ng-model="model.msgContent"/>
                     </div>
                     <div class="pull-right">
-                        <button class="btn btn-success" ng-click="model.send(message.senderId)">Send</button>
+                        <button class="btn btn-success" ng-click="model.send(message.senderId, message._id)">Send</button>
                         <button class="btn btn-danger" ng-click="model.cancel()">Cancel</button>
                     </div>
                 </div>

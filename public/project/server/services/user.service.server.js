@@ -16,6 +16,7 @@ module.exports = function (app, UserModel) {
     app.get("/api/user/:userId/message", findMessageByUserId);
     app.post("/api/user/:targetUserId/message", sendMsgTo);
     app.delete("/api/user/:userId/message/:msgId", removeMsg);
+    app.put("/api/user/:myUserId/message/:messageId", saveMyMsg);
 
     function login(req, res) {
         var credentials = {};
@@ -214,5 +215,25 @@ module.exports = function (app, UserModel) {
                     res.status(400).send(err);
                 }
             );
+    }
+
+    function saveMyMsg(req, res) {
+        var myUserId = req.params.myUserId;
+        var messageId = req.params.messageId;
+        var newMessage = req.body;
+        console.log(myUserId, "server")
+        console.log(messageId, "server")
+        console.log(newMessage, "server")
+        UserModel
+            .saveMyMsg(myUserId, messageId, newMessage)
+            .then(
+                function (response) {
+                    console.log(response);
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
     }
 };

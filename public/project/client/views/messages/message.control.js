@@ -34,11 +34,12 @@
         init();
 
         //send reply message
-        function send(targetUserId) {
+        function send(targetUserId, messageId) {
             var newMessage = {
                 senderId: $rootScope.currentUser._id,
                 senderName: $rootScope.currentUser.username,
                 msgContent:[{
+                    senderName: $rootScope.currentUser.username,
                     content: vm.msgContent,
                     date: vm.date
                 }]
@@ -46,10 +47,24 @@
             //two params: first is reciever id, second is the message object
             UserService
                 .sendMsgTo(targetUserId, newMessage)
-                .then(function () {
-                    vm.msgContent = null;
-                    vm.needReplyId = null;
-                });
+                .then(
+                    function () {
+                        return UserService.saveMyMsg($rootScope.currentUser._id, messageId, newMessage);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+                .then(
+                    function (response) {
+                        init();
+                        vm.msgContent = null;
+                        vm.needReplyId = null;
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                );
         }
 
         function removeMsg(message) {

@@ -14,7 +14,8 @@ module.exports = function () {
         deleteReview: deleteReview,
         sendMsgTo: sendMsgTo,
         findMessageByUserId: findMessageByUserId,
-        removeMsg: removeMsg
+        removeMsg: removeMsg,
+        saveMyMsg: saveMyMsg
     };
     return api;
 
@@ -148,6 +149,23 @@ module.exports = function () {
                 },
                 function (err) {
                     console.log(err);
+                }
+            )
+    }
+
+    function saveMyMsg(myUserId, messageId, newMessage) {
+        return User
+            .findById(myUserId)
+            .then(
+                function (user) {
+                    var message = user.messages.filter(function (messages) {
+                        return messages._id == messageId;
+                    }).pop();
+                    message.msgContent.push(newMessage.msgContent[0]);
+                    return user.save()
+                },
+                function (err) {
+                    console.log(err, "saveMyMsg");
                 }
             )
     }
