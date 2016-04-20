@@ -76,6 +76,7 @@ td {
 
 .messageBox {
     border:1px solid #bbb;
+    margin: 15px;
 }
 
 .messageBoxHeader {
@@ -86,6 +87,12 @@ td {
 
 .messageBoxBody {
     padding: 10px;
+}
+
+.messageBoxBodyToggle {
+    padding: 10px;
+    height: 60px;
+    overflow: hidden;
 }
 
 .messageCard {

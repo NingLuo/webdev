@@ -8,16 +8,16 @@
     function MessageCtrl (UserService, $rootScope, $location) {
         var vm = this;
         vm.messages;    //user's messages retrived from user service
-        vm.targetMsg;   //the message was chosen to reply
+        vm.msgContent;     //the message which was inputed into relpy bar
         vm.needReplyId = null; //a flag for show/hide reply bar
-        vm.msgToSend;     //the message which was inputed into relpy bar
         vm.date = (new Date).getTime();
-        vm.reply = reply;
         vm.send = send;
         vm.removeMsg = removeMsg;
         vm.cancel = cancel;
         
-        vm.openReplyBox = openReplyBox
+        vm.openReplyBox = openReplyBox;
+        vm.toggleMsgId = null;
+        vm.toggleMsg = toggleMsg;
 
         function init() {
             UserService
@@ -25,6 +25,7 @@
                 .then(
                     function (response) {
                         vm.messages = response.data;
+                        console.log(vm.messages);
                     },
                     function (err) {
                         console.log(err);
@@ -33,24 +34,22 @@
         }
         init();
 
-        //select a message, show it in the reply input area
-        function reply(message) {
-            vm.needReplyId = message._id;
-            //vm.targetMsg = message;
-        }
-
         //send reply message
-        function send() {
-            //vm.msgToSend.receiver = vm.targetMsg.from;
-            vm.msgToSend.senderId = $rootScope.currentUser._id;
-            vm.msgToSend.senderName = $rootScope.currentUser.username;
-            vm.msgToSend.date = vm.date;
+        function send(targetUserId) {
+            var newMessage = {
+                senderId: $rootScope.currentUser._id,
+                senderName: $rootScope.currentUser.username,
+                msgContent:[{
+                    content: vm.msgContent,
+                    date: vm.date
+                }]
+            };
             //two params: first is reciever id, second is the message object
             UserService
-                .sendMsgTo(vm.targetMsg.senderId, vm.msgToSend)
+                .sendMsgTo(targetUserId, newMessage)
                 .then(function () {
-                    vm.msgToSend = {};
-                    vm.needReply = false;
+                    vm.msgContent = null;
+                    vm.needReplyId = null;
                 });
         }
 
@@ -64,12 +63,28 @@
 
         //cancel ongoing reply operation
         function cancel() {
-            vm.msgToSend = {};
-            vm.needReply = false;
+            vm.msgContent = null;
+            vm.needReplyId = null;
         }
 
-        function openReplyBox() {
-            vm.needReplyId = message._id;
+        function openReplyBox(msgContent) {
+            vm.needReplyId = msgContent._id;
+        }
+
+        function toggleMsg(index) {
+            if(vm.toggleMsgId != null) {
+                //arrow clicked on the same message box
+                if(vm.toggleMsgId == index) {
+                    vm.toggleMsgId = null;
+                }
+                else {
+                    //arrow clicked on a different message box, which means vm.toggleMsgId != index
+                    vm.toggleMsgId = index;
+                }
+            }
+            else {
+                vm.toggleMsgId = index;
+            }
         }
     }
 })();

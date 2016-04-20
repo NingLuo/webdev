@@ -71,8 +71,8 @@
         }
 
         //new
-        function sendMsgTo(receiverId, msgToSend) {
-            return $http.post("/api/user/" + receiverId + "/message", msgToSend);
+        function sendMsgTo(targetUserId, newMessage) {
+            return $http.post("/api/user/" + targetUserId + "/message", newMessage);
         }
 
         function removeMsg(userId, msgId) {

@@ -14,7 +14,7 @@ module.exports = function (app, UserModel) {
     app.put("/api/user/:userId/rate", updateRate);
     app.delete("/api/user/:userId/rate/:rateId", deleteRate);
     app.get("/api/user/:userId/message", findMessageByUserId);
-    app.post("/api/user/:receiverId/message", sendMsgTo);
+    app.post("/api/user/:targetUserId/message", sendMsgTo);
     app.delete("/api/user/:userId/message/:msgId", removeMsg);
 
     function login(req, res) {
@@ -185,10 +185,10 @@ module.exports = function (app, UserModel) {
 
     //new
     function sendMsgTo(req, res) {
-        var receiverId = req.params.receiverId;
-        var msgToSend = req.body;
+        var targetUserId = req.params.targetUserId;
+        var newMessage = req.body;
         UserModel
-            .sendMsgTo(receiverId, msgToSend)
+            .sendMsgTo(targetUserId, newMessage)
             .then(
                 function (response) {
                     res.send(200);

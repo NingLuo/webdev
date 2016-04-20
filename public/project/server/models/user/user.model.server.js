@@ -102,9 +102,9 @@ module.exports = function () {
             )
     }
 
-    function sendMsgTo(receiverId, newMessage) {
+    function sendMsgTo(targetUserId, newMessage) {
         return User
-            .findById(receiverId)
+            .findById(targetUserId)
             .then(
                 function (user) {
                     var message = user.messages.filter(function (messages) {
