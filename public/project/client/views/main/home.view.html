@@ -1,28 +1,56 @@
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="form-group">
+<div class="row homepage">
+    <div class="col-md-12 hidden-xs hidden-sm homeSlogan">
+        <p class="col-md-8 col-md-offset-3 font-awesome-sass">Keep calm </p>
+        <p class="col-md-8 col-md-offset-3 font-awesome-sass">And find a doctor. </p>
+    </div>
+    <!--show for large and middle size screen-->
+    <div class="searchGroup row  visible-lg visible-md">
+        <div class="col-md-4 col-md-push-1 form-group">
             <label for="specialty">I'm looking for a:</label>
-            <select ng-model="doctor.specialty" class="form-control" id="specialty">
+            <select ng-model="doctor.specialty" class="form-control input-xlg" id="specialty">
+                <option value="" selected disabled>Choose a Specialty</option>
                 <option value="cardiologist">Cardiologist</option>
                 <option value="allergist">Allergist</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="col-md-3 col-md-push-1 form-group">
             <label for="city">In:</label>
-            <select ng-model="doctor.location" class="form-control" id="city">
+            <select ng-model="doctor.location" class="form-control input-xlg" id="city">
+                <option value="" selected disabled>City</option>
                 <option value="ma-boston">Boston</option>
                 <option value="ca-berkeley">Berkeley</option>
             </select>
         </div>
-        <div ng-show="main.illegal" class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            Both fields are required
+        <div class="col-md-2 col-md-push-1 form-group">
+            <label>&nbsp</label>
+            <a ng-click="main.search(doctor.specialty, doctor.location)" class="btn btn-success btn-block btn-xlg">Search</a>
         </div>
-        <a ng-click="main.search(doctor.specialty, doctor.location)" class="btn btn-primary btn-block">Search</a>
+    </div>
+    <!--show for small and x-small size screen-->
+    <div class="searchGroupSmall row  visible-sm visible-xs">
+        <div class="col-md-4 col-md-push-1 form-group">
+            <label for="specialty2">I'm looking for a:</label>
+            <select ng-model="doctor.specialty" class="form-control input-lg" id="specialty2">
+                <option value="" selected disabled>Choose a Specialty</option>
+                <option value="cardiologist">Cardiologist</option>
+                <option value="allergist">Allergist</option>
+            </select>
+        </div>
+        <div class="col-md-3 col-md-push-1 form-group">
+            <label for="city2">In:</label>
+            <select ng-model="doctor.location" class="form-control input-lg" id="city2">
+                <option value="" selected disabled>City</option>
+                <option value="ma-boston">Boston</option>
+                <option value="ca-berkeley">Berkeley</option>
+            </select>
+        </div>
+        <div class="col-md-2 col-md-push-1 form-group">
+            <label>&nbsp</label>
+            <a ng-click="main.search(doctor.specialty, doctor.location)" class="btn btn-success btn-block btn-lg">Search</a>
+        </div>
     </div>
 </div>
+
 
 
 

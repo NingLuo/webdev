@@ -1,3 +1,60 @@
+html, .container-fluid {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    padding-top: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+.full { height: 100%;}
+
+
+.homepage {
+    background: url("../../img/room.jpg") no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+    height: 100%;
+    font-size: large;
+}
+
+.searchGroup {
+    margin-top: 290px;
+    padding: 50px;
+    white-space: nowrap;
+}
+
+.searchGroupSmall {
+    margin-top: 100px;
+    padding: 50px;
+
+}
+
+.homeSlogan {
+    position: absolute;
+    top: 40%;
+    left:35%;
+    transform: translate(-50%,-50%);
+    white-space: nowrap;
+    font-size: 80px;
+    color: #549452;
+    font-weight: bold;
+    font-family: Futura;
+}
+
+.input-xlg {
+    height: 60px !important;
+    font-size: 20px !important;
+}
+
+.btn-xlg {
+    height: 60px !important;
+    padding: 10px;
+    font-size: 25px !important;
+}
+
 td {
     max-width: 180px;
     overflow: hidden;
@@ -112,3 +169,4 @@ td {
     color: #2aabd2;
     font-weight: bold;
 }
+
