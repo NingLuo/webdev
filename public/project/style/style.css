@@ -39,7 +39,8 @@ body {
     transform: translate(-50%,-50%);
     white-space: nowrap;
     font-size: 80px;
-    color: #549452;
+    /*color: #549452;*/
+    color: #26AB37;
     font-weight: bold;
     font-family: Futura;
 }

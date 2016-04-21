@@ -11,15 +11,36 @@
                 <option value="" selected disabled>Choose a Specialty</option>
                 <option value="cardiologist">Cardiologist</option>
                 <option value="allergist">Allergist</option>
+                <option value="acupuncturist">Acupuncturist</option>
+                <option value="dietitian">Dietitian</option>
+                <option value="anesthesiologist">Anesthesiologist</option>
+                <option value="pediatrician">Pediatrician</option>
+                <option value="ear-nose-throat-doctor">Ear, Nose and Throat Doctor</option>
+                <option value="endocrinologist">Endocrinologist</option>
+                <option value="ophthalmologist">Ophthalmologist</option>
+                <option value="optometrist">Optometrist</option>
+                <option value="gastroenterologist">Gastroenterologist</option>
+                <option value="hepatologist">Hepatologist</option>
+                <option value="infectious-disease-doctor">Infectious Disease Doctor</option>
+                <option value="psychiatrist">Psychiatrist</option>
+                <option value="nephrologist">Nephrologist</option>
+                <option value="neurologist">Neurologist</option>
+                <option value="family-nurse-practitioner">Family Nurse Practitoners</option>
+                <option value="gynecologist">Gynecologist</option>
+                <option value="obstetrics-gynecologist">OBGYN</option>
+                <option value="rehabilitation-counselor">Rehabilitation Counselor</option>
+                <option value="oncologist">Oncologist</option>
+                <option value="internal-medicine-hematology">Hematologist</option>
+                <option value="orthopedic-surgeon">Orthopedist</option>
+                <option value="physical-therapist">Physical Therapist</option>
+                <option value="internist">Internist</option>
+                <option value="pulmonologist">Pulmonologist</option>
             </select>
         </div>
         <div class="col-md-3 col-md-push-1 form-group">
             <label for="city">In:</label>
-            <select ng-model="doctor.location" class="form-control input-xlg" id="city">
-                <option value="" selected disabled>City</option>
-                <option value="ma-boston">Boston</option>
-                <option value="ca-berkeley">Berkeley</option>
-            </select>
+            <input ng-model="doctor.location" class="form-control input-xlg" id="city" placeholder="Zip Code or City">
+            </input>
         </div>
         <div class="col-md-2 col-md-push-1 form-group">
             <label>&nbsp</label>
@@ -38,11 +59,8 @@
         </div>
         <div class="col-md-3 col-md-push-1 form-group">
             <label for="city2">In:</label>
-            <select ng-model="doctor.location" class="form-control input-lg" id="city2">
-                <option value="" selected disabled>City</option>
-                <option value="ma-boston">Boston</option>
-                <option value="ca-berkeley">Berkeley</option>
-            </select>
+            <input ng-model="doctor.location" class="form-control input-lg" id="city2" placeholder="Zip Code or City">
+            </input>
         </div>
         <div class="col-md-2 col-md-push-1 form-group">
             <label>&nbsp</label>

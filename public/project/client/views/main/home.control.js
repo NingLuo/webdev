@@ -6,7 +6,7 @@
         .controller("MainController", MainController)
         .controller("WarningPopCtrl", WarningPopCtrl);
 
-    function MainController ($location, $rootScope, UserService, $uibModal) {
+    function MainController ($location, $rootScope, UserService, LocationService, $uibModal) {
         var vm = this;
         vm.search = search;
 
@@ -22,9 +22,24 @@
         }
         init();
 
-        function search (specialty, location, insurance, gender, name) {
-            if(location && specialty) {
-                $location.url('/result/specialty/' + specialty + '/location/' + location +'/insurance/' + insurance + '/gender/'+gender+'/name/'+name);
+        function search (specialty, zipCode, insurance, gender, name) {
+            //used for storing lat and lng of user-entered zipcode
+            var geolocation = null;
+
+            if(zipCode && specialty) {
+                //change zip code to geolocation using google api
+                LocationService
+                    .getGeolocation(zipCode)
+                    .then(
+                        function (response) {
+                            geolocation = response.data.results[0].geometry.location;
+                            geolocation = geolocation.lat + "," + geolocation.lng + ",40";
+                            $location.url('/result/specialty/' + specialty + '/location/' + geolocation +'/insurance/' + insurance + '/gender/'+gender+'/name/'+name);
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                    );
             } else {
                 $uibModal.open(
                     {
