@@ -56,6 +56,11 @@ body {
     font-size: 25px !important;
 }
 
+.ln-navbar {
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
 td {
     max-width: 180px;
     overflow: hidden;

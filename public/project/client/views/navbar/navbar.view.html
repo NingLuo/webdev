@@ -1,7 +1,8 @@
-<ul ng-show="" class="nav nav-tabs nav-justified">
-    <li role="presentation" class="active"><a href="#">Profile</a></li>
-    <li role="presentation"><a href="#">Favorite Doctors</a></li>
-    <li role="presentation"><a href="#">My Reviews</a></li>
-    <li role="presentation"><a href="#">My messages</a></li>
-    <li role="presentation"><a href="#">Setting</a></li>
-</ul>
+<div class="col-md-2 ln-navbar" ng-controller="NavbarCtrl as model">
+    <ul class="nav nav-pills nav-stacked hidden-xs hidden-sm">
+        <li ng-class="{'active': model.$location.url().indexOf('profile') != -1}" role="presentation"><a href="#/profile">Profile</a></li>
+        <li ng-if="currentUser.role == 'Patient'" ng-class="{'active': model.$location.url().indexOf('favorite') != -1}" role="presentation"><a href="#/favorite">Favorite Doctors</a></li>
+        <li ng-class="{'active': model.$location.url().indexOf('review') != -1}" role="presentation"><a href="#/review">My Reviews</a></li>
+        <li ng-if="currentUser.role == 'Patient'" ng-class="{'active': model.$location.url().indexOf('message') != -1}" role="presentation"><a href="#/message">My Messages</a></li>
+    </ul>
+</div>

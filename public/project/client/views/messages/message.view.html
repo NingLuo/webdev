@@ -1,12 +1,6 @@
 <div class="row">
-    <div class="col-md-2 hidden-xs hidden-sm">
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation"><a href="#/profile">Profile</a></li>
-            <li ng-if="currentUser.role == 'Patient'" role="presentation"><a href="#/favorite">Favorite Doctors</a></li>
-            <li role="presentation"><a href="#/review">My Reviews</a></li>
-            <li ng-if="currentUser.role == 'Patient'" role="presentation"  class="active"><a href="#/message">My Messages</a></li>
-        </ul>
-    </div>
+    <!--sidebar-->
+    <div ng-include src="'views/navbar/navbar.view.html'"></div>
     <!--page content-->
     <div class="col-md-8">
         <div class="messageBox col-md-12" ng-repeat="message in model.messages">
