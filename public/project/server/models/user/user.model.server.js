@@ -7,6 +7,7 @@ module.exports = function () {
     var api = {
         createUser: createUser,
         findUserByCredentials: findUserByCredentials,
+        findUserById: findUserById,
         updateUser: updateUser,
         addFavoriteByUid: addFavoriteByUid,
         unfavorite: unfavorite,
@@ -25,6 +26,10 @@ module.exports = function () {
 
     function findUserByCredentials(credentials) {
         return User.findOne({username: credentials.username, password: credentials.password});
+    }
+
+    function findUserById(userId) {
+        return User.findById(userId);
     }
 
     function updateUser(newUser) {

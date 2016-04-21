@@ -16,6 +16,7 @@
                 .findUserByCredentials({"username": user.username, "password": user.password})
                 .then(function (response) {
                     if (response.data) {
+                        console.log(response.data);
                         $rootScope.currentUser = response.data;
                         if(!$rootScope.previousUrl){
                             //if $rootScope.previousUrl is null, which means the user was not redirected to login page from other pages,

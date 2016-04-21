@@ -27,7 +27,7 @@
         return api;
 
         function findUserByCredentials (credentials) {
-            return $http.get('/api/user/login?username=' + credentials.username + '&password=' + credentials.password);
+            return $http.post("/api/user/login", credentials);
         }
 
         function register(newUser) {

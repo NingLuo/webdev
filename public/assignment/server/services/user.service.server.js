@@ -17,8 +17,8 @@ module.exports = function (app, userModel) {
     app.put("/api/assignment/user/:id", auth, updateUser);
 
     passport.use(new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    //passport.serializeUser(serializeUser);
+    //passport.deserializeUser(deserializeUser);
 
     function localStrategy(username, password, done) {
         userModel
@@ -33,23 +33,23 @@ module.exports = function (app, userModel) {
                 }
             );
     }
-
-    function serializeUser(user, done) {
-        done(null, user);
-    }
-
-    function deserializeUser(user, done) {
-        userModel
-            .findUserById(user._id)
-            .then(
-                function (user) {
-                    done(null, user);
-                },
-                function (err) {
-                    done(err, null);
-                }
-            )
-    }
+    // To commented this because the poject authentication will go into this process unless it's commented
+    //function serializeUser(user, done) {
+    //    done(null, user);
+    //}
+    //
+    //function deserializeUser(user, done) {
+    //    userModel
+    //        .findUserById(user._id)
+    //        .then(
+    //            function (user) {
+    //                done(null, user);
+    //            },
+    //            function (err) {
+    //                done(err, null);
+    //            }
+    //        )
+    //}
 
     function login(req, res) {
         var user = req.user;

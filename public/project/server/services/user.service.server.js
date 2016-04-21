@@ -1,6 +1,9 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function (app, UserModel) {
     //The get() method allows you to map a url to an executable
-    app.get('/api/user/login', login);
+    app.post('/api/user/login', passport.authenticate('local'), login);
     app.post("/api/user/register", register);
     app.get("/api/user/loggedIn", getLoggedInUser);
     app.put("/api/user/profile", updateUser);
@@ -18,21 +21,46 @@ module.exports = function (app, UserModel) {
     app.delete("/api/user/:userId/message/:msgId", removeMsg);
     app.put("/api/user/:myUserId/message/:messageId", saveMyMsg);
 
-    function login(req, res) {
-        var credentials = {};
-        credentials.username = req.query.username;
-        credentials.password = req.query.password;
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function localStrategy(username, password, done) {
         UserModel
-            .findUserByCredentials(credentials)
+            .findUserByCredentials({'username': username, 'password': password})
             .then(
                 function (user) {
-                    req.session.currentUser = user;
-                    res.json(user);
+                    if(!user) {
+                        return done(null, false, {message: "Incorrect username or password"});
+                    }
+                    return done(null, user);
                 },
                 function (err) {
-                    console.log(err);
+                    return done(err);
                 }
-            );
+            )
+    }
+
+    function serializeUser(user, done) {
+        done(null, user._id);
+    }
+
+    function deserializeUser(id, done) {
+        UserModel
+            .findUserById(id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            )
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
     }
 
     function register(req, res) {
@@ -56,7 +84,8 @@ module.exports = function (app, UserModel) {
     }
 
     function getLoggedInUser(req, res) {
-        res.json(req.session.currentUser);
+        var user = req.isAuthenticated()? req.user : null;
+        res.send(user);
     }
 
     function updateUser(req, res) {
