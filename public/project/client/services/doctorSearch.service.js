@@ -30,19 +30,20 @@
                 //console.log("specialty is null");
                 resource_url = resource_url + "specialty_uid=" + constraints.specialty;
             }
-            if(constraints.location != null) {
+            if(constraints.geolocation != null) {
                 //console.log("location is null");
-                resource_url = resource_url + "&location=" + constraints.location;
+                resource_url = resource_url + "&location=" + constraints.geolocation;
             }
-            if(constraints.insurance !== "undefined") {
+            if(constraints.insurance !== "null") {
                 //console.log("insurance is null");
                 resource_url = resource_url + "&insurance_uid=" + constraints.insurance;
             }
-            if(constraints.gender !== "undefined") {
+            if(constraints.gender !== "null") {
                 //console.log("gender is null");
                 resource_url = resource_url + "&gender=" + constraints.gender;
             }
-            if(constraints.doctorName !== "undefined") {
+            //if(constraints.doctorName !== null && constraints.doctorName !== "" ) {
+            if(constraints.doctorName !== "null" && constraints.doctorName) {
                 //console.log("doctor name is null");
                 resource_url = resource_url + "&name=" + constraints.doctorName;
             }

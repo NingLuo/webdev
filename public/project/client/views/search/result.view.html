@@ -33,16 +33,21 @@
             </select>
         </div>
         <div class="form-group">
-            <input class="form-control" ng-model="model.location">
+            <input class="form-control" ng-model="model.zipCode" id="zipCode">
         </div>
         <div class="form-group">
-            <select class="form-control" ng-model="model.insurance" ng-options="insurance.value as insurance.label for insurance in model.insuranceOptions">
-                <option value="">-- Insurance --</option>
+            <select class="form-control" ng-model="model.insurance">
+                <option value="null" selected>Choose a Healthplan</option>
+                <option value="medicaid-medicaid">Medicaid</option>
+                <option value="medicare-medicare">Medicare</option>
+                <option value="tuftshealthplan-tuftsppo">Tufts PPO</option>
             </select>
         </div>
         <div class="form-group">
-            <select class="form-control" ng-model="model.gender" ng-options="gender.value as gender.label for gender in model.genderOptions">
-                <option value="">-- Gender --</option>
+            <select class="form-control" ng-model="model.gender">
+                <option value="null" selected>Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
             </select>
         </div>
         <div class="form-group">
@@ -51,31 +56,9 @@
         </div>
     </form>
 </nav>
-
-
-<!--display search results-->
-<!--<h2>Doctors Data</h2>-->
-<!--<div class="table-responsive col-lg-6 col-md-6">-->
-    <!--<table class="table">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<th>Name</th>-->
-            <!--<th>Title</th>-->
-            <!--<th>Picture</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr ng-repeat="doctor in model.doctors">-->
-            <!--<td><a href="#/detail/{{doctor.uid}}">{{doctor.profile.first_name}} {{doctor.profile.last_name}}</a><br>-->
-                <!--<img ng-src="{{doctor.ratings[0].image_url_small}}">-->
-            <!--</td>-->
-            <!--<td>{{doctor.profile.title}}</td>-->
-            <!--<td><img ng-src="{{doctor.profile.image_url}}"></td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-    <!--</table>-->
-<!--</div>-->
-
+<!--location empty alert-->
+<div class="alert alert-danger" role="alert" ng-show="model.zipCodeIsNull">Please give a location.</div>
+<!--search result-->
 <div class="row col-md-7 col-lg-7 col-md-offset-1 col-lg-offset-1 resultRow text-nowrap" ng-repeat="doctor in model.doctors" >
     <div class="col-md-1 col-lg-1 resultImg text-nowrap">
         <img class="img-circle" ng-src="{{doctor.profile.image_url}}">

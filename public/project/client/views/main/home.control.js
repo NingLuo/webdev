@@ -25,6 +25,9 @@
         function search (specialty, zipCode, insurance, gender, name) {
             //used for storing lat and lng of user-entered zipcode
             var geolocation = null;
+            var insurance = null;
+            var gender = null;
+            var doctorName = null;
 
             if(zipCode && specialty) {
                 //change zip code to geolocation using google api
@@ -34,7 +37,8 @@
                         function (response) {
                             geolocation = response.data.results[0].geometry.location;
                             geolocation = geolocation.lat + "," + geolocation.lng + ",40";
-                            $location.url('/result/specialty/' + specialty + '/location/' + geolocation +'/insurance/' + insurance + '/gender/'+gender+'/name/'+name);
+                            $location.url('/result/specialty/' + specialty + '/geolocation/' + geolocation + '/zipCode/' + zipCode + '/insurance/' + insurance + '/gender/'+ gender + '/name/' + doctorName);
+
                         },
                         function (err) {
                             console.log(err);
