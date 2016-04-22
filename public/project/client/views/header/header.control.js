@@ -5,10 +5,16 @@
         .module("FindDoctorApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController ($rootScope, UserService) {
+    function HeaderController ($rootScope, UserService, $location) {
         var vm = this;
 
+        vm.login = login;
         vm.logout = logout;
+
+        function login() {
+            $rootScope.previousUrl = $location.path();
+            $location.url('/login');
+        }
 
         function logout() {
             UserService

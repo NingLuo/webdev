@@ -18,30 +18,22 @@
         vm.renderResult = renderResult;
 
         function init() {
-            UserService
-                .getLoggedInUser()
-                .then(function (response) {
-                    var currentUser = response.data;
-                    if(currentUser) {
-                        $rootScope.currentUser = currentUser;
-                    }
-                });
             search();
         }
         init();
 
-        vm.specialtyOptions = [
-            {label:"Primary Care", value:"primary care"},
-            {label:"Pediatrician", value:"pediatrician"},
-            {label:"Allergist", value:"allergist"},
-            {label:"Cardiologist", value:"cardiologist"}
-        ];
+        //vm.specialtyOptions = [
+        //    {label:"Primary Care", value:"primary care"},
+        //    {label:"Pediatrician", value:"pediatrician"},
+        //    {label:"Allergist", value:"allergist"},
+        //    {label:"Cardiologist", value:"cardiologist"}
+        //];
 
-        vm.locationOptions = [
-            {label: "Boston", value: "ma-boston"},
-            {label: "Berkeley", value: "ca-berkeley"},
-            {label: "Washington", value: "dc-washington"}
-        ];
+        //vm.locationOptions = [
+        //    {label: "Boston", value: "ma-boston"},
+        //    {label: "Berkeley", value: "ca-berkeley"},
+        //    {label: "Washington", value: "dc-washington"}
+        //];
 
         vm.insuranceOptions = [
             {label: "Medicare", value: "medicare"},

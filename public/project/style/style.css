@@ -11,6 +11,58 @@ body {
 
 .full { height: 100%;}
 
+.test {
+    border:1px solid #bbb;
+}
+
+.resultRow {
+    white-space: nowrap;
+    border-top:1px solid #bbb;
+}
+
+.resultImg {
+    height: 150px;
+    width: 130px;
+    padding: 10px;
+    /*border:1px solid #bbb;*/
+    white-space: nowrap;
+}
+
+.resultInfo {
+    height: 150px;
+    width: 250px;
+    padding-top: 20px;
+    /*border:1px solid #bbb;*/
+    white-space: nowrap;
+}
+
+.resultName {
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.resultSpecialty {
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.resultPhone {
+    padding-bottom: 5px;
+}
+
+.resultAddress {
+    padding-bottom: 5px;
+}
+
+.resultContact {
+    height: 150px;
+    width: 250px;
+    padding-top: 20px;
+    /*border:1px solid #bbb;*/
+    white-space: nowrap;
+}
+
 .homepage {
     background: url("../../img/room.jpg") no-repeat center center;
     background-size: cover;
@@ -67,6 +119,10 @@ body {
     height: 60px !important;
     padding: 10px;
     font-size: 25px !important;
+}
+
+.searchBar {
+
 }
 
 .ln-navbar {

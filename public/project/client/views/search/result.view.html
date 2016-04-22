@@ -1,17 +1,39 @@
 <!--search bar-->
-<nav class="navbar navbar-default col-md-12 col-lg-12 hidden-sm hidden-xs">
+<nav class="navbar navbar-default col-md-12 col-lg-12 hidden-sm hidden-xs searchBar">
     <form class="navbar-form navbar-left">
         <div class="form-group">
-            <!--<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{model.specialty}}<span class="caret"></span></a>-->
-            <!--<ul class="dropdown-menu">-->
-                <!--<li><a>Allergist</a></li>-->
-                <!--<li><a>Primary Care</a></li>-->
-            <!--</ul>-->
-            <!--<label>Specialty</label>-->
-            <select class="form-control" ng-model="model.specialty" ng-options="specialty.value as specialty.label for specialty in model.specialtyOptions"></select>
+            <select class="form-control" ng-model="model.specialty">
+                <option value="" selected disabled>Choose a Specialty</option>
+                <option value="cardiologist">Cardiologist</option>
+                <option value="allergist">Allergist</option>
+                <option value="acupuncturist">Acupuncturist</option>
+                <option value="dietitian">Dietitian</option>
+                <option value="anesthesiologist">Anesthesiologist</option>
+                <option value="pediatrician">Pediatrician</option>
+                <option value="ear-nose-throat-doctor">Ear, Nose and Throat Doctor</option>
+                <option value="endocrinologist">Endocrinologist</option>
+                <option value="ophthalmologist">Ophthalmologist</option>
+                <option value="optometrist">Optometrist</option>
+                <option value="gastroenterologist">Gastroenterologist</option>
+                <option value="hepatologist">Hepatologist</option>
+                <option value="infectious-disease-doctor">Infectious Disease Doctor</option>
+                <option value="psychiatrist">Psychiatrist</option>
+                <option value="nephrologist">Nephrologist</option>
+                <option value="neurologist">Neurologist</option>
+                <option value="family-nurse-practitioner">Family Nurse Practitoners</option>
+                <option value="gynecologist">Gynecologist</option>
+                <option value="obstetrics-gynecologist">OBGYN</option>
+                <option value="rehabilitation-counselor">Rehabilitation Counselor</option>
+                <option value="oncologist">Oncologist</option>
+                <option value="internal-medicine-hematology">Hematologist</option>
+                <option value="orthopedic-surgeon">Orthopedist</option>
+                <option value="physical-therapist">Physical Therapist</option>
+                <option value="internist">Internist</option>
+                <option value="pulmonologist">Pulmonologist</option>
+            </select>
         </div>
         <div class="form-group">
-            <input class="form-control" ng-model="model.location" >
+            <input class="form-control" ng-model="model.location">
         </div>
         <div class="form-group">
             <select class="form-control" ng-model="model.insurance" ng-options="insurance.value as insurance.label for insurance in model.insuranceOptions">
@@ -32,26 +54,46 @@
 
 
 <!--display search results-->
-<h2>Doctors Data</h2>
-<div class="table-responsive col-lg-6 col-md-6">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Title</th>
-            <th>Picture</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="doctor in model.doctors">
-            <td><a href="#/detail/{{doctor.uid}}">{{doctor.profile.first_name}} {{doctor.profile.last_name}}</a><br>
-                <img ng-src="{{doctor.ratings[0].image_url_small}}">
-            </td>
-            <td>{{doctor.profile.title}}</td>
-            <td><img ng-src="{{doctor.profile.image_url}}"></td>
-        </tr>
-        </tbody>
-    </table>
+<!--<h2>Doctors Data</h2>-->
+<!--<div class="table-responsive col-lg-6 col-md-6">-->
+    <!--<table class="table">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th>Name</th>-->
+            <!--<th>Title</th>-->
+            <!--<th>Picture</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr ng-repeat="doctor in model.doctors">-->
+            <!--<td><a href="#/detail/{{doctor.uid}}">{{doctor.profile.first_name}} {{doctor.profile.last_name}}</a><br>-->
+                <!--<img ng-src="{{doctor.ratings[0].image_url_small}}">-->
+            <!--</td>-->
+            <!--<td>{{doctor.profile.title}}</td>-->
+            <!--<td><img ng-src="{{doctor.profile.image_url}}"></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+<!--</div>-->
+
+<div class="row col-md-7 col-lg-7 col-md-offset-1 col-lg-offset-1 resultRow text-nowrap" ng-repeat="doctor in model.doctors" >
+    <div class="col-md-1 col-lg-1 resultImg text-nowrap">
+        <img class="img-circle" ng-src="{{doctor.profile.image_url}}">
+    </div>
+    <div class="col-md-3 col-lg-3 resultInfo text-nowrap">
+        <div class="resultName"><a href="#/detail/{{doctor.uid}}">Dr.{{doctor.profile.first_name}} {{doctor.profile.last_name}}, {{doctor.profile.title}}</a></div>
+        <div class="resultSpecialty">{{doctor.specialties[0].actor}}</div>
+        <div><img ng-src="{{doctor.ratings[0].image_url_small}}"></div>
+    </div>
+    <div class="col-md-2 col-lg-2 resultContact text-nowrap">
+        <div class="resultPhone">Phone:&nbsp{{doctor.practices[0].phones[0].number}}</div>
+        <div class="resultAddress">{{doctor.practices[0].visit_address.street}}</div>
+        <div>{{doctor.practices[0].visit_address.city}},&nbsp{{doctor.practices[0].visit_address.state}}&nbsp{{doctor.practices[0].visit_address.zip}}</div>
+    </div>
+</div>
+
+<div class="row col-md-7 col-lg-7 col-md-offset-1 col-lg-offset-1">
+    <hr>
 </div>
 
 
