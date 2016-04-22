@@ -8,7 +8,8 @@ module.exports = function (app, UserModel) {
     app.get("/api/user/loggedIn", getLoggedInUser);
     app.post("/api/user/register", register);
     app.put("/api/user/profile", auth, updateUser);
-    app.get("/api/user/:userId/favorite/:doctorUid", auth, addFavoriteByUid);
+    app.post("/api/user/:userId/favorite/:doctorUid", auth, addFavoriteByUid);
+    app.get("/api/user/:userId/favorite/:doctorUid", auth, checkFavorite);
     app.delete("/api/user/:userId/favorite/:doctorUid", auth, unfavorite);
     app.put("/api/user/:userId/review/:reviewId", auth, addReview);
     app.delete("/api/user/:userId/review/:reviewId", auth, deleteReview);
@@ -146,6 +147,26 @@ module.exports = function (app, UserModel) {
                     res.status(400).send(err);
                 }
             );
+    }
+
+    function checkFavorite(req, res) {
+        var userId = req.params.userId;
+        var doctorUid = req.params.doctorUid;
+        UserModel
+            .checkFavorite(userId, doctorUid)
+            .then(
+                function (user) {
+                    if(user) {
+                        res.send(200);
+                    }
+                    else {
+                        res.json(null);
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function unfavorite(req, res) {

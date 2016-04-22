@@ -12,6 +12,7 @@
             register: register,
             addFavoriteByUid: addFavoriteByUid,
             unfavorite: unfavorite,
+            checkFavorite: checkFavorite,
             addReview: addReview,
             deleteReview: deleteReview,
             findMessagesByUserId: findMessagesByUserId,
@@ -52,11 +53,15 @@
         }
 
         function addFavoriteByUid (userId, doctorUid) {
-            return $http.get("/api/user/" + userId + "/favorite/" + doctorUid);
+            return $http.post("/api/user/" + userId + "/favorite/" + doctorUid);
         }
         //new
         function unfavorite(userId, doctorUid) {
             return $http.delete("/api/user/" + userId + "/favorite/" + doctorUid);
+        }
+
+        function checkFavorite(userId, doctorUid) {
+            return $http.get("/api/user/" + userId + "/favorite/" + doctorUid);
         }
 
         function addReview(userId, reviewId) {

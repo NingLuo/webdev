@@ -7,12 +7,14 @@
         var vm = this;
         vm.uid = $routeParams.uid;   //this doctor's universal id
         vm.addFavorite = addFavorite;
+        vm.unfavorite = unfavorite;
         vm.rate = rate;
         vm.viewInsurance = viewInsurance;
         vm.reviews;
         vm.openMsgPop = openMsgPop;
         vm.openReplyPop = openReplyPop;
         vm.openVerifPop = openVerifPop;
+        vm.isFavorited = false;
 
         vm.addSuccess = false;    //a boolean variable controlling the show and hide of success alert in view
 
@@ -22,10 +24,27 @@
                 .findDoctorByUid(vm.uid)
                 .then(function(response) {
                     vm.data = response.data.data;
+                    //check if user has liked this provider
+                    if($rootScope.currentUser) {
+                        UserService
+                            .checkFavorite($rootScope.currentUser._id, vm.uid)
+                            .then(
+                                function (response) {
+                                    if(response.data) {
+                                        vm.isFavorited = true;
+                                    }
+                                },
+                                function (err) {
+                                    console.log(err);
+                                }
+                            );
+                    }
+                    //fetch reviews for this provider
                     return ReviewService.findReviewByDoctorId(vm.uid);
                 })
                 .then(
                     function (response) {
+                        //add no review console.log
                         vm.reviews = response.data;
                     },
                     function (err) {
@@ -44,12 +63,26 @@
                     })
                     .then(function (res) {
                         vm.addSuccess = true;
+                        vm.isFavorited = true;
                     });
             } else {
                 //if user is not logged in, redirect to login page
                 $rootScope.previousUrl = $location.path();
                 $location.url('/login');
             }
+        }
+
+        function unfavorite() {
+            UserService
+                .unfavorite($rootScope.currentUser._id, vm.uid)
+                .then(
+                    function (response) {
+                        vm.isFavorited = false;
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
         }
 
         function rate() {

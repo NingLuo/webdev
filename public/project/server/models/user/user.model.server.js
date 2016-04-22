@@ -11,6 +11,7 @@ module.exports = function () {
         findUserByUsername: findUserByUsername,
         updateUser: updateUser,
         addFavoriteByUid: addFavoriteByUid,
+        checkFavorite: checkFavorite,
         unfavorite: unfavorite,
         addReview: addReview,
         deleteReview: deleteReview,
@@ -59,6 +60,10 @@ module.exports = function () {
                     console.log(err);
                 }
             );
+    }
+
+    function checkFavorite(userId, doctorUid) {
+        return User.findOne({'_id': userId, 'favorites': doctorUid});
     }
 
     function unfavorite(userId, doctorUid) {
