@@ -20,7 +20,7 @@
                                 <img class="favoriteCardImg" ng-src="{{doctor.profile.image_url}}">
                             </div>
                             <div class="col-md-8 favoriteCardInfo">
-                                <div>Dr.{{doctor.profile.first_name}} {{doctor.profile.last_name}}</div>
+                                <div><a href="#/detail/{{doctor.uid}}">Dr.{{doctor.profile.first_name}} {{doctor.profile.last_name}}</a></div>
                                 <div><img ng-src="{{doctor.ratings[0].image_url_small}}"></div>
                                 <br>
                                 <div>{{doctor.specialties[0].name}}</div>

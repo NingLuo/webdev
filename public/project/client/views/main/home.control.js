@@ -11,23 +11,18 @@
         vm.search = search;
 
         function init() {
-            UserService
-                .getLoggedInUser()
-                .then(function (response) {
-                    var currentUser = response.data;
-                    if(currentUser) {
-                        $rootScope.currentUser = currentUser;
-                    }
-                });
+            if($rootScope.currentUser) {
+                UserService.setCurrentUser($rootScope.currentUser);
+            }
         }
         init();
 
         function search (specialty, zipCode, insurance, gender, name) {
             //used for storing lat and lng of user-entered zipcode
             var geolocation = null;
-            var insurance = null;
-            var gender = null;
-            var doctorName = null;
+            var insurance   = null;
+            var gender      = null;
+            var doctorName  = null;
 
             if(zipCode && specialty) {
                 //change zip code to geolocation using google api

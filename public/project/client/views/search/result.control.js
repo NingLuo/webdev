@@ -32,7 +32,6 @@
             DoctorSearchService
                 .findDocByConstraints(constraints)
                 .then(function (response) {
-                    console.log(response.data);
                     vm.doctors = response.data.data;
                 });
         }
@@ -53,7 +52,7 @@
                     function (response) {
                         geolocation = response.data.results[0].geometry.location;
                         geolocation = geolocation.lat + "," + geolocation.lng + ",40";
-                        console.log(geolocation);
+
                         //check doctorName input
                         if(vm.doctorName == "") {
                             vm.doctorName = null;

@@ -27,28 +27,21 @@
         function findDocByConstraints(constraints) {
             var resource_url = "https://api.betterdoctor.com/2016-03-01/doctors?";
             if(constraints.specialty !== null){
-                //console.log("specialty is null");
                 resource_url = resource_url + "specialty_uid=" + constraints.specialty;
             }
             if(constraints.geolocation != null) {
-                //console.log("location is null");
                 resource_url = resource_url + "&location=" + constraints.geolocation;
             }
             if(constraints.insurance !== "null") {
-                //console.log("insurance is null");
                 resource_url = resource_url + "&insurance_uid=" + constraints.insurance;
             }
             if(constraints.gender !== "null") {
-                //console.log("gender is null");
                 resource_url = resource_url + "&gender=" + constraints.gender;
             }
-            //if(constraints.doctorName !== null && constraints.doctorName !== "" ) {
             if(constraints.doctorName !== "null" && constraints.doctorName) {
-                //console.log("doctor name is null");
                 resource_url = resource_url + "&name=" + constraints.doctorName;
             }
             resource_url = resource_url + '&user_key=' + api_key;
-            console.log(resource_url);
             return $http.get(resource_url);
         }
     }
