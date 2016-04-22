@@ -8,6 +8,7 @@ module.exports = function () {
         createUser: createUser,
         findUserByCredentials: findUserByCredentials,
         findUserById: findUserById,
+        findUserByUsername: findUserByUsername,
         updateUser: updateUser,
         addFavoriteByUid: addFavoriteByUid,
         unfavorite: unfavorite,
@@ -30,6 +31,10 @@ module.exports = function () {
 
     function findUserById(userId) {
         return User.findById(userId);
+    }
+
+    function findUserByUsername(username) {
+        return User.findOne({"username": username});
     }
 
     function updateUser(newUser) {

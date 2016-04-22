@@ -2,24 +2,20 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function (app, UserModel) {
-    //The get() method allows you to map a url to an executable
+    var auth = authorized;
     app.post('/api/user/login', passport.authenticate('local'), login);
-    app.post("/api/user/register", register);
-    app.get("/api/user/loggedIn", getLoggedInUser);
-    app.put("/api/user/profile", updateUser);
     app.get("/api/user/logout", logout);
-    app.get("/api/user/:userId/favorite/:doctorUid", addFavoriteByUid);
-    app.delete("/api/user/:userId/favorite/:doctorUid", unfavorite);
-    //app.post("/api/user/:userId/rate/", addRateByUid);
-    app.put("/api/user/:userId/review/:reviewId", addReview);
-    app.delete("/api/user/:userId/review/:reviewId", deleteReview);
-    app.get("/api/user/:userId/rates", findRatesByUserId);
-    app.put("/api/user/:userId/rate", updateRate);
-    app.delete("/api/user/:userId/rate/:rateId", deleteRate);
-    app.get("/api/user/:userId/message", findMessageByUserId);
-    app.post("/api/user/:targetUserId/message", sendMsgTo);
-    app.delete("/api/user/:userId/message/:msgId", removeMsg);
-    app.put("/api/user/:myUserId/message/:messageId", saveMyMsg);
+    app.get("/api/user/loggedIn", getLoggedInUser);
+    app.post("/api/user/register", register);
+    app.put("/api/user/profile", auth, updateUser);
+    app.get("/api/user/:userId/favorite/:doctorUid", auth, addFavoriteByUid);
+    app.delete("/api/user/:userId/favorite/:doctorUid", auth, unfavorite);
+    app.put("/api/user/:userId/review/:reviewId", auth, addReview);
+    app.delete("/api/user/:userId/review/:reviewId", auth, deleteReview);
+    app.get("/api/user/:userId/message", auth, findMessageByUserId);
+    app.post("/api/user/:targetUserId/message", auth, sendMsgTo);
+    app.delete("/api/user/:userId/message/:msgId", auth, removeMsg);
+    app.put("/api/user/:myUserId/message/:messageId", auth, saveMyMsg);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -58,9 +54,28 @@ module.exports = function (app, UserModel) {
             )
     }
 
+    function authorized(req, res, next) {
+        if(!req.isAuthenticated()) {
+            res.send(401);
+        }
+        else {
+            next();
+        }
+    }
+
     function login(req, res) {
         var user = req.user;
         res.json(user);
+    }
+
+    function logout(req, res) {
+        req.logout();
+        res.send(200);
+    }
+
+    function getLoggedInUser(req, res) {
+        var user = req.isAuthenticated()? req.user : null;
+        res.send(user);
     }
 
     function register(req, res) {
@@ -68,24 +83,37 @@ module.exports = function (app, UserModel) {
         if(newUser.role == null) {
             newUser.role = "Patient";
         }
-        //needs to check if username already exists or if doctorId already exists
-        // add your code here
+        //Check if username already exists
         UserModel
-            .createUser(newUser)
+            .findUserByUsername(newUser.username)
             .then(
                 function (user) {
-                    req.session.currentUser = user;
-                    res.json(user);
+                    if(!user) {
+                        return UserModel.createUser(newUser)
+                    } else {
+                        //if user name exists, return null
+                        res.json(null);
+                    }
                 },
                 function (err) {
-                    console.log(err);
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (user) {
+                    //login user after successful registration
+                    req.login(user, function(err){
+                        if(err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    })
+                },
+                function (err) {
+                    res.status(400).send(err);
                 }
             );
-    }
-
-    function getLoggedInUser(req, res) {
-        var user = req.isAuthenticated()? req.user : null;
-        res.send(user);
     }
 
     function updateUser(req, res) {
@@ -94,18 +122,13 @@ module.exports = function (app, UserModel) {
             .updateUser(newUser)
             .then(
                 function (response) {
-                    req.session.currentUser = newUser;
+                    //req.session.currentUser = newUser;
                     res.send(200);
                 },
                 function (err) {
-                    console.log(err);
+                    res.status(400).send(err);
                 }
             );
-    }
-
-    function logout(req, res) {
-        req.session.destroy();
-        res.send(200);
     }
 
     function addFavoriteByUid(req, res) {
@@ -120,7 +143,7 @@ module.exports = function (app, UserModel) {
                     res.send(200);
                 },
                 function (err) {
-                    console.log(err);
+                    res.status(400).send(err);
                 }
             );
     }
@@ -136,7 +159,7 @@ module.exports = function (app, UserModel) {
                     res.send(user);
                 },
                 function (err) {
-                    console.log(err);
+                    res.status(400).send(err);
                 }
             )
     }
@@ -151,7 +174,7 @@ module.exports = function (app, UserModel) {
                     res.send(200);
                 },
                 function (err) {
-                    console.log(err);
+                    res.status(400).send(err);
                 }
             )
     }
@@ -167,36 +190,9 @@ module.exports = function (app, UserModel) {
                     res.json(user);
                 },
                 function (err) {
-                    console.log(err);
+                    res.status(400).send(err);
                 }
             );
-    }
-    //function addRateByUid(req, res) {
-    //    var userId = req.params.userId;
-    //    var rate = req.body;
-    //    var user = UserModel.addRateByUid(userId, rate);
-    //    req.session.currentUser = user;
-    //    res.send(200);
-    //}
-
-    function findRatesByUserId(req, res) {
-        var userId = req.params.userId;
-        var rates = UserModel.findRatesByUserId(userId);
-        res.json(rates);
-    }
-
-    function updateRate(req, res) {
-        var userId = req.params.userId;
-        var rate = req.body;
-        UserModel.updateRate(userId, rate);
-        res.send(200);
-    }
-
-    function deleteRate(req, res) {
-        var userId = req.params.userId;
-        var rateId = req.params.rateId;
-        var rates = UserModel.deleteRate(userId, rateId);
-        res.json(rates);
     }
 
     function findMessageByUserId(req, res) {
@@ -213,7 +209,6 @@ module.exports = function (app, UserModel) {
             )
     }
 
-    //new
     function sendMsgTo(req, res) {
         var targetUserId = req.params.targetUserId;
         var newMessage = req.body;
@@ -224,7 +219,7 @@ module.exports = function (app, UserModel) {
                     res.send(200);
                 },
                 function (err) {
-                    res.send(err);
+                    res.status(400).send(err);
                 }
             );
 
@@ -250,18 +245,15 @@ module.exports = function (app, UserModel) {
         var myUserId = req.params.myUserId;
         var messageId = req.params.messageId;
         var newMessage = req.body;
-        console.log(myUserId, "server")
-        console.log(messageId, "server")
-        console.log(newMessage, "server")
+
         UserModel
             .saveMyMsg(myUserId, messageId, newMessage)
             .then(
                 function (response) {
-                    console.log(response);
                     res.send(200);
                 },
                 function (err) {
-                    console.log(err);
+                    res.status(400).send(err);
                 }
             )
     }

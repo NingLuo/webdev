@@ -10,17 +10,26 @@
             .when('/', {
                 templateUrl: 'views/main/home.view.html',
                 controller: 'MainController',
-                controllerAs: 'main'
+                controllerAs: 'main',
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when('/login', {
                 templateUrl: 'views/users/login.view.html',
                 controller: 'LoginCtrl',
-                controllerAs: 'login'
+                controllerAs: 'login',
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when('/register', {
                 templateUrl: 'views/users/register.view.html',
                 controller: "RegisterCtrl",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when('/profile', {
                 templateUrl: 'views/users/profile.view.html',
@@ -33,12 +42,18 @@
             .when('/result/specialty/:specialty/location/:location/insurance/:insurance/gender/:gender/name/:name', {
                 templateUrl: 'views/search/result.view.html',
                 controller: 'resultCtrl',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when('/detail/:uid', {
                 templateUrl: 'views/search/detail.view.html',
                 controller: 'DetailCtrl',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when('/rate/:uid', {
                 templateUrl: 'views/rate/rate.view.html',
@@ -108,6 +123,27 @@
                 function (err) {
                     console.log(err);
                     deferred.reject();
+                }
+            );
+
+        return deferred.promise;
+    }
+
+    function getLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+        UserService
+            .getLoggedInUser()
+            .then(
+                function (response) {
+                    var currentUser = response.data;
+                    if(currentUser) {
+                        UserService.setCurrentUser(currentUser);
+                    }
+                    deferred.resolve();
+                },
+                function (err) {
+                    console.log(err);
+                    deferred.resolve();
                 }
             );
 

@@ -3,6 +3,7 @@
     <div class="col-md-6">
         <div><h2>Profile</h2></div>
         <hr>
+        <div class="alert alert-success" role="alert" id="success-alert" ng-show="model.updateSuccess">Update success!</div>
         <div ng-if="currentUser.role == 'Patient'" class="form-group">
             <label for="email">Email Address:</label>
             <input ng-model="model.currentUser.email" class="form-control" type="text" id="email" placeholder="Emial">

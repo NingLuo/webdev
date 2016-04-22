@@ -10,6 +10,7 @@
         vm.currentUser = {}; //if vm.currentUser = null, system will report error --> can not set u_id of null value on line 23
         vm.updateProfile = updateProfile;
         vm.cancelUpdate = cancelUpdate;
+        vm.updateSuccess = false;
 
         function init() {
             UserService
@@ -25,7 +26,11 @@
                 .updateUser(vm.currentUser)
                 .then(
                     function () {
-                        $rootScope.currentUser = vm.currentUser;
+                        vm.updateSuccess = true;
+                        window.setTimeout(function() {
+                            vm.updateSuccess = false;
+                            init();
+                        }, 3000);
                     },
                     function (err) {
                         console.log(err);

@@ -33,8 +33,6 @@
             return $http.delete("/api/doctor/" + doctorUid + "/review/" + reviewId);
         }
 
-
-
         function addRate(doctorId, rate) {
             return $http.post("/api/doctor/" + doctorId +"/rated", rate);
         }

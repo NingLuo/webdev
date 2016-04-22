@@ -16,8 +16,8 @@
         </div>
         <div class="col-md-2 col-sm-6">
             <br><!--bad practice-->
-            <button class="btn btn-default btn-block" role="button" ng-click="model.rate()">Rate</button>
-            <button ng-click="model.addFavorite()" class="btn btn-success btn-block"><span class="glyphicon glyphicon-star-empty"></span> Like</button>
+            <button class="btn btn-default btn-block" role="button" ng-click="model.rate()" ng-show="currentUser.role == 'Patient'">Rate</button>
+            <button ng-click="model.addFavorite()" class="btn btn-success btn-block" ng-show="currentUser.role == 'Patient'"><span class="glyphicon glyphicon-star-empty"></span> Like</button>
         </div>
     </div>
 </div>

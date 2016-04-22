@@ -11,25 +11,13 @@ body {
 
 .full { height: 100%;}
 
-
 .homepage {
     background: url("../../img/room.jpg") no-repeat center center;
     background-size: cover;
-    background-attachment: scroll;
+    /*background-attachment: scroll;*/
     height: 100%;
     font-size: large;
-}
-
-.searchGroup {
-    margin-top: 290px;
-    padding: 50px;
-    white-space: nowrap;
-}
-
-.searchGroupSmall {
-    margin-top: 100px;
-    padding: 50px;
-
+    position: relative;
 }
 
 .homeSlogan {
@@ -43,6 +31,31 @@ body {
     color: #26AB37;
     font-weight: bold;
     font-family: Futura;
+}
+
+.homeSloganMobile {
+    position: relative;
+    top: 25%;
+    transform: translate(-50%,-50%);
+    white-space: nowrap;
+    font-size: 60px;
+    text-align: center;
+    color: #26AB37;
+    font-weight: bold;
+    font-family: Futura;
+}
+
+.searchGroup {
+    position: relative;
+    top:50%;
+    padding: 50px;
+    white-space: nowrap;
+}
+
+.searchGroupSmall {
+    position: relative;
+    top: 10%;
+    padding: 50px;
 }
 
 .input-xlg {
