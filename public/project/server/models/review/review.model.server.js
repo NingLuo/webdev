@@ -34,12 +34,13 @@ module.exports = function () {
     }
 
     function findReviewById(reviewId) {
+        reviewId = mongoose.Types.ObjectId(newReview._id);
         return Review.findById(reviewId);
     }
 
     function updateReview(newReview) {
         reviewId = mongoose.Types.ObjectId(newReview._id);
-        delete newUser._id;
+        delete newReview._id;
         return Review.update({"_id": reviewId},{$set:newReview});
     }
 
