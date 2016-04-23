@@ -1,5 +1,6 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var passport         = require('passport');
+var LocalStrategy    = require('passport-local').Strategy;
+var bcrypt           = require("bcrypt-nodejs");
 
 module.exports = function (app, userModel) {
     var auth = authorized;
@@ -11,22 +12,26 @@ module.exports = function (app, userModel) {
     app.delete("/api/assignment/admin/user/:userId", isAdmin, removeUserById);
     app.put("/api/assignment/admin/user/:userId", isAdmin, adminUpdateUser);
     app.get("/api/assignment/user/:id",         findUserById);
-    app.post("/api/assignment/login", passport.authenticate('local'), login); // 自己修改了一下,跟要求不一样
+    app.post("/api/assignment/login", passport.authenticate('assignment'), login); // 自己修改了一下,跟要求不一样
     app.get("/api/assignment/loggedin",         loggedin);
     app.post("/api/assignment/logout",          logout);
     app.put("/api/assignment/user/:id", auth, updateUser);
 
-    passport.use(new LocalStrategy(localStrategy));
-    //passport.serializeUser(serializeUser);
-    //passport.deserializeUser(deserializeUser);
+    passport.use('assignment', new LocalStrategy(assignmentLocalStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
 
-    function localStrategy(username, password, done) {
+    function assignmentLocalStrategy(username, password, done) {
         userModel
-            .findUserByCredentials({username: username, password:password})
+            .findUserByUsername(username)
             .then(
                 function (user) {
-                    if(!user) { return done(null, false, {message: 'Incorrect username or password'});}
-                    return done(null, user);
+                    console.log(user, "findUserbyusername");
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
                 },
                 function (err) {
                     return done(err);
@@ -34,22 +39,22 @@ module.exports = function (app, userModel) {
             );
     }
     // To commented this because the poject authentication will go into this process unless it's commented
-    //function serializeUser(user, done) {
-    //    done(null, user);
-    //}
-    //
-    //function deserializeUser(user, done) {
-    //    userModel
-    //        .findUserById(user._id)
-    //        .then(
-    //            function (user) {
-    //                done(null, user);
-    //            },
-    //            function (err) {
-    //                done(err, null);
-    //            }
-    //        )
-    //}
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            )
+    }
 
     function login(req, res) {
         var user = req.user;
@@ -77,6 +82,7 @@ module.exports = function (app, userModel) {
             .then(
                 function (user) {
                     if(!user) {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createUser(newUser);
                     } else {
                         res.json(null);
@@ -116,6 +122,7 @@ module.exports = function (app, userModel) {
             .then(
                 function (user) {
                     if(!user) {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createUser(newUser);
                     } else {
                         res.json(null);
