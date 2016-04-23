@@ -128,6 +128,20 @@
                         }
                     }
                 );
+
+                modalInstance.result.then(
+                    function () {
+                        var modalInstance2 = $uibModal.open(
+                            {
+                                templateUrl: 'views/search/msgSentSuccess.view.html',
+                                size: 'sm'
+                            }
+                        );
+                    },
+                    function () {
+                        $log.info('Modal dismissed at: ' + new Date());
+                    }
+                );
             }
             else {
                 //record this page's url in a variable so that after login user can be redirected back to this page

@@ -3,7 +3,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function (app, UserModel) {
     var auth = authorized;
-    app.post('/api/user/login', passport.authenticate('local'), login);
+    app.post('/api/user/login', passport.authenticate('project'), login);
     app.get("/api/user/logout", logout);
     app.get("/api/user/loggedIn", getLoggedInUser);
     app.post("/api/user/register", register);
@@ -18,11 +18,11 @@ module.exports = function (app, UserModel) {
     app.delete("/api/user/:userId/message/:msgId", auth, removeMsg);
     app.put("/api/user/:myUserId/message/:messageId", auth, saveMyMsg);
 
-    passport.use(new LocalStrategy(localStrategy));
+    passport.use('project', new LocalStrategy(projectLocalStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-    function localStrategy(username, password, done) {
+    function projectLocalStrategy(username, password, done) {
         UserModel
             .findUserByCredentials({'username': username, 'password': password})
             .then(

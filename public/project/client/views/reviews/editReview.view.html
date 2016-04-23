@@ -1,15 +1,14 @@
-<h2>reRate Doctor</h2>
-<div class="row">
-    <div class="col-md-6 col-md-offset-2">
+<div class="row editReviewHeader">
+    <div class="col-md-6 col-md-push-3 col-sm-6 col-sm-push-3">
         <div class="col-sm-3"><img class="img-circle" ng-src="{{model.doctor.profile.image_url}}"></div>
         <div class="col-sm-9">
             <ul class="list-unstyled">
-                <li>{{model.doctor.profile.first_name}} &nbsp {{model.doctor.profile.last_name}}</li>
-                <li>{{model.doctor.specialties[0].name}}</li>
+                <li class="resultName">Dr.{{model.doctor.profile.first_name}} {{model.doctor.profile.last_name}}, {{model.doctor.profile.title}}</li>
+                <li class="resultSpecialty">{{model.doctor.specialties[0].actor}}</li>
                 <li><img ng-src="{{model.doctor.ratings[0].image_url_small}}"></li>
                 <li>&nbsp;</li>
                 <li>{{model.doctor.practices[0].name}}</li>
-                <li>{{model.doctor.practices[0].phones[0].number}}</li>
+                <li>Phone: {{model.doctor.practices[0].phones[0].number}}</li>
             </ul>
         </div>
     </div>
@@ -17,7 +16,7 @@
 <hr>
 <div ng-show="model.updateSuccuss" class="alert alert-success" role="alert"><p align="center">Update Success!</p></div>
 <div class="row">
-    <div class="col-md-5 col-md-offset-1">
+    <div class="col-md-4 col-md-push-3">
         <div class="form-group">
             <label for="overallRating">Overall Rating:</label>
             <jk-rating-stars id="overallRating" max-rating="5" rating="model.review.overall" read-only="false">
@@ -34,7 +33,9 @@
             </jk-rating-stars>
         </div>
     </div>
-    <div class="col-md-5 ">
+</div>
+<div class="row">
+    <div class="col-md-5 col-md-push-3">
         <div class="form-group">
             <label for="comments">Comments:</label>
             <textarea ng-model="model.review.comments" class="form-control" rows="8" id="comments"></textarea>
@@ -42,10 +43,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3 col-md-offset-3">
+    <div class="col-md-2 col-md-offset-3">
         <a ng-click="model.update()" class="btn btn-success btn-block" role="button">Update</a>
     </div>
-    <div class="col-md-3 ">
+    <div class="col-md-2">
         <a ng-click="model.cancel()" class="btn btn-warning btn-block" role="button">Cancel</a>
     </div>
 </div>
