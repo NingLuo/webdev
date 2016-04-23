@@ -46,6 +46,7 @@ module.exports = function () {
     }
 
     function addFavoriteByUid(userId, doctorUid) {
+        userId = mongoose.Types.ObjectId(userId);
         return User
             .findById(userId)
             .then(
@@ -64,10 +65,12 @@ module.exports = function () {
     }
 
     function checkFavorite(userId, doctorUid) {
+        userId = mongoose.Types.ObjectId(userId);
         return User.findOne({'_id': userId, 'favorites': doctorUid});
     }
 
     function unfavorite(userId, doctorUid) {
+        userId = mongoose.Types.ObjectId(userId);
         return User
             .findById(userId)
             .then(
@@ -87,6 +90,7 @@ module.exports = function () {
     }
 
     function addReview(userId, reviewId) {
+        userId = mongoose.Types.ObjectId(userId);
         return User
             .findById(userId)
             .then(
@@ -101,6 +105,7 @@ module.exports = function () {
     }
 
     function deleteReview(userId, reviewId) {
+        userId = mongoose.Types.ObjectId(userId);
         return User
             .findById(userId)
             .then(
@@ -120,6 +125,7 @@ module.exports = function () {
     }
 
     function sendMsgTo(targetUserId, newMessage) {
+        targetUserId = mongoose.Types.ObjectId(targetUserId);
         return User
             .findById(targetUserId)
             .then(
@@ -143,6 +149,7 @@ module.exports = function () {
     }
 
     function findMessageByUserId(userId) {
+        userId = mongoose.Types.ObjectId(userId);
         return User
             .findById(userId)
             .then(
@@ -156,6 +163,8 @@ module.exports = function () {
     }
 
     function removeMsg(userId, msgId) {
+        userId = mongoose.Types.ObjectId(userId);
+        msgId = mongoose.Types.ObjectId(msgId);
         return User
             .findById(userId)
             .then(
@@ -170,6 +179,7 @@ module.exports = function () {
     }
 
     function saveMyMsg(myUserId, messageId, newMessage) {
+        myUserId = mongoose.Types.ObjectId(myUserId);
         return User
             .findById(myUserId)
             .then(
