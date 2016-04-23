@@ -145,6 +145,18 @@ body {
     white-space: nowrap;
 }
 
+.editReviewHeader {
+    padding-top:30px;
+    white-space: nowrap;
+    /*border:1px solid #bbb;*/
+}
+
+.rateBtn {
+    margin-bottom: 5px;
+}
+
+
+
 .homepage {
     background: url("../../img/room.jpg") no-repeat center center;
     background-size: cover;
@@ -321,6 +333,3 @@ td {
     font-weight: bold;
 }
 
-.editReviewHeader {
-    margin-top: 30px;
-}
