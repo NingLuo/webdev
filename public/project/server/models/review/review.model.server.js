@@ -34,7 +34,6 @@ module.exports = function () {
     }
 
     function findReviewById(reviewId) {
-        reviewId = mongoose.Types.ObjectId(newReview._id);
         return Review.findById(reviewId);
     }
 
