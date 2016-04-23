@@ -18,6 +18,7 @@ body {
 .resultRow {
     white-space: nowrap;
     border-top:1px solid #bbb;
+    /*border:1px solid #bbb;*/
 }
 
 .resultImg {
@@ -30,7 +31,7 @@ body {
 
 .resultInfo {
     height: 150px;
-    width: 250px;
+    /*width: 250px;*/
     padding-top: 20px;
     /*border:1px solid #bbb;*/
     white-space: nowrap;
@@ -57,9 +58,87 @@ body {
 
 .resultContact {
     height: 150px;
-    width: 250px;
+    /*width: 250px;*/
     padding-top: 20px;
     /*border:1px solid #bbb;*/
+    white-space: nowrap;
+}
+
+.detailHeader {
+    padding-top:30px;
+    /*border:1px dashed #bbb;*/
+    white-space: nowrap;
+}
+
+
+.detailImgSection {
+    /*border:1px solid #bbb;*/
+    height:180px;
+    width: 150px;
+}
+
+.detailImg {
+    height:150px;
+}
+
+.detailVerifyBtn {
+    padding: 5px;
+}
+
+.detailBreifSection {
+    /*border:1px solid #bbb;*/
+    white-space: nowrap;
+}
+
+.detailName {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.detailSpecialty {
+    font-size: large;
+}
+
+.detailRateImg {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.detailBtnSection {
+    /*border:1px solid #bbb;*/
+}
+
+.detailPageContent {
+
+}
+
+.detailEducation {
+    white-space: nowrap;
+}
+
+.detailProStatement {
+
+}
+
+.proStatement {
+    white-space: nowrap;
+}
+
+.detailSpecialty {
+    white-space: nowrap;
+}
+
+.detailLanguage {
+    white-space: nowrap;
+
+}
+
+.detailInsurance {
+    white-space: nowrap;
+}
+
+.patientReviewSection {
+    margin-bottom:50px;
     white-space: nowrap;
 }
 
@@ -122,7 +201,7 @@ body {
 }
 
 .searchBar {
-
+    white-space: nowrap;
 }
 
 .ln-navbar {
@@ -162,17 +241,11 @@ td {
     color: #5e5e5e;
 }
 
-.patientReviewSection {
-    margin-bottom:50px;
-}
 
-.doctorHeader {
-    padding: 10px;
-}
 
-.pageContent {
 
-}
+
+
 
 .favoriteCard {
     width:320px;

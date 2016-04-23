@@ -1,5 +1,5 @@
 <!--search bar-->
-<nav class="navbar navbar-default col-md-12 col-lg-12 hidden-sm hidden-xs searchBar">
+<nav class="navbar navbar-default col-md-12 col-lg-12 hidden-xs hidden-sm searchBar">
     <form class="navbar-form navbar-left">
         <div class="form-group">
             <select class="form-control" ng-model="model.specialty">
@@ -59,19 +59,23 @@
 <!--location empty alert-->
 <div class="alert alert-danger" role="alert" ng-show="model.zipCodeIsNull">Please give a location.</div>
 <!--search result-->
-<div class="row col-md-7 col-lg-7 col-md-offset-1 col-lg-offset-1 resultRow text-nowrap" ng-repeat="doctor in model.doctors" >
-    <div class="col-md-1 col-lg-1 resultImg text-nowrap">
-        <img class="img-circle" ng-src="{{doctor.profile.image_url}}">
+<div class="row col-md-7 col-lg-7 col-sm-10 col-md-offset-1 col-lg-offset-1 resultRow text-nowrap"
+     ng-repeat="doctor in model.doctors">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 resultImg text-nowrap">
+        <img ng-src="{{doctor.profile.image_url}}">
     </div>
-    <div class="col-md-3 col-lg-3 resultInfo text-nowrap">
-        <div class="resultName"><a href="#/detail/{{doctor.uid}}">Dr.{{doctor.profile.first_name}} {{doctor.profile.last_name}}, {{doctor.profile.title}}</a></div>
+    <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4 resultInfo text-nowrap">
+        <div class="resultName"><a href="#/detail/{{doctor.uid}}">Dr.{{doctor.profile.first_name}}
+            {{doctor.profile.last_name}}, {{doctor.profile.title}}</a></div>
         <div class="resultSpecialty">{{doctor.specialties[0].actor}}</div>
         <div><img ng-src="{{doctor.ratings[0].image_url_small}}"></div>
     </div>
-    <div class="col-md-2 col-lg-2 resultContact text-nowrap">
+    <div class="col-sm-2 col-md-2 col-lg-2 hidden-xs resultContact text-nowrap">
         <div class="resultPhone">Phone:&nbsp{{doctor.practices[0].phones[0].number}}</div>
         <div class="resultAddress">{{doctor.practices[0].visit_address.street}}</div>
-        <div>{{doctor.practices[0].visit_address.city}},&nbsp{{doctor.practices[0].visit_address.state}}&nbsp{{doctor.practices[0].visit_address.zip}}</div>
+        <div>
+            {{doctor.practices[0].visit_address.city}},&nbsp{{doctor.practices[0].visit_address.state}}&nbsp{{doctor.practices[0].visit_address.zip}}
+        </div>
     </div>
 </div>
 

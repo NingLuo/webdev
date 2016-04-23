@@ -1,20 +1,20 @@
 <!--Doctor's basic and contact information-->
-<div class="row doctorHeader">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-4 col-sm-4">
-            <div align="center"><img class="img-circle" height="150px" ng-src="{{model.data.profile.image_url}}"></div>
-            <div align="center"><a ng-click="model.openVerifPop()">This is me</a></div>
+<div class="row detailHeader">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 detailImgSection">
+            <div align="center" ><img class="detailImg" ng-src="{{model.data.profile.image_url}}"></div>
+            <div align="center" class="detailVerifyBtn"><a ng-click="model.openVerifPop()">This is me</a></div>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 detailBreifSection">
             <ul class="list-unstyled">
-                <li><h3>Dr.{{model.data.profile.first_name}}&nbsp{{model.data.profile.last_name}}, {{model.data.profile.title}} </h3></li>
-                <li><h4>{{model.data.specialties[0].actor}}</h4></li>
-                <li><img ng-src="{{model.data.ratings[0].image_url_small}}"></li>
+                <li class="detailName">Dr.{{model.data.profile.first_name}}&nbsp{{model.data.profile.last_name}}, {{model.data.profile.title}}</li>
+                <li class="detailSpecialty">{{model.data.specialties[0].actor}}</li>
+                <li class="detailRateImg"><img ng-src="{{model.data.ratings[0].image_url_small}}"></li>
                 <li>{{model.data.practices[0].name}}</li>
                 <li>Phone {{model.data.practices[0].phones[0].number}}</li>
             </ul>
         </div>
-        <div class="col-md-2 col-sm-6">
+        <div class="col-sm-2 col-md-2 col-lg-2 col-md-offset-1 col-lg-offset-1 detailBtnSection">
             <br><!--bad practice-->
             <button class="btn btn-default btn-block" role="button" ng-click="model.rate()" ng-hide="currentUser.role == 'Provider'">Rate</button>
             <button ng-click="model.addFavorite()" class="btn btn-success btn-block" ng-show="!model.isFavorited && (currentUser.role == 'Patient'|| !currentUser.role)"><span class="glyphicon glyphicon-star-empty"></span> Like</button>
@@ -23,173 +23,172 @@
     </div>
 </div>
 <div ng-show="model.addSuccess" class="alert alert-success" role="alert"><p align="center">Added to my favorites!</p></div>
-<div class="pageContent">
-<!--Doctor's demographic information overview-->
-<div class="row">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-12">
-            <h3>Overview</h3>
-            <hr>
-        </div>
-
-    </div>
-</div>
-<!--Education-->
-<div class="row">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-4 col-sm-4"><strong>Medical Education</strong></div>
-        <div class="col-md-8 col-sm-4">
-            <div ng-repeat="education in model.data.educations">
-                <div>{{education.school}}</div>
-            </div>
-        </div>
-        <div class="row">
+<div class="detailPageContent">
+    <!--Doctor's demographic information overview-->
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
             <div class="col-md-12">
+                <h3>Overview</h3>
                 <hr>
             </div>
+
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-4 col-sm-4"><strong>Professional Statement</strong></div>
-        <div class="col-md-8 col-sm-4">
-            <div class="text-justify">{{model.data.profile.bio}}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <hr>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-4 col-sm-4"><strong>Specialties</strong> </div>
-        <div class="col-md-8 col-sm-4">
-            <div ng-repeat="specialty in model.data.specialties">
-                <div>{{specialty.actor}}</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <hr>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-4 col-sm-4"><strong>Languages Spoken</strong> </div>
-        <div class="col-md-8 col-sm-4">
-            <div ng-repeat="language in model.data.profile.languages">
-                <div>{{language.name}}</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <hr>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-4 col-sm-4"><strong>Insurances</strong> </div>
-        <div class="col-md-8 col-sm-4">
-            <div ng-repeat="insurance in model.data.insurances | limitTo:4">
-                <div>{{insurance.insurance_plan.name}}</div>
-            </div>
-            <a ng-click="model.viewInsurance(model.data.insurances)"><strong>View all</strong></a>
-        </div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<!--Patient Review Section-->
-<div class="row">
-    <div class="col-md-7 col-md-push-1">
-        <div class="col-md-12">
-            <h3>Patient Reviews</h3>
-            <hr>
-        </div>
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-7 col-md-push-1 patientReviewSection" ng-repeat="review in model.reviews">
-        <div class="col-md-4">
-            <div>{{review.reviewDate | date}}</div>
-            <p>by {{review.username}}</p>
-            <div ng-hide="currentUser.role == 'Provider'">
-                <div><a ng-click="model.openMsgPop(review.userId, review.username)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</a></div>
-            </div>
-            <div ng-hide="currentUser.role == 'Patient'|| !currentUser">
-                <button ng-click="model.openReplyPop(review)" class="btn btn-default">
-                <span class="glyphicon glyphicon-comment"></span></button>Reply
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-4 col-sm-4">
-                    <div>Overall Rating</div>
-                    <input-stars
-                            max="5"
-                            icon-base="fa fa-fw"
-                            icon-empty="fa fa-star-o"
-                            icon-hover="hover"
-                            icon-full="fa fa-star"
-                            ng-model="review.overall"
-                            readonly="true">
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div>Bedside Manner</div>
-                    <input-stars
-                            max="5"
-                            icon-base="fa fa-fw"
-                            icon-empty="fa fa-star-o"
-                            icon-hover="hover"
-                            icon-full="fa fa-star"
-                            ng-model="review.bedsideManner"
-                            readonly="true">
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div>Wait Time</div>
-                    <input-stars
-                            max="5"
-                            icon-base="fa fa-fw"
-                            icon-empty="fa fa-star-o"
-                            icon-hover="hover"
-                            icon-full="fa fa-star"
-                            ng-model="review.waitTime"
-                            readonly="true">
+    <!--Education-->
+    <div class="row detailEducation">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
+            <div class="col-md-3 col-sm-3"><strong>Medical Education</strong></div>
+            <div class="col-md-8 col-sm-8">
+                <div ng-repeat="education in model.data.educations">
+                    <div>{{education.school}}</div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    {{review.comments}}
-                </div>
-            </div>
-            <br>
-            <!--Doctor's rely section-->
-            <div class="row commentCard" ng-if="review.reply" ng-hide="model.editId == review._id" >
-                <div class="col-md-12">
-                    <p><strong>Comment from {{review.doctorName}}</strong></p>
-                    <p>{{review.reply.date | date}}</p>
-                </div>
-                <div class="col-md-12">
-                    <p>{{review.reply.content}}</p>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <hr>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!--Professional statement-->
+    <div class="row detailProStatement">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
+            <div class="col-md-3 col-sm-3 proStatement"><strong>Professional Statement</strong></div>
+            <div class="col-md-8 col-sm-8">
+                <p>{{model.data.profile.bio}}</p>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Spceialties-->
+    <div class="row detailSpecialty">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
+            <div class="col-md-3 col-sm-3"><strong>Specialties</strong> </div>
+            <div class="col-sm-8 col-md-8">
+                <div ng-repeat="specialty in model.data.specialties">
+                    <div>{{specialty.actor}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--language spoken-->
+    <div class="row detailLanguage">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
+            <div class="col-md-3 col-sm-3"><strong>Languages Spoken</strong> </div>
+            <div class="col-md-8 col-sm-8">
+                <div ng-repeat="language in model.data.profile.languages">
+                    <div>{{language.name}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--insurances-->
+    <div class="row detailInsurance">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
+            <div class="col-md-3 col-sm-3"><strong>Insurances</strong> </div>
+            <div class="col-md-8 col-sm-8">
+                <div ng-repeat="insurance in model.data.insurances | limitTo:4">
+                    <div>{{insurance.insurance_plan.name}}</div>
+                </div>
+                <a ng-click="model.viewInsurance(model.data.insurances)"><strong>View all</strong></a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <!--Patient Review Section-->
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1">
+            <div class="col-md-12">
+                <h3>Patient Reviews</h3>
+                <hr>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-push-1 patientReviewSection" ng-repeat="review in model.reviews">
+            <div class="col-md-3 col-sm-3">
+                <div>{{review.reviewDate | date}}</div>
+                <p>by {{review.username}}</p>
+                <div ng-hide="currentUser.role == 'Provider'">
+                    <div><a ng-click="model.openMsgPop(review.userId, review.username)"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</a></div>
+                </div>
+                <div ng-hide="currentUser.role == 'Patient'|| !currentUser">
+                    <div><a ng-click="model.openReplyPop(review)"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Reply</a></div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div>Overall Rating</div>
+                        <input-stars
+                                max="5"
+                                icon-base="fa fa-fw"
+                                icon-empty="fa fa-star-o"
+                                icon-hover="hover"
+                                icon-full="fa fa-star"
+                                ng-model="review.overall"
+                                readonly="true">
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div>Bedside Manner</div>
+                        <input-stars
+                                max="5"
+                                icon-base="fa fa-fw"
+                                icon-empty="fa fa-star-o"
+                                icon-hover="hover"
+                                icon-full="fa fa-star"
+                                ng-model="review.bedsideManner"
+                                readonly="true">
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div>Wait Time</div>
+                        <input-stars
+                                max="5"
+                                icon-base="fa fa-fw"
+                                icon-empty="fa fa-star-o"
+                                icon-hover="hover"
+                                icon-full="fa fa-star"
+                                ng-model="review.waitTime"
+                                readonly="true">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{review.comments}}
+                    </div>
+                </div>
+                <br>
+                <!--Doctor's rely section-->
+                <div class="row commentCard" ng-if="review.reply" ng-hide="model.editId == review._id" >
+                    <div class="col-md-12">
+                        <p><strong>Comment from {{review.doctorName}}</strong></p>
+                        <p>{{review.reply.date | date}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p>{{review.reply.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
