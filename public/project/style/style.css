@@ -139,6 +139,9 @@ body {
 
 .patientReviewSection {
     margin-bottom:50px;
+}
+
+.detailReviewStars {
     white-space: nowrap;
 }
 
