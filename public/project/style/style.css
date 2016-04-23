@@ -236,6 +236,14 @@ td {
     padding: 10px;
 }
 
+.reviewCardMetaInfo {
+    white-space: nowrap;
+}
+
+.reviewCareRatingStars {
+    white-space: nowrap;
+}
+
 .commentCard {
     background-color:#eeeeee;
     padding-top: 10px;
