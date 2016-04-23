@@ -14,6 +14,11 @@
         vm.selectUser = selectUser;
         vm.updateUser = updateUser;
 
+        vm.sortBy = sortBy;
+        vm.predicate;
+        vm.reverse = true;
+        vm.triangle;
+
         function init() {
             UserService
                 .findAllUsers()
@@ -76,6 +81,17 @@
                         console.log(err);
                     }
                 )
+        }
+
+        function sortBy(predicate) {
+            vm.reverse = (vm.predicate === predicate) ? !vm.reverse : false;
+            vm.predicate = predicate;
+            if(vm.reverse) {
+                vm.triangle = 'glyphicon glyphicon glyphicon-triangle-bottom';
+            }
+            else {
+                vm.triangle = 'glyphicon glyphicon glyphicon-triangle-top';
+            }
         }
     }
 })();
