@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
 //configure session support
-app.use(session({ secret:"test"}));
+app.use(session({ secret:process.env.SESSION_SECRET}));
 //process.env.SESSION_SECRET
 
 //confiture cookieParser, needed for oauth
