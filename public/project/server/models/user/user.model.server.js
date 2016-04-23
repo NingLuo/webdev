@@ -27,7 +27,6 @@ module.exports = function () {
     }
 
     function findUserByCredentials(credentials) {
-        console.log("findUserByCredentials");
         return User.findOne({username: credentials.username, password: credentials.password});
     }
 
