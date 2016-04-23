@@ -38,10 +38,13 @@ module.exports = function () {
     }
 
     function updateReview(newReview) {
-        return Review.update({"_id": newReview._id},{$set:newReview});
+        reviewId = mongoose.Types.ObjectId(newReview._id);
+        delete newUser._id;
+        return Review.update({"_id": reviewId},{$set:newReview});
     }
 
     function addReply(reviewId, newReply) {
+        reviewId = mongoose.Types.ObjectId(reviewId);
         return Review
             .findById(reviewId)
             .then(
@@ -56,10 +59,13 @@ module.exports = function () {
     }
 
     function updateReply(reviewId, newReivew) {
+        reviewId = mongoose.Types.ObjectId(reviewId);
+        delete newUser._id;
         return Review.update({"_id": reviewId}, {$set:newReivew});
     }
 
     function removeReply(reviewId, replyId) {
+        reviewId = mongoose.Types.ObjectId(reviewId);
         return Review.update({_id:reviewId},{$unset:{reply:""}});
     }
 };

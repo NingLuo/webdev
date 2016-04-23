@@ -12,12 +12,6 @@ module.exports = function () {
     };
     return api;
 
-    //function createDoctor(uid) {
-    //    var doctor = {};
-    //    doctor.uid = uid;
-    //    return Doctor.create(doctor);
-    //}
-
     function addFavoritedBy(doctorUid, userId) {
         return Doctor
             .findOne({"uid": doctorUid})
@@ -25,7 +19,6 @@ module.exports = function () {
                 function (doctor) {
                     if(!doctor) {
                         //if doctor doesn't exist, create a doctor document instead and added the userId who favorites this doctor
-                        console.log(doctor);
                         var newdoctor = {
                             "uid": doctorUid,
                             "favoritedBy": [userId]
