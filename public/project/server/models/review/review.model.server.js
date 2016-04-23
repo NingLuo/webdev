@@ -60,7 +60,7 @@ module.exports = function () {
 
     function updateReply(reviewId, newReivew) {
         reviewId = mongoose.Types.ObjectId(reviewId);
-        delete newUser._id;
+        delete newReivew._id;
         return Review.update({"_id": reviewId}, {$set:newReivew});
     }
 
