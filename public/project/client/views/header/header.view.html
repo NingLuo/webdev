@@ -23,6 +23,18 @@
                 <li ng-show="currentUser">
                     <a href="#/profile">{{currentUser.username}}</a>
                 </li>
+                <li class="visible-xs" ng-class="{'active': model.$location.url().indexOf('profile') != -1}" ng-show="currentUser" role="presentation">
+                    <a href="#/profile">Profile</a>
+                </li>
+                <li ng-if="currentUser.role == 'Patient'" class="visible-xs visible-sm" ng-class="{'active': model.$location.url().indexOf('favorite') != -1}" role="presentation">
+                    <a href="#/favorite">Favorite Doctors</a>
+                </li>
+                <li class="visible-xs visible-sm" ng-class="{'active': model.$location.url().indexOf('review') != -1}" role="presentation">
+                    <a href="#/review">My Reviews</a>
+                </li>
+                <li ng-if="currentUser.role == 'Patient'" class="visible-xs visible-sm" ng-class="{'active': model.$location.url().indexOf('message') != -1}" role="presentation">
+                    <a href="#/message">My Messages</a>
+                </li>
                 <li ng-show="currentUser">
                     <a ng-click="model.logout()" href="#/">Logout</a>
                 </li>

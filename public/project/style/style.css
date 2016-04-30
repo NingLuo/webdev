@@ -234,6 +234,7 @@ td {
     border:1px solid #bbb;
     margin:15px;
     padding: 10px;
+    box-shadow: 4px 4px 8px slategray;
 }
 
 .reviewCardMetaInfo {
@@ -264,26 +265,21 @@ td {
     color: #5e5e5e;
 }
 
-
-
-
-
-
-
 .favoriteCard {
     width:320px;
     border:1px solid #bbb;
     white-space: nowrap;
     float:left;
     margin:20px;
+    box-shadow: 4px 4px 8px slategray;
 }
 
 .favoriteCardHeader {
     width:320px;
-    height: 30px;
+    height: 10px;
     padding: 5px;
     padding-right: 10px;
-    background-color:lightgrey;
+    /*background-color:lightgrey;*/
 }
 
 .favoriteCardBody {
@@ -303,8 +299,9 @@ td {
 }
 
 .messageBox {
-    border:1px dashed #bbb;
+    border:1px solid #bbb;
     margin: 15px;
+    box-shadow: 4px 4px 8px slategray;
 }
 
 .messageBoxHeader {

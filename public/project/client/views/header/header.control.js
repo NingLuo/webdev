@@ -10,6 +10,7 @@
 
         vm.login = login;
         vm.logout = logout;
+        vm.$location = $location;
 
         function login() {
             $rootScope.previousUrl = $location.path();
