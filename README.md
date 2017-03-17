@@ -4,4 +4,5 @@ Tech Environment: AngularJS, Express.js, Node.js, MongoDB, Bootstrap.
 
 This is an application that allows patients to search and rate healthcare providers.
 
-(https://www.youtube.com/watch?v=T1OWb5OCPNU)
+[![IMAGE ALT TEXT HERE](https://www.youtube.com/watch?v=T1OWb5OCPNU)]
+
