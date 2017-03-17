@@ -1,3 +1,3 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
-
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+This is a single page application that developed with MEAN stack.
+Tech Environment: AngularJS, Express.js, Node.js, MongoDB, Bootstrap.
+This is an application that allows patients to search and rate healthcare providers.
